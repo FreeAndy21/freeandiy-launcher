@@ -12,7 +12,7 @@
 #
 # Coverage: the whole interface: every menu string and tl! literal (complete_menus = true).
 # Left in English on purpose: product name "FreeANDIY Launcher" (and its "Launcher" tag), suite
-# name "FreeANDIY App Suite", app names (FreeANDIY Photo, FreeANDIY Light, FreeANDIY Film,
+# name "FreeANDIY apps", app names (FreeANDIY Photo, FreeANDIY Light, FreeANDIY Film,
 # FreeANDIY Layout, FreeANDIY Vector, FreeANDIY PDF, FreeANDIY Effects, FreeANDIY Write, FreeANDIY Slides, FreeANDIY Sheets, CADCraft,
 # FreeANDIY Sound, FigCraft), "GitHub", "Discord", "Finder", "makers".
 # Trailing "…" (U+2026) must be preserved. Placeholders must appear in the translation:
@@ -20,7 +20,7 @@
 # {month}, {name}, {n}, {os}, {platform}, {sources}, {total}, {version}, {v}, {year}.
 
 	Launcher	Launcher
-	FreeANDIY App Suite	FreeANDIY App Suite
+	FreeANDIY apps	FreeANDIY apps
 	Open Source Tools for Creatives, Makers, and Builders	Herramientas de código abierto para creativos, makers y constructores
 	Settings	Ajustes
 	Check for updates	Buscar actualizaciones
