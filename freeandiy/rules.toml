@@ -440,6 +440,13 @@ replace = "{{this.repo}}"
 min = 20
 
 [[replace]]
+name = "the suite's name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+find = "Craft App Suite"
+replace = "{{brand.name}} apps"
+min = 5
+
+[[replace]]
 name = "the filter's tooltip: every FreeANDIY app"
 include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv"]
 find = "Every Craft app"
@@ -452,13 +459,6 @@ include = ["crates/ui-egui/src/i18n/*.tsv"]
 regex = '\bCraft\b'
 replace = "{{brand.name}}"
 min = 1
-
-[[replace]]
-name = "the suite's name"
-include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
-find = "Craft App Suite"
-replace = "{{brand.name}} apps"
-min = 5
 
 [[replace]]
 name = "the apps, in packaging and comments"
