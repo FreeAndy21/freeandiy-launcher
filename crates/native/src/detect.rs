@@ -81,7 +81,8 @@ pub(crate) fn appimage_version(name: &str, stems: &[&str]) -> Option<Option<Stri
     if !ext.eq_ignore_ascii_case(".appimage") {
         return None;
     }
-    if stems.iter().any(|s| base.eq_ignore_ascii_case(s)) {
+    // FreeANDIY: the display name (`FreeANDIY PDF`) is the stem with a space for the hyphen.
+    if stems.iter().any(|s| base.eq_ignore_ascii_case(s) || base.replace(' ', "-").eq_ignore_ascii_case(s)) {
         return Some(None);
     }
     let parsed = artcraft_launcher_core::platform::parse_asset_name(&format!("{base}.AppImage"), stems)?;
