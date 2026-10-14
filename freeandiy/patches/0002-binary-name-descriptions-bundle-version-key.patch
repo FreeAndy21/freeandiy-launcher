@@ -61,10 +61,20 @@ index ea7d084..a94a837 100644
  edition.workspace = true
  license.workspace = true
 diff --git a/crates/native/src/detect.rs b/crates/native/src/detect.rs
-index bb10123..2c8750a 100644
+index bb10123..3fc1080 100644
 --- a/crates/native/src/detect.rs
 +++ b/crates/native/src/detect.rs
-@@ -166,7 +166,8 @@ pub mod macos {
+@@ -81,7 +81,8 @@ pub(crate) fn appimage_version(name: &str, stems: &[&str]) -> Option<Option<Stri
+     if !ext.eq_ignore_ascii_case(".appimage") {
+         return None;
+     }
+-    if stems.iter().any(|s| base.eq_ignore_ascii_case(s)) {
++    // FreeANDIY: the display name (`FreeANDIY PDF`) is the stem with a space for the hyphen.
++    if stems.iter().any(|s| base.eq_ignore_ascii_case(s) || base.replace(' ', "-").eq_ignore_ascii_case(s)) {
+         return Some(None);
+     }
+     let parsed = artcraft_launcher_core::platform::parse_asset_name(&format!("{base}.AppImage"), stems)?;
+@@ -166,7 +167,8 @@ pub mod macos {
          }
          // `<App>Version` carries the full version including a pre-release suffix;
          // CFBundleShortVersionString only has the numbers.
