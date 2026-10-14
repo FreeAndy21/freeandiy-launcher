@@ -102,18 +102,18 @@ Copy-Item (Join-Path $Bin $Exe) $Stage
 #     "Launcher" label and the FreeANDIY apps' icons in a hairline grid.
 #   - banner, 493x58: across the top of the inner pages. The page title is drawn over its left
 #     side, so that stays white; the right end is a dark cell with the mark.
-# The FreeANDIY mark and wordmark are drawn as supplied (docs/brand/LICENSE-brand.txt).
+# The FreeANDIY mark and wordmark are drawn as supplied (freeandiy/assets/brand/LICENSE-brand.txt).
 function New-InstallerArt([string] $BannerOut, [string] $DialogOut) {
   Add-Type -AssemblyName System.Drawing
-  $ink = [System.Drawing.ColorTranslator]::FromHtml('#121316')
-  $accent = [System.Drawing.ColorTranslator]::FromHtml('#2d81ff')
+  $ink = [System.Drawing.ColorTranslator]::FromHtml('#231F20')
+  $accent = [System.Drawing.ColorTranslator]::FromHtml('#BE3E6B')
   $muted = [System.Drawing.Color]::FromArgb(153, 242, 241, 238)
   $line = [System.Drawing.Color]::FromArgb(38, 242, 241, 238)
   # The FreeANDIY apps, in the launcher's order (crates/core/src/catalog.rs).
   $apps = 'freeandiy-photo', 'freeandiy-vector', 'freeandiy-film', 'freeandiy-light', 'freeandiy-pdf', 'freeandiy-effects',
-    'freeandiy-layout', 'freeandiy-write', 'freeandiy-slides', 'freeandiy-sheets', 'cadcraft', 'freeandiy-sound', 'figcraft'
+    'freeandiy-layout', 'freeandiy-write', 'freeandiy-slides', 'freeandiy-sheets', 'freeandiy-sound'
   $mark = [System.Drawing.Image]::FromFile((Join-Path $Root 'assets\app-icon\hicolor\256x256\apps\agency.freeandy.launcher.png'))
-  $wordmark = [System.Drawing.Image]::FromFile((Join-Path $Root 'docs\brand\artcraft-logo-white.png'))
+  $wordmark = [System.Drawing.Image]::FromFile((Join-Path $Root 'assets\brand\freeandiy-wordmark-paper.png'))
   $icons = $apps | ForEach-Object { [System.Drawing.Image]::FromFile((Join-Path $Root "assets\app-icons\$_.png")) }
   # The site's label face; GDI+ draws a variable font at its default instance (Regular).
   $fonts = New-Object System.Drawing.Text.PrivateFontCollection

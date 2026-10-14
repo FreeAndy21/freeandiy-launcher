@@ -7,7 +7,7 @@
   <project_license>MIT OR Apache-2.0</project_license>
   <name>FreeANDIY Launcher</name>
   <summary>Install, update and launch the FreeANDIY apps</summary>
-  <developer id="ai.storyteller">
+  <developer id="agency.freeandy">
     <name>Free Andy Agency</name>
   </developer>
   <description>
@@ -37,7 +37,7 @@
     <keyword>launcher</keyword>
     <keyword>installer</keyword>
     <keyword>updater</keyword>
-    <keyword>artcraft</keyword>
+    <keyword>freeandiy</keyword>
   </keywords>
   <branding>
     <color type="primary" scheme_preference="light">#d9dce3</color>

@@ -50,7 +50,7 @@ case "$ARCH" in
   aarch64 | arm64) ARCH=aarch64; DEB_ARCH=arm64 ;;
   *) echo "unsupported architecture $ARCH" >&2; exit 2 ;;
 esac
-export FREEANDIY_LAUNCHER_MAINTAINER="${FREEANDIY_LAUNCHER_MAINTAINER:-FreeANDIY Launcher maintainers <craft-launcher@storyteller.ai>}"
+export FREEANDIY_LAUNCHER_MAINTAINER="${FREEANDIY_LAUNCHER_MAINTAINER:-FreeANDIY <licencie@freeandy.agency>}"
 BASENAME="$PKG-$VERSION-linux-$ARCH"
 
 echo "==> FreeANDIY Launcher $VERSION for Linux $ARCH ($FORMATS)"

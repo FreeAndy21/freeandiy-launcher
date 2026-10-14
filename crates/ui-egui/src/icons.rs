@@ -23,7 +23,7 @@ pub fn app(id: &str) -> Option<ImageSource<'static>> {
 /// The FreeANDIY wordmark (the name set in IBM Plex Mono): ink for light backgrounds, paper for
 /// dark ones. © Free Andy Agency, not covered by the MIT/Apache license
 /// (`freeandiy/assets/brand/LICENSE-brand.txt`).
-pub fn artcraft_logo(dark_background: bool) -> ImageSource<'static> {
+pub fn brand_logo(dark_background: bool) -> ImageSource<'static> {
     if dark_background {
         egui::include_image!("../../../assets/brand/freeandiy-wordmark-paper.png")
     } else {
@@ -40,6 +40,6 @@ pub fn social(_service: &str) -> Option<ImageSource<'static>> {
 }
 
 /// The launcher's mark (its app icon tile, the angel Andy). © Free Andy Agency.
-pub fn artcraft_mark() -> ImageSource<'static> {
+pub fn brand_mark() -> ImageSource<'static> {
     egui::include_image!("../../../assets/app-icon/freeandiy-launcher-mark.png")
 }

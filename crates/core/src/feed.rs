@@ -591,7 +591,7 @@ mod tests {
     /// at a response it produced (its `live_round_fetches_real_releases` test writes one).
     #[test]
     #[ignore = "needs a sample written by storyteller-web"]
-    fn reads_what_storyteller_web_serves() {
+    fn reads_what_the_feed_serves() {
         let Ok(path) = std::env::var("CRAFT_APPS_FEED_SAMPLE") else { return };
         let json = std::fs::read_to_string(path).unwrap();
         let feed = Feed::parse(&json).unwrap();

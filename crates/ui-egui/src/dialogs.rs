@@ -112,7 +112,7 @@ impl LauncherUi {
         let t = Tokens::get(ui.ctx());
         ui.set_width(480.0f32.min(ui.ctx().content_rect().width() - 80.0));
         let title = fmt(tl!("FreeANDIY Launcher {version} is available."), &[("version", &r.version_label())]);
-        Self::title(ui, Some(crate::icons::artcraft_mark()), &title, "");
+        Self::title(ui, Some(crate::icons::brand_mark()), &title, "");
         ui.label(RichText::new(tl!("A new version is available. Would you like to relaunch with the updated version?")).color(t.muted));
         ui.add_space(14.0);
         let mut close = false;
@@ -186,7 +186,7 @@ impl LauncherUi {
         ui.set_max_height((viewport.height() - 80.0).max(0.0));
         ui.spacing_mut().scroll = egui::style::ScrollStyle { foreground_color: true, ..egui::style::ScrollStyle::solid() };
         let title_top = ui.cursor().top();
-        Self::title(ui, Some(crate::icons::artcraft_mark()), tl!("Settings"), &format!("FreeANDIY Launcher {}", env!("CARGO_PKG_VERSION")));
+        Self::title(ui, Some(crate::icons::brand_mark()), tl!("Settings"), &format!("FreeANDIY Launcher {}", env!("CARGO_PKG_VERSION")));
         let title_height = ui.cursor().top() - title_top;
         let quit_width = widgets::button_width(ui, tl!("Quit FreeANDIY Launcher"), 0.0);
         let done_width = widgets::button_width(ui, tl!("Done"), 90.0);
