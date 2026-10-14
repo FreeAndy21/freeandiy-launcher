@@ -18,8 +18,9 @@ exes = "freeandiy-launcher"
 
 [check]
 # check-branding.sh: extra allowed strings (regex) and Rust paths where the upstream name may stay
-# in string literals (git pathspecs, space-separated).
-allow = ""
+# in string literals (git pathspecs, space-separated). The cargo packages and crates keep upstream's
+# names (artcraft-launcher, artcraft_launcher_core, …): they show only in build metadata.
+allow = "artcraft[-_]launcher"
 rs_exclude = ":!xtask/**"
 
 [msi]

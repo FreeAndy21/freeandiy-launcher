@@ -1,8 +1,13 @@
 diff --git a/apps/artcraft-launcher/Cargo.toml b/apps/artcraft-launcher/Cargo.toml
-index 10f6d04..fb75b73 100644
+index 10f6d04..a23f780 100644
 --- a/apps/artcraft-launcher/Cargo.toml
 +++ b/apps/artcraft-launcher/Cargo.toml
-@@ -5,10 +5,15 @@ version.workspace = true
+@@ -1,14 +1,19 @@
+ [package]
+ name = "artcraft-launcher"
+-description = "ArtCraft Launcher: install, update and open the Craft App Suite"
++description = "FreeANDIY Launcher: install, update and open the FreeANDIY apps"
+ version.workspace = true
  edition.workspace = true
  license.workspace = true
  rust-version.workspace = true
