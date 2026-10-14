@@ -130,14 +130,18 @@ pub const SUITE: [CraftApp; 11] = [
         [[0x7d, 0xc1, 0xe3], [0x45, 0x5d, 0x6a], [0x7d, 0xc1, 0xe3]],
         "FreeAndy21/freeandiy-light",
     ),
-    app(
-        "freeandiy-pdf",
-        "FreeANDIY PDF",
-        "Reading, organizing and protecting PDFs",
-        AppGroup::Classic,
-        [[0xa5, 0xb9, 0x9c], [0x54, 0x5a, 0x4f], [0xa5, 0xb9, 0x9c]],
-        "FreeAndy21/freeandiy-pdf",
-    ),
+    CraftApp {
+        former_ids: &["printcraft"],
+        former_names: &["PrintCraft"],
+        ..app(
+            "freeandiy-pdf",
+            "FreeANDIY PDF",
+            "Reading, organizing and protecting PDFs",
+            AppGroup::Classic,
+            [[0xa5, 0xb9, 0x9c], [0x54, 0x5a, 0x4f], [0xa5, 0xb9, 0x9c]],
+            "FreeAndy21/freeandiy-pdf",
+        )
+    },
     app(
         "freeandiy-effects",
         "FreeANDIY Effects",
@@ -239,7 +243,7 @@ mod tests {
     #[test]
     fn bundle_ids_and_pages_drop_the_brand_prefix() {
         let pdf = CraftApp::by_id("freeandiy-pdf").unwrap();
-        assert_eq!(pdf.stems().collect::<Vec<_>>(), ["freeandiy-pdf"]);
+        assert_eq!(pdf.stems().collect::<Vec<_>>(), ["freeandiy-pdf", "printcraft"]);
         assert_eq!(pdf.bundle_id(), "agency.freeandy.pdf");
         assert_eq!(pdf.website(), "https://freeandiy.freeandy.agency/pdf");
         assert_eq!(LAUNCHER.bundle_id(), "agency.freeandy.launcher");

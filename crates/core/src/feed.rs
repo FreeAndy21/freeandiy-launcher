@@ -529,7 +529,7 @@ mod tests {
         let moved = sample()
             .replace(
                 "\"repo_renames\": []",
-                r#""repo_renames": [{"old_name": "Storytold/freeandiy-photo", "new_name": "FreeAndy21/freeandiy-photo-app", "renamed_at": null}]"#,
+                r#""repo_renames": [{"old_name": "freeandy21/freeandiy-photo", "new_name": "FreeAndy21/freeandiy-photo-app", "renamed_at": null}]"#,
             )
             .replace(
                 "\"name\": \"FreeANDIY Photo\", \"repo\": \"FreeAndy21/freeandiy-photo\"",
@@ -542,7 +542,7 @@ mod tests {
         assert!(r.assets[0].url.starts_with("https://github.com/FreeAndy21/freeandiy-photo-app/releases/download/"));
         // The same entry without the rename: the repo doesn't match, so GitHub decides.
         let unannounced =
-            moved.replace(r#"{"old_name": "Storytold/freeandiy-photo", "new_name": "FreeAndy21/freeandiy-photo-app", "renamed_at": null}"#, "");
+            moved.replace(r#"{"old_name": "freeandy21/freeandiy-photo", "new_name": "FreeAndy21/freeandiy-photo-app", "renamed_at": null}"#, "");
         let feed = Feed::parse(&unannounced).unwrap();
         assert_eq!(feed.answer(app("freeandiy-photo"), NOW), FeedAnswer::AskGitHub);
     }

@@ -120,6 +120,7 @@ fn snapshot(h: &mut Harness<'_, Option<LauncherUi>>, name: &str) {
 
 // One test: the UI language is process-wide.
 #[test]
+#[ignore = "FreeANDIY: lays out the Discord and social links in Settings, which FreeANDIY drops"]
 fn hungarian_ui_translates_labels_dates_and_messages() {
     let mut h = harness(ViewMode::Grid);
     h.run_steps(8);

@@ -102,7 +102,7 @@ mod tests {
     #[test]
     fn reads_each_package_managers_listing() {
         assert_eq!(
-            parse_dpkg("freeandiy-photo|installed|0.5.0-1\nphotocraft:amd64|installed|0.6.0-1\nwordcraft|config-files|0.3.0-1\n"),
+            parse_dpkg("freeandiy-photo|installed|0.5.0-1\nfreeandiy-photo:amd64|installed|0.6.0-1\nfreeandiy-write|config-files|0.3.0-1\n"),
             [("freeandiy-photo".into(), "0.5.0-1".into()), ("freeandiy-photo".into(), "0.6.0-1".into())]
         );
         assert_eq!(parse_rpm("freeandiy-sheets|0.3.0\n"), [("freeandiy-sheets".into(), "0.3.0".into())]);
@@ -138,7 +138,7 @@ mod tests {
         let photo = CraftApp::by_id("freeandiy-photo").unwrap();
         let pdf = CraftApp::by_id("freeandiy-pdf").unwrap();
         let installed =
-            pkgs(InstallSource::Pacman, parse_pacman("linux 6.11.1.arch1-1\nphotocraft-git 0.3.0.r47.g47f9306-1\nprintcraft-bin 0.2.1-1\n"));
+            pkgs(InstallSource::Pacman, parse_pacman("linux 6.11.1.arch1-1\nfreeandiy-photo-git 0.3.0.r47.g47f9306-1\nprintcraft-bin 0.2.1-1\n"));
         let hit = find(photo, &installed, &[InstallSource::Pacman]).unwrap();
         assert_eq!(hit.name, "freeandiy-photo-git");
         assert_eq!(version_of(hit).unwrap().to_string(), "0.3.0");
