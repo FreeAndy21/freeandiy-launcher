@@ -53,6 +53,13 @@ replace = '@@PKG@@-${1}'
 min = 1
 
 [[replace]]
+name = "protect: the web crate and binary (xtask, CI, trunk's data-bin)"
+include = ["xtask/**", ".github/**", "apps/artcraft-launcher-web/index.html"]
+find = "artcraft-launcher-web"
+replace = "@@PKG@@-web"
+min = 3
+
+[[replace]]
 name = "protect: crate idents artcraft_launcher"
 include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
 find = "artcraft_launcher"
@@ -67,8 +74,8 @@ replace = '${1}@@PKG@@${2}'
 min = 1
 
 [[replace]]
-name = "web release zip and web binary: freeandiy-launcher-web (before the generic rename)"
-include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+name = "web release zip: freeandiy-launcher-web-<version>.zip (the web crate and binary keep upstream's name)"
+include = ["packaging/web/package.sh", "crates/native/src/self_update.rs"]
 find = "artcraft-launcher-web"
 replace = "{{this.repo}}-web"
 min = 0
