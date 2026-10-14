@@ -1,0 +1,88 @@
+diff --git a/apps/artcraft-launcher-web/Cargo.toml b/apps/artcraft-launcher-web/Cargo.toml
+index 76a7b9c..d906aa6 100644
+--- a/apps/artcraft-launcher-web/Cargo.toml
++++ b/apps/artcraft-launcher-web/Cargo.toml
+@@ -1,6 +1,6 @@
+ [package]
+ name = "artcraft-launcher-web"
+-description = "ArtCraft Launcher in the browser: the Craft App Suite's latest releases, with downloads for the visitor's system"
++description = "FreeANDIY Launcher in the browser: the FreeANDIY apps' latest releases, with downloads for the visitor's system"
+ version.workspace = true
+ edition.workspace = true
+ license.workspace = true
+diff --git a/apps/artcraft-launcher/Cargo.toml b/apps/artcraft-launcher/Cargo.toml
+index 10f6d04..a23f780 100644
+--- a/apps/artcraft-launcher/Cargo.toml
++++ b/apps/artcraft-launcher/Cargo.toml
+@@ -1,14 +1,19 @@
+ [package]
+ name = "artcraft-launcher"
+-description = "ArtCraft Launcher: install, update and open the Craft App Suite"
++description = "FreeANDIY Launcher: install, update and open the FreeANDIY apps"
+ version.workspace = true
+ edition.workspace = true
+ license.workspace = true
+ rust-version.workspace = true
+-default-run = "artcraft-launcher"
++default-run = "freeandiy-launcher"
+ build = "build.rs"
+ publish = false
+ 
++# FreeANDIY: the executable carries the product name; the package keeps upstream's.
++[[bin]]
++name = "freeandiy-launcher"
++path = "src/main.rs"
++
+ [lints]
+ workspace = true
+ 
+diff --git a/crates/core/Cargo.toml b/crates/core/Cargo.toml
+index 4806c1c..14e3368 100644
+--- a/crates/core/Cargo.toml
++++ b/crates/core/Cargo.toml
+@@ -1,6 +1,6 @@
+ [package]
+ name = "artcraft-launcher-core"
+-description = "ArtCraft Launcher core: the Craft App Suite catalog, versions, release parsing and asset choice (pure, wasm-safe)"
++description = "FreeANDIY Launcher core: the FreeANDIY apps catalog, versions, release parsing and asset choice (pure, wasm-safe)"
+ version.workspace = true
+ edition.workspace = true
+ license.workspace = true
+diff --git a/crates/native/Cargo.toml b/crates/native/Cargo.toml
+index ea7d084..a94a837 100644
+--- a/crates/native/Cargo.toml
++++ b/crates/native/Cargo.toml
+@@ -1,6 +1,6 @@
+ [package]
+ name = "artcraft-launcher-native"
+-description = "ArtCraft Launcher desktop backend: release lookups, detecting installed Craft Apps, installing and updating them"
++description = "FreeANDIY Launcher desktop backend: release lookups, detecting installed FreeANDIY apps, installing and updating them"
+ version.workspace = true
+ edition.workspace = true
+ license.workspace = true
+diff --git a/crates/native/src/detect.rs b/crates/native/src/detect.rs
+index bb10123..2c8750a 100644
+--- a/crates/native/src/detect.rs
++++ b/crates/native/src/detect.rs
+@@ -166,7 +166,8 @@ pub mod macos {
+         }
+         // `<App>Version` carries the full version including a pre-release suffix;
+         // CFBundleShortVersionString only has the numbers.
+-        let full_key = format!("{}Version", app.name);
++        // FreeANDIY: the key is the name without spaces (`FreeANDIYPhotoVersion`).
++        let full_key = format!("{}Version", app.name.replace(' ', ""));
+         let text =
+             [full_key.as_str(), "CFBundleShortVersionString", "CFBundleVersion"].iter().find_map(|k| dict.get(k).and_then(plist::Value::as_string));
+         Some(Installed { version: text.and_then(version::parse), source: InstallSource::MacApp, location: path.display().to_string(), package: None })
+diff --git a/crates/ui-egui/Cargo.toml b/crates/ui-egui/Cargo.toml
+index 151967f..4678228 100644
+--- a/crates/ui-egui/Cargo.toml
++++ b/crates/ui-egui/Cargo.toml
+@@ -1,6 +1,6 @@
+ [package]
+ name = "artcraft-launcher-ui-egui"
+-description = "ArtCraft Launcher's egui interface, shared by the desktop and web builds"
++description = "FreeANDIY Launcher's egui interface, shared by the desktop and web builds"
+ version.workspace = true
+ edition.workspace = true
+ license.workspace = true

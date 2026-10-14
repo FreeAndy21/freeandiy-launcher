@@ -73,6 +73,13 @@ find = "artcraft-launcher-web"
 replace = "{{this.repo}}-web"
 min = 0
 
+[[replace]]
+name = "package maintainer"
+include = ["packaging/**"]
+find = "ArtCraft Launcher maintainers <craft-launcher@storyteller.ai>"
+replace = "{{brand.maintainer}}"
+min = 1
+
 # ---------------------------------------------------------------------------------------------
 # Identifiers, repositories, links.
 
@@ -608,6 +615,79 @@ name = "SoundCraft: display name"
 include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
 regex = 'SoundCraft'
 replace = "{{brand.name}} Sound"
+min = 1
+
+# ---------------------------------------------------------------------------------------------
+# Odds and ends.
+
+[[replace]]
+name = "AppStream developer id"
+include = ["packaging/**"]
+find = '<developer id="ai.storyteller">'
+replace = '<developer id="{{brand.id_prefix}}">'
+min = 1
+
+[[replace]]
+name = "desktop and AppStream search keywords"
+include = ["packaging/**"]
+regex = '(Keywords=|<keyword>)artcraft\b'
+replace = '${1}freeandiy'
+min = 2
+
+[[replace]]
+name = "installer art: the FreeANDIY apps only (CADCraft and FigCraft are not FreeANDIY's)"
+include = ["packaging/windows/package.ps1"]
+regex = ", '(cadcraft|figcraft)'"
+replace = ""
+min = 2
+
+[[replace]]
+name = "installer art: the FreeANDIY wordmark"
+include = ["packaging/windows/package.ps1"]
+find = "'docs\\brand\\artcraft-logo-white.png'"
+replace = "'assets\\brand\\freeandiy-wordmark-paper.png'"
+min = 1
+
+[[replace]]
+name = "installer art: brand terms"
+include = ["packaging/windows/package.ps1"]
+find = "(docs/brand/LICENSE-brand.txt)"
+replace = "(freeandiy/assets/brand/LICENSE-brand.txt)"
+min = 1
+
+[[replace]]
+name = "installer art: paper-and-ink colours with the stamp rose"
+include = ["packaging/windows/package.ps1"]
+regex = "FromHtml\\('#(121316|2d81ff)'\\)"
+replace = "FromHtml('#@@C${1}@@')"
+min = 2
+
+[[replace]]
+name = "installer art: ink"
+include = ["packaging/windows/package.ps1"]
+find = "#@@C121316@@"
+replace = "{{colors.black}}"
+min = 1
+
+[[replace]]
+name = "installer art: rose"
+include = ["packaging/windows/package.ps1"]
+find = "#@@C2d81ff@@"
+replace = "{{colors.rose}}"
+min = 1
+
+[[replace]]
+name = "code: the brand image helpers"
+include = ["**/*.rs"]
+regex = '\bartcraft_(logo|mark)\b'
+replace = 'brand_${1}'
+min = 4
+
+[[replace]]
+name = "an ignored test named after upstream's feed server"
+include = ["crates/core/src/feed.rs"]
+find = "reads_what_storyteller_web_serves"
+replace = "reads_what_the_feed_serves"
 min = 1
 
 # ---------------------------------------------------------------------------------------------
