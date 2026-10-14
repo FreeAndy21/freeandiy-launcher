@@ -775,6 +775,51 @@ replace = "reads_what_the_feed_serves"
 min = 1
 
 # ---------------------------------------------------------------------------------------------
+# Colours: FreeANDIY's paper and ink, and the stamp rose (light) / pink (dark) for the accent.
+
+[[replace]]
+name = "theme: accent"
+include = ["crates/ui-egui/src/theme.rs"]
+find = "0x2d81ff"
+replace = "0xbe3e6b"
+min = 2
+
+[[replace]]
+name = "theme: accent text, dark"
+include = ["crates/ui-egui/src/theme.rs"]
+find = "0x74aaff"
+replace = "0xea9999"
+min = 1
+
+[[replace]]
+name = "theme: accent text, light"
+include = ["crates/ui-egui/src/theme.rs"]
+find = "0x1659c4"
+replace = "0xbe3e6b"
+min = 1
+
+[[replace]]
+name = "theme: dark surface"
+include = ["crates/ui-egui/src/theme.rs"]
+find = "0x121316"
+replace = "0x231f20"
+min = 1
+
+[[replace]]
+name = "theme: paper"
+include = ["crates/ui-egui/src/theme.rs"]
+find = "0xf2f1ee"
+replace = "0xf3f2f1"
+min = 4
+
+[[replace]]
+name = "theme: ink"
+include = ["crates/ui-egui/src/theme.rs"]
+find = "0x101014"
+replace = "0x231f20"
+min = 4
+
+# ---------------------------------------------------------------------------------------------
 # What is left of ArtCraft in what users read.
 
 [[replace]]
