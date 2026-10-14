@@ -450,6 +450,13 @@ min = 0
 # The apps' names and ids (after the repository and page rules above).
 
 [[replace]]
+name = "a test helper named after an app id (an identifier, so it can't take the hyphenated id)"
+include = ["crates/native/src/install.rs"]
+regex = '\bphotocraft\(\)'
+replace = "photo_app()"
+min = 4
+
+[[replace]]
 name = "PhotoCraft: id"
 include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
 regex = '\bphotocraft\b'
