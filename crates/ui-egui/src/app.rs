@@ -437,7 +437,7 @@ impl LauncherUi {
         if self.settings.notify {
             let (title, body) = match fresh.as_slice() {
                 [(_, name, v)] => {
-                    let body: String = tl!("Open ArtCraft Launcher to update.").to_string();
+                    let body: String = tl!("Open FreeANDIY Launcher to update.").to_string();
                     (crate::i18n::fmt(tl!("{name} {v} is available"), &[("name", name), ("v", v)]), body)
                 }
                 many => {
@@ -626,15 +626,15 @@ impl LauncherUi {
         for e in &self.entries {
             if matches!(e.latest, Some(LatestRelease::Found(_) | LatestRelease::None)) {
                 match e.origin {
-                    Some(Origin::ArtCraftApi) => api = true,
+                    Some(Origin::FreeANDIYApi) => api = true,
                     Some(Origin::GitHub) => github = true,
                     None => {}
                 }
             }
         }
         match (api, github) {
-            (true, true) => Some(crate::i18n::fmt(tl!("{a} and {b}"), &[("a", Origin::ArtCraftApi.label()), ("b", Origin::GitHub.label())])),
-            (true, false) => Some(Origin::ArtCraftApi.label().to_string()),
+            (true, true) => Some(crate::i18n::fmt(tl!("{a} and {b}"), &[("a", Origin::FreeANDIYApi.label()), ("b", Origin::GitHub.label())])),
+            (true, false) => Some(Origin::FreeANDIYApi.label().to_string()),
             (false, true) => Some(Origin::GitHub.label().to_string()),
             (false, false) => None,
         }

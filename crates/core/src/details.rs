@@ -21,6 +21,7 @@ pub struct Shot {
     pub caption: &'static str,
 }
 
+#[allow(dead_code)] // FreeANDIY: no pictures yet (see SCREENSHOTS_BASE).
 const fn shot(key: &'static str, caption: &'static str) -> Shot {
     Shot { key, caption }
 }
@@ -50,7 +51,10 @@ const fn feature(title: &'static str, text: &'static str) -> Feature {
 /// Pinned to a tag (`SCREENSHOTS_REV`) so that what a launcher fetches never changes under it, and
 /// so that a saved copy never goes stale. To change a picture, publish a new tag and bump the
 /// revision: older launchers keep working from the tag they know.
-pub const SCREENSHOTS_BASE: &str = "https://raw.githubusercontent.com/storytold/craft-launcher-assets";
+///
+/// FreeANDIY: upstream's pictures (FreeAndy21/freeandiy-launcher-assets) carry no licence, so the pages
+/// show none until FreeANDIY publishes its own here; no page lists a picture, so nothing is fetched.
+pub const SCREENSHOTS_BASE: &str = "https://raw.githubusercontent.com/FreeAndy21/freeandiy-launcher-assets";
 
 /// The tag of the pictures repository the launcher reads. Also part of the saved copies' path.
 pub const SCREENSHOTS_REV: &str = "v1";
@@ -64,16 +68,16 @@ pub fn looks_like_jpeg(bytes: &[u8]) -> bool {
     bytes.starts_with(&[0xFF, 0xD8, 0xFF])
 }
 
-/// Where every Craft App runs (getartcraft.com lists the same for each of them).
-const PLATFORMS: &str = "macOS, Windows, Linux, FreeBSD, web";
+/// Where every app runs (FreeANDIY publishes builds for these).
+const PLATFORMS: &str = "macOS, Windows, Linux, web";
 
-pub const DETAILS: [AppDetails; 13] = [
+pub const DETAILS: [AppDetails; 11] = [
     AppDetails {
-        id: "photocraft",
+        id: "freeandiy-photo",
         headline: "The image editor you already know how to use.",
         about: "Layers, masks, adjustment layers, layer styles, type, vectors and brushes in a native app \
             written in Rust. Open source, offline, and yours.\n\n\
-            PhotoCraft keeps the menus, shortcuts and panels your hands already know, so there is \
+            FreeANDIY Photo keeps the menus, shortcuts and panels your hands already know, so there is \
             nothing to relearn.",
         features: &[
             feature("Native GPU canvas", "No Electron and no web view: a fast native compositor."),
@@ -82,16 +86,11 @@ pub const DETAILS: [AppDetails; 13] = [
             feature("On-device selection", "Subject and object selection and mask refinement run locally."),
             feature("Serious color", "8-, 16- and 32-bit RGB, CMYK, Lab and Grayscale, with ICC color management and soft proofing."),
         ],
-        shots: &[
-            shot("demo", "Curves and type layers"),
-            shot("adjustments", "Levels with a live histogram"),
-            shot("layer-styles", "Layer styles on live type"),
-            shot("masks", "Selections and masked adjustments"),
-        ],
+        shots: &[],
         platforms: PLATFORMS,
     },
     AppDetails {
-        id: "vectorcraft",
+        id: "freeandiy-vector",
         headline: "Vector illustration, reimagined in pure Rust.",
         about: "A native vector illustration app with the pen, panels and shortcuts illustrators expect. \
                 Open source, and it also runs in a browser.",
@@ -109,16 +108,11 @@ pub const DETAILS: [AppDetails; 13] = [
             feature("Image tracing", "Turn raster images into clean vector paths, with presets for the common cases."),
             feature("Open formats", "Native JSON documents, SVG and PDF import and export, and PNG, JPEG and WebP output."),
         ],
-        shots: &[
-            shot("neon", "The Neon Drive poster"),
-            shot("ribbons", "Live blends"),
-            shot("sheet", "A feature sheet and the Layers panel"),
-            shot("bezier", "Pathfinder and exact booleans"),
-        ],
+        shots: &[],
         platforms: PLATFORMS,
     },
     AppDetails {
-        id: "filmcraft",
+        id: "freeandiy-film",
         headline: "Professional video editing, rebuilt from scratch.",
         about: "A native video editor written in pure Rust, with source and program monitors, a real timeline and \
                 every trim mode.",
@@ -133,15 +127,11 @@ pub const DETAILS: [AppDetails; 13] = [
             ),
             feature("Broadcast-ready audio", "EBU R128 loudness meters, a mixer with automation and native audio effects."),
         ],
-        shots: &[
-            shot("color", "The Color workspace, with scopes"),
-            shot("assembly", "The Assembly workspace"),
-            shot("keyframes", "Keyframes in Effect Controls"),
-        ],
+        shots: &[],
         platforms: PLATFORMS,
     },
     AppDetails {
-        id: "lightcraft",
+        id: "freeandiy-light",
         headline: "Your photos. Your pixels. Your machine.",
         about: "A fast photo library and non-destructive raw developer, written from scratch in pure Rust. \
                 No account, no cloud, no telemetry and no subscription.",
@@ -153,16 +143,11 @@ pub const DETAILS: [AppDetails; 13] = [
             feature("A library that keeps up", "Albums, ratings, flags and search, with grids that stay smooth on large catalogs."),
             feature("Instant feedback", "The GPU pipeline updates the preview as you move a slider, even on large raw files."),
         ],
-        shots: &[
-            shot("hero", "The Edit view"),
-            shot("curve", "The tone curve"),
-            shot("grading", "Color grading wheels"),
-            shot("masking", "A radial mask over a sky mask"),
-        ],
+        shots: &[],
         platforms: PLATFORMS,
     },
     AppDetails {
-        id: "pdfcraft",
+        id: "freeandiy-pdf",
         headline: "The open-source PDF workbench.",
         about: "Read, organize, combine, split and secure PDFs in a fast, native app written in Rust from the \
                 ground up. No account, no telemetry and no cloud.",
@@ -178,7 +163,7 @@ pub const DETAILS: [AppDetails; 13] = [
         platforms: PLATFORMS,
     },
     AppDetails {
-        id: "effectcraft",
+        id: "freeandiy-effects",
         headline: "Motion graphics and visual effects, in pure Rust.",
         about: "A native compositor with compositions, layers, keyframes, effects, expressions, 3D cameras and \
                 lights, and a render queue. Young, moving fast, and already usable.",
@@ -199,16 +184,11 @@ pub const DETAILS: [AppDetails; 13] = [
             feature("Expressions", "JavaScript expressions with wiggle, loops and layer references, edited inline."),
             feature("Export anywhere", "H.264 and ProRes with alpha, PNG, TIFF and EXR sequences, GIF, and Lottie import and export."),
         ],
-        shots: &[
-            shot("hero", "An animated composition"),
-            shot("graph", "The Graph Editor"),
-            shot("effects", "Particles and Effect Controls"),
-            shot("3d", "3D layers with cameras and lights"),
-        ],
+        shots: &[],
         platforms: PLATFORMS,
     },
     AppDetails {
-        id: "designcraft",
+        id: "freeandiy-layout",
         headline: "Page layout and publishing, rebuilt in pure Rust.",
         about: "A native layout app with spreads, parent pages, threaded stories, styles, swatches, text wrap and \
                 a paragraph composer. No subscription, no license server and no telemetry.",
@@ -223,11 +203,11 @@ pub const DETAILS: [AppDetails; 13] = [
             feature("Open formats", "A documented native format, PNG export and layout interchange import and export."),
             feature("Built for automation", "Every menu item, tool, panel and dialog can be driven over a JSON control channel and an MCP server."),
         ],
-        shots: &[shot("spread", "A magazine spread with a threaded story")],
+        shots: &[],
         platforms: PLATFORMS,
     },
     AppDetails {
-        id: "wordcraft",
+        id: "freeandiy-write",
         headline: "The familiar word processor, native and offline.",
         about: "A word processor with the ribbon, shortcuts and behavior you already know, written in Rust. \
                 Open source, and built from public specifications.",
@@ -248,16 +228,11 @@ pub const DETAILS: [AppDetails; 13] = [
                 "Every action is a command, driven from the ribbon, shortcuts, a command-line tool, a JSON control channel or an MCP server.",
             ),
         ],
-        shots: &[
-            shot("hero", "The Home tab and the Navigation pane"),
-            shot("review", "Track Changes and comments"),
-            shot("design", "The Design tab"),
-            shot("layout", "The Layout tab"),
-        ],
+        shots: &[],
         platforms: "macOS, Windows, Linux, BSD, web",
     },
     AppDetails {
-        id: "deckcraft",
+        id: "freeandiy-slides",
         headline: "Presentations, rebuilt in Rust.",
         about: "A presentation app with slide masters, shapes, animations and a presenter view, written in Rust. \
                 In alpha, heading for beta.",
@@ -275,16 +250,11 @@ pub const DETAILS: [AppDetails; 13] = [
             ),
             feature("Exchange files", "Opens and saves PowerPoint .pptx and exports PDF (slides, notes pages and handouts), PNG and JPEG."),
         ],
-        shots: &[
-            shot("editor", "Editing a slide, with sections and notes"),
-            shot("shape", "The Shape Format tab"),
-            shot("sorter", "The slide sorter"),
-            shot("format", "The Format Shape pane"),
-        ],
+        shots: &[],
         platforms: "macOS, Windows, Linux, BSD, web",
     },
     AppDetails {
-        id: "gridcraft",
+        id: "freeandiy-sheets",
         headline: "Spreadsheets you already know how to use.",
         about: "A spreadsheet with the ribbon, formula bar, sheet tabs and shortcuts you know, on a calculation engine \
                 written in Rust. No subscription, no license server and no telemetry.",
@@ -308,40 +278,11 @@ pub const DETAILS: [AppDetails; 13] = [
             ),
             feature("Everywhere", "One Rust codebase for the desktop and the web."),
         ],
-        shots: &[
-            shot("hero", "A quarterly sales dashboard"),
-            shot("budget", "A household budget"),
-            shot("pivot", "A pivot table"),
-            shot("chart", "Formatting a chart"),
-        ],
+        shots: &[],
         platforms: "macOS, Windows, Linux, BSD, web",
     },
     AppDetails {
-        id: "cadcraft",
-        headline: "Computer-aided drafting, in pure Rust.",
-        about: "A drafting app with the command line, object snaps and workflow that drafters already know. Free, with no \
-                account and no subscription. In early, fast development.",
-        features: &[
-            feature(
-                "The workflow you know",
-                "Type L, click two points, type @5<45 and press Enter. Prompts with clickable keywords, polar tracking, direct distance entry and grips work the way drafting habit expects.",
-            ),
-            feature(
-                "Open files",
-                "Reads and writes DXF natively (R12 through 2018) and opens and saves DWG (R13 through 2018) with the open-source acadrust library. Exports SVG and PNG.",
-            ),
-            feature("Fast and native", "Pure Rust and egui, with no Electron and no web view."),
-            feature(
-                "A full drafting toolset",
-                "Draw, modify, dimension, hatch and block commands, layers with a properties manager, paper-space layouts and PDF plotting.",
-            ),
-            feature("Built for agents", "Every menu item, tool and prompt is a command, available over MCP, a JSON control channel or the CLI."),
-        ],
-        shots: &[shot("apartment", "An apartment floor plan"), shot("bracket", "A mechanical bracket drawing"), shot("layout", "A layout sheet")],
-        platforms: PLATFORMS,
-    },
-    AppDetails {
-        id: "soundcraft",
+        id: "freeandiy-sound",
         headline: "Recording, editing and mixing, in Rust.",
         about: "A digital audio workstation that follows the workflow audio engineers already know: an Edit window for \
                 arranging and editing, and a Mix window for balancing. Pre-alpha.",
@@ -361,42 +302,6 @@ pub const DETAILS: [AppDetails; 13] = [
             feature(
                 "Plugins",
                 "EQ, dynamics, reverbs, modulation effects, a subtractive synth and a drum synth, all original, and CLAP plugins load too.",
-            ),
-        ],
-        shots: &[
-            shot("edit", "The Edit window with a nine-track session"),
-            shot("mix", "The Mix window"),
-            shot("automation", "Automation and memory locations"),
-            shot("score", "The Score Editor"),
-        ],
-        platforms: PLATFORMS,
-    },
-    AppDetails {
-        id: "figcraft",
-        headline: "Interface design and prototyping, in pure Rust.",
-        about: "Design screens, components and prototypes in a native app that opens instantly and works offline, \
-                with no account and no telemetry. Early alpha.",
-        features: &[
-            feature(
-                "Auto layout",
-                "Rows, columns, wrap and grids with padding, gaps and Hug, Fill or Fixed sizing, plus constraints and layout grids.",
-            ),
-            feature(
-                "Components",
-                "Instances with overrides, variants and properties, styles, and variables with modes bound to fills, strokes and effects.",
-            ),
-            feature("Vectors", "Real vector networks, the pen and pencil, the shape builder, editable booleans and variable width strokes."),
-            feature(
-                "Prototypes",
-                "Connections, triggers and animated transitions, variables with conditionals, flows and a presentation view with device frames.",
-            ),
-            feature(
-                "Hand off",
-                "Inspect mode with measurements, annotations, ready-for-dev status, and code for CSS, HTML, React, SwiftUI and Compose.",
-            ),
-            feature(
-                "Your files",
-                "Plain .figcraft files on your own disk. SVG, PNG, JPEG, WebP and PDF in and out, and .fig files open, best effort.",
             ),
         ],
         shots: &[],
@@ -445,23 +350,13 @@ mod tests {
 
     #[test]
     fn picture_addresses_come_only_from_the_pages_own_pictures() {
-        let page = AppDetails::by_id("photocraft").unwrap();
-        assert_eq!(
-            page.screenshot_url("demo").as_deref(),
-            Some("https://raw.githubusercontent.com/storytold/craft-launcher-assets/v1/photocraft/demo.jpg")
-        );
-        for key in ["", "nope", "../vectorcraft/neon", "demo/../masks", "demo.jpg", "/etc/passwd", "demo?x=1", "demo#"] {
+        // FreeANDIY: no page lists a picture yet, so no address can be made.
+        let page = AppDetails::by_id("freeandiy-photo").unwrap();
+        for key in ["", "demo", "nope", "../freeandiy-vector/neon", "demo/../masks", "demo.jpg", "/etc/passwd", "demo?x=1", "demo#"] {
             assert_eq!(page.screenshot_url(key), None, "{key:?}");
         }
-        // Every picture of every page has an address of the one shape, with nothing to escape.
-        for d in &DETAILS {
-            for s in d.shots {
-                let url = d.screenshot_url(s.key).unwrap();
-                let path = url.strip_prefix(&format!("{SCREENSHOTS_BASE}/{SCREENSHOTS_REV}/")).unwrap();
-                assert_eq!(path, format!("{}/{}.jpg", d.id, s.key));
-                assert!(path.chars().all(|c| c.is_ascii_lowercase() || c.is_ascii_digit() || matches!(c, '/' | '-' | '.')), "{path}");
-            }
-        }
+        assert!(DETAILS.iter().all(|d| d.shots.is_empty()));
+        assert!(SCREENSHOTS_BASE.starts_with("https://raw.githubusercontent.com/FreeAndy21/"));
     }
 
     #[test]

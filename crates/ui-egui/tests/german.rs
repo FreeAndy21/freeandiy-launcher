@@ -1,5 +1,5 @@
 //! The German UI, in its own test binary: the UI language is process-wide, so it can't share one
-//! with the English UI tests. `ARTCRAFT_LAUNCHER_SNAPSHOTS=<dir>` also saves screenshots (run with
+//! with the English UI tests. `FREEANDIY_LAUNCHER_SNAPSHOTS=<dir>` also saves screenshots (run with
 //! `-- --test-threads=1`).
 
 use std::cell::{Cell, RefCell};
@@ -51,13 +51,13 @@ fn release(id: &str, v: &str, at: i64) -> Release {
         version: version::parse(v),
         name: format!("v{v}"),
         published_at: Some(at),
-        html_url: format!("https://github.com/storytold/{id}/releases/tag/v{v}"),
-        notes: "## What's Changed\n* Faster things by @a in https://github.com/storytold/x/pull/1".into(),
+        html_url: format!("https://github.com/FreeAndy21/{id}/releases/tag/v{v}"),
+        notes: "## What's Changed\n* Faster things by @a in https://github.com/FreeAndy21/x/pull/1".into(),
         prerelease: false,
         assets: vec![Asset {
             name: name.clone(),
             size: 150 << 20,
-            url: format!("https://github.com/storytold/{id}/releases/download/v{v}/{name}"),
+            url: format!("https://github.com/FreeAndy21/{id}/releases/download/v{v}/{name}"),
             sha256: None,
         }],
     }
@@ -67,27 +67,27 @@ fn release(id: &str, v: &str, at: i64) -> Release {
 fn events() -> Vec<Event> {
     let mut ev = Vec::new();
     let versions = [
-        ("photocraft", "0.5.0"),
-        ("vectorcraft", "0.7.0"),
-        ("filmcraft", "0.4.0"),
-        ("lightcraft", "0.4.0"),
-        ("pdfcraft", "0.4.0"),
-        ("effectcraft", "0.6.0"),
-        ("designcraft", "0.4.0"),
-        ("wordcraft", "0.3.0"),
-        ("deckcraft", "0.3.0"),
-        ("gridcraft", "0.3.0"),
+        ("freeandiy-photo", "0.5.0"),
+        ("freeandiy-vector", "0.7.0"),
+        ("freeandiy-film", "0.4.0"),
+        ("freeandiy-light", "0.4.0"),
+        ("freeandiy-pdf", "0.4.0"),
+        ("freeandiy-effects", "0.6.0"),
+        ("freeandiy-layout", "0.4.0"),
+        ("freeandiy-write", "0.3.0"),
+        ("freeandiy-slides", "0.3.0"),
+        ("freeandiy-sheets", "0.3.0"),
         ("cadcraft", "0.3.0"),
     ];
     for (i, (id, v)) in versions.iter().enumerate() {
         ev.push(Event::Latest {
             app: (*id).into(),
             latest: LatestRelease::Found(release(id, v, NOW - 86_400 - i as i64 * 600)),
-            from: Origin::ArtCraftApi,
+            from: Origin::FreeANDIYApi,
         });
     }
-    ev.push(Event::Latest { app: "soundcraft".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });
-    let installed = [("photocraft", "0.4.1"), ("lightcraft", "0.4.0"), ("wordcraft", "0.3.0"), ("effectcraft", "0.5.0")];
+    ev.push(Event::Latest { app: "freeandiy-sound".into(), latest: LatestRelease::None, from: Origin::FreeANDIYApi });
+    let installed = [("freeandiy-photo", "0.4.1"), ("freeandiy-light", "0.4.0"), ("freeandiy-write", "0.3.0"), ("freeandiy-effects", "0.5.0")];
     for app in &SUITE {
         let inst = installed.iter().find(|(id, _)| *id == app.id).map(|(_, v)| Installed {
             version: version::parse(v),
@@ -97,9 +97,9 @@ fn events() -> Vec<Event> {
         });
         ev.push(Event::Detected { app: app.id.into(), installed: inst });
     }
-    ev.push(Event::Progress { app: "filmcraft".into(), phase: JobPhase::Downloading { done: 48 << 20, total: 131 << 20 } });
-    ev.push(Event::Paused { app: "deckcraft".into(), download: Some(PausedDownload { done: 30 << 20, total: 120 << 20 }) });
-    ev.push(Event::Progress { app: "gridcraft".into(), phase: JobPhase::Reconnecting { done: 10 << 20, total: 90 << 20 } });
+    ev.push(Event::Progress { app: "freeandiy-film".into(), phase: JobPhase::Downloading { done: 48 << 20, total: 131 << 20 } });
+    ev.push(Event::Paused { app: "freeandiy-slides".into(), download: Some(PausedDownload { done: 30 << 20, total: 120 << 20 }) });
+    ev.push(Event::Progress { app: "freeandiy-sheets".into(), phase: JobPhase::Reconnecting { done: 10 << 20, total: 90 << 20 } });
     ev.push(Event::CheckFinished { at: NOW - 180, source: Source::GitHubApi, rate_limited_until: None });
     ev
 }
@@ -139,7 +139,7 @@ fn harness_language(
 }
 
 fn snapshot(h: &mut Harness<'_, Option<LauncherUi>>, name: &str) {
-    let Some(dir) = std::env::var_os("ARTCRAFT_LAUNCHER_SNAPSHOTS") else { return };
+    let Some(dir) = std::env::var_os("FREEANDIY_LAUNCHER_SNAPSHOTS") else { return };
     let img = h.render().unwrap();
     img.save(std::path::Path::new(&dir).join(format!("{name}.png"))).unwrap();
 }
@@ -166,7 +166,7 @@ fn german_switches_persists_and_keeps_install_actions() {
     h.get_by_label("Fertig").click();
     h.run_steps(3);
     h.get_by_label("Bildbearbeitung");
-    h.get_by_label_contains("Zuletzt geprüft: vor 3 Min. · über ArtCraft API");
+    h.get_by_label_contains("Zuletzt geprüft: vor 3 Min. · über FreeANDIY API");
     h.get_by_label("Auf 0.5.0 aktualisieren");
     // Product names stay in English.
     h.get_by_label("Launcher");
@@ -174,7 +174,7 @@ fn german_switches_persists_and_keeps_install_actions() {
     h.get_by_label("Alle aktualisieren (2)").click();
     h.run_steps(2);
     let installs: Vec<_> = sent.borrow().iter().filter_map(|c| if let Command::Install { app } = c { Some(app.clone()) } else { None }).collect();
-    assert_eq!(installs, ["photocraft", "effectcraft"]);
+    assert_eq!(installs, ["freeandiy-photo", "freeandiy-effects"]);
 
     let (mut table, _) = harness_language(ViewMode::Table, egui::Theme::Light, true, &restored.language);
     table.run_steps(6);
@@ -190,7 +190,7 @@ fn german_switches_persists_and_keeps_install_actions() {
         for label in ["Grid", "Table", "Settings", "Check for updates"] {
             let rect = web.get_by_label(artcraft_launcher_ui_egui::i18n::t(label)).rect();
             assert!(rect.left() >= 0.0 && rect.right() <= width, "{width}: {label} {rect:?}");
-            for label in ["Launcher", "Craft App Suite"] {
+            for label in ["Launcher", "FreeANDIY apps"] {
                 if let Some(text) = web.query_by_label(label) {
                     assert!(!rect.intersects(text.rect()), "{width}: {label} overlaps {rect:?}");
                 }

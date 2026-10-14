@@ -5,49 +5,41 @@ use egui::ImageSource;
 /// The 128 px icon of a Craft App.
 pub fn app(id: &str) -> Option<ImageSource<'static>> {
     Some(match id {
-        "photocraft" => egui::include_image!("../../../assets/app-icons/photocraft.png"),
-        "vectorcraft" => egui::include_image!("../../../assets/app-icons/vectorcraft.png"),
-        "filmcraft" => egui::include_image!("../../../assets/app-icons/filmcraft.png"),
-        "lightcraft" => egui::include_image!("../../../assets/app-icons/lightcraft.png"),
-        "pdfcraft" => egui::include_image!("../../../assets/app-icons/pdfcraft.png"),
-        "effectcraft" => egui::include_image!("../../../assets/app-icons/effectcraft.png"),
-        "designcraft" => egui::include_image!("../../../assets/app-icons/designcraft.png"),
-        "wordcraft" => egui::include_image!("../../../assets/app-icons/wordcraft.png"),
-        "deckcraft" => egui::include_image!("../../../assets/app-icons/deckcraft.png"),
-        "gridcraft" => egui::include_image!("../../../assets/app-icons/gridcraft.png"),
-        "cadcraft" => egui::include_image!("../../../assets/app-icons/cadcraft.png"),
-        "soundcraft" => egui::include_image!("../../../assets/app-icons/soundcraft.png"),
-        "figcraft" => egui::include_image!("../../../assets/app-icons/figcraft.png"),
+        "freeandiy-photo" => egui::include_image!("../../../assets/app-icons/freeandiy-photo.png"),
+        "freeandiy-vector" => egui::include_image!("../../../assets/app-icons/freeandiy-vector.png"),
+        "freeandiy-film" => egui::include_image!("../../../assets/app-icons/freeandiy-film.png"),
+        "freeandiy-light" => egui::include_image!("../../../assets/app-icons/freeandiy-light.png"),
+        "freeandiy-pdf" => egui::include_image!("../../../assets/app-icons/freeandiy-pdf.png"),
+        "freeandiy-effects" => egui::include_image!("../../../assets/app-icons/freeandiy-effects.png"),
+        "freeandiy-layout" => egui::include_image!("../../../assets/app-icons/freeandiy-layout.png"),
+        "freeandiy-write" => egui::include_image!("../../../assets/app-icons/freeandiy-write.png"),
+        "freeandiy-slides" => egui::include_image!("../../../assets/app-icons/freeandiy-slides.png"),
+        "freeandiy-sheets" => egui::include_image!("../../../assets/app-icons/freeandiy-sheets.png"),
+        "freeandiy-sound" => egui::include_image!("../../../assets/app-icons/freeandiy-sound.png"),
         _ => return None,
     })
 }
 
-/// The ArtCraft wordmark, as supplied: dark ink for light backgrounds, white for dark ones.
-/// An ArtCraft trademark, not covered by the MIT/Apache license (`docs/brand/LICENSE-brand.txt`).
+/// The FreeANDIY wordmark (the name set in IBM Plex Mono): ink for light backgrounds, paper for
+/// dark ones. © Free Andy Agency, not covered by the MIT/Apache license
+/// (`freeandiy/assets/brand/LICENSE-brand.txt`).
 pub fn artcraft_logo(dark_background: bool) -> ImageSource<'static> {
     if dark_background {
-        egui::include_image!("../../../docs/brand/artcraft-logo-white.svg")
+        egui::include_image!("../../../assets/brand/freeandiy-wordmark-paper.png")
     } else {
-        egui::include_image!("../../../docs/brand/artcraft-logo.svg")
+        egui::include_image!("../../../assets/brand/freeandiy-wordmark-ink.png")
     }
 }
 
-/// The ArtCraft wordmark's width / height (its SVG view box: 1038.05 × 108).
-pub const ARTCRAFT_LOGO_ASPECT: f32 = 1038.05 / 108.0;
+/// The wordmark's width / height (its PNG: 880 × 130).
+pub const ARTCRAFT_LOGO_ASPECT: f32 = 880.0 / 130.0;
 
-/// A social service's logo (Simple Icons, white, for tinting), by its name in `catalog::SOCIAL`.
-pub fn social(service: &str) -> Option<ImageSource<'static>> {
-    Some(match service {
-        "X" => egui::include_image!("../../../assets/social/x.svg"),
-        "YouTube" => egui::include_image!("../../../assets/social/youtube.svg"),
-        "TikTok" => egui::include_image!("../../../assets/social/tiktok.svg"),
-        "Instagram" => egui::include_image!("../../../assets/social/instagram.svg"),
-        "LinkedIn" => egui::include_image!("../../../assets/social/linkedin.svg"),
-        _ => return None,
-    })
+/// A social service's logo, by its name in `catalog::SOCIAL`. FreeANDIY lists no services.
+pub fn social(_service: &str) -> Option<ImageSource<'static>> {
+    None
 }
 
-/// The ArtCraft "A" mark in blue, as supplied: the launcher's app icon and getartcraft.com's favicon.
+/// The launcher's mark (its app icon tile, the angel Andy). © Free Andy Agency.
 pub fn artcraft_mark() -> ImageSource<'static> {
-    egui::include_image!("../../../docs/brand/artcraft-mark.svg")
+    egui::include_image!("../../../assets/app-icon/freeandiy-launcher-mark.png")
 }

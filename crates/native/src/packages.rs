@@ -9,7 +9,7 @@ use artcraft_launcher_core::{CraftApp, InstallSource, version};
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Package {
     pub manager: InstallSource,
-    /// The package's name (`photocraft-bin`) or Flatpak app id.
+    /// The package's name (`freeandiy-photo-bin`) or Flatpak app id.
     pub name: String,
     /// As the package manager reports it (`0.5.0-1`); empty when it doesn't say.
     pub version: String,
@@ -64,9 +64,9 @@ pub fn parse_flatpak_info(text: &str) -> Option<String> {
 }
 
 /// The package names a Craft App may be installed under with `manager`. On Arch the AUR carries
-/// each app three ways: built from source (`photocraft`), the release binary (`photocraft-bin`)
-/// and the latest commit (`photocraft-git`). Debian and RPM packages may use either the short stem
-/// (`photocraft`) or the reverse-DNS bundle id (`ai.storyteller.photocraft`).
+/// each app three ways: built from source (`freeandiy-photo`), the release binary (`freeandiy-photo-bin`)
+/// and the latest commit (`freeandiy-photo-git`). Debian and RPM packages may use either the short stem
+/// (`freeandiy-photo`) or the reverse-DNS bundle id (`agency.freeandy.photo`).
 pub fn candidate_names(app: &CraftApp, manager: InstallSource) -> Vec<String> {
     match manager {
         InstallSource::Flatpak => vec![app.bundle_id()],
@@ -102,56 +102,56 @@ mod tests {
     #[test]
     fn reads_each_package_managers_listing() {
         assert_eq!(
-            parse_dpkg("photocraft|installed|0.5.0-1\nphotocraft:amd64|installed|0.6.0-1\nwordcraft|config-files|0.3.0-1\n"),
-            [("photocraft".into(), "0.5.0-1".into()), ("photocraft".into(), "0.6.0-1".into())]
+            parse_dpkg("freeandiy-photo|installed|0.5.0-1\nphotocraft:amd64|installed|0.6.0-1\nwordcraft|config-files|0.3.0-1\n"),
+            [("freeandiy-photo".into(), "0.5.0-1".into()), ("freeandiy-photo".into(), "0.6.0-1".into())]
         );
-        assert_eq!(parse_rpm("gridcraft|0.3.0\n"), [("gridcraft".into(), "0.3.0".into())]);
-        assert_eq!(parse_pacman("photocraft-bin 0.5.0-1\nlinux 6.11.1.arch1-1\n").len(), 2);
+        assert_eq!(parse_rpm("freeandiy-sheets|0.3.0\n"), [("freeandiy-sheets".into(), "0.3.0".into())]);
+        assert_eq!(parse_pacman("freeandiy-photo-bin 0.5.0-1\nlinux 6.11.1.arch1-1\n").len(), 2);
         assert_eq!(
-            parse_flatpak_list("ai.storyteller.wordcraft\t\nai.storyteller.cadcraft\t0.3.0\n"),
-            [("ai.storyteller.wordcraft".into(), String::new()), ("ai.storyteller.cadcraft".into(), "0.3.0".into())]
+            parse_flatpak_list("agency.freeandy.write\t\nagency.freeandy.cadcraft\t0.3.0\n"),
+            [("agency.freeandy.write".into(), String::new()), ("agency.freeandy.cadcraft".into(), "0.3.0".into())]
         );
-        let info = "\nWordCraft - Word processor\n\n          ID: ai.storyteller.wordcraft\n     Version: 0.3.0\n      Branch: master\n";
+        let info = "\nFreeANDIY Write - Word processor\n\n          ID: agency.freeandy.write\n     Version: 0.3.0\n      Branch: master\n";
         assert_eq!(parse_flatpak_info(info).as_deref(), Some("0.3.0"));
         assert_eq!(parse_flatpak_info("Version: \n"), None);
     }
 
     #[test]
     fn candidate_names_cover_bundle_ids_for_deb_rpm_and_pacman() {
-        let photo = CraftApp::by_id("photocraft").unwrap();
+        let photo = CraftApp::by_id("freeandiy-photo").unwrap();
         let deb_names = candidate_names(photo, InstallSource::Deb);
-        assert!(deb_names.contains(&"photocraft".to_string()));
-        assert!(deb_names.contains(&"ai.storyteller.photocraft".to_string()));
+        assert!(deb_names.contains(&"freeandiy-photo".to_string()));
+        assert!(deb_names.contains(&"agency.freeandy.photo".to_string()));
 
         let rpm_names = candidate_names(photo, InstallSource::Rpm);
-        assert!(rpm_names.contains(&"photocraft".to_string()));
-        assert!(rpm_names.contains(&"ai.storyteller.photocraft".to_string()));
+        assert!(rpm_names.contains(&"freeandiy-photo".to_string()));
+        assert!(rpm_names.contains(&"agency.freeandy.photo".to_string()));
 
         let pacman_names = candidate_names(photo, InstallSource::Pacman);
-        assert!(pacman_names.contains(&"photocraft".to_string()));
-        assert!(pacman_names.contains(&"photocraft-bin".to_string()));
-        assert!(pacman_names.contains(&"ai.storyteller.photocraft".to_string()));
+        assert!(pacman_names.contains(&"freeandiy-photo".to_string()));
+        assert!(pacman_names.contains(&"freeandiy-photo-bin".to_string()));
+        assert!(pacman_names.contains(&"agency.freeandy.photo".to_string()));
     }
 
     #[test]
     fn finds_aur_packages_in_every_flavour() {
-        let photo = CraftApp::by_id("photocraft").unwrap();
-        let pdf = CraftApp::by_id("pdfcraft").unwrap();
+        let photo = CraftApp::by_id("freeandiy-photo").unwrap();
+        let pdf = CraftApp::by_id("freeandiy-pdf").unwrap();
         let installed =
             pkgs(InstallSource::Pacman, parse_pacman("linux 6.11.1.arch1-1\nphotocraft-git 0.3.0.r47.g47f9306-1\nprintcraft-bin 0.2.1-1\n"));
         let hit = find(photo, &installed, &[InstallSource::Pacman]).unwrap();
-        assert_eq!(hit.name, "photocraft-git");
+        assert_eq!(hit.name, "freeandiy-photo-git");
         assert_eq!(version_of(hit).unwrap().to_string(), "0.3.0");
-        // PdfCraft under its old name.
+        // FreeANDIY PDF under its old name.
         assert_eq!(find(pdf, &installed, &[InstallSource::Pacman]).unwrap().name, "printcraft-bin");
-        assert!(find(CraftApp::by_id("wordcraft").unwrap(), &installed, &[InstallSource::Pacman]).is_none());
+        assert!(find(CraftApp::by_id("freeandiy-write").unwrap(), &installed, &[InstallSource::Pacman]).is_none());
     }
 
     #[test]
     fn prefers_managers_in_order_and_reads_revisions() {
-        let photo = CraftApp::by_id("photocraft").unwrap();
-        let mut installed = pkgs(InstallSource::Deb, parse_dpkg("photocraft|installed|0.5.0-1\n"));
-        installed.extend(pkgs(InstallSource::Flatpak, parse_flatpak_list("ai.storyteller.photocraft\t0.4.0\n")));
+        let photo = CraftApp::by_id("freeandiy-photo").unwrap();
+        let mut installed = pkgs(InstallSource::Deb, parse_dpkg("freeandiy-photo|installed|0.5.0-1\n"));
+        installed.extend(pkgs(InstallSource::Flatpak, parse_flatpak_list("agency.freeandy.photo\t0.4.0\n")));
         let hit = find(photo, &installed, &[InstallSource::Deb, InstallSource::Flatpak]).unwrap();
         assert_eq!(hit.manager, InstallSource::Deb);
         // 0.5.0-1 is the 0.5.0 release, not a pre-release of it.

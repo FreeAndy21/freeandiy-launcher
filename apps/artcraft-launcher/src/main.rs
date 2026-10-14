@@ -1,4 +1,4 @@
-//! ArtCraft Launcher: install, update and open the Craft App Suite.
+//! FreeANDIY Launcher: install, update and open the FreeANDIY apps.
 //!
 //! The window can close to the tray (menu bar) and keep checking for updates, or quit entirely.
 
@@ -28,7 +28,7 @@ use artcraft_launcher_ui_egui::theme::Tokens;
 use artcraft_launcher_ui_egui::{Host, LauncherUi, Settings, TitleBar};
 use eframe::wgpu::rwh::{HasDisplayHandle, RawDisplayHandle};
 
-const APP_ID: &str = "ai.storyteller.artcraft-launcher";
+const APP_ID: &str = "agency.freeandy.launcher";
 const SETTINGS_KEY: &str = "settings";
 
 type Wake = Arc<OnceLock<Box<dyn Fn() + Send + Sync>>>;
@@ -41,7 +41,7 @@ fn main() -> ExitCode {
     artcraft_launcher_ui_egui::i18n::detect_system_lang_in_background();
     let args: Vec<String> = std::env::args().skip(1).collect();
     if args.iter().any(|a| a == "--version" || a == "-V") {
-        println!("artcraft-launcher {}", env!("CARGO_PKG_VERSION"));
+        println!("freeandiy-launcher {}", env!("CARGO_PKG_VERSION"));
         return ExitCode::SUCCESS;
     }
     let mut hidden = args.iter().any(|a| a == login::HIDDEN_FLAG);
@@ -58,7 +58,7 @@ fn main() -> ExitCode {
     if let Some(logs) = logs {
         match artcraft_launcher_native::paths::Paths::new() {
             Ok(paths) => match logs.attach_dir(&paths.logs()) {
-                Ok(path) => log::info!("ArtCraft Launcher {}, log file {}", env!("CARGO_PKG_VERSION"), path.display()),
+                Ok(path) => log::info!("FreeANDIY Launcher {}, log file {}", env!("CARGO_PKG_VERSION"), path.display()),
                 Err(e) => {
                     logs.no_file();
                     log::warn!("no log file: {e}");
@@ -104,7 +104,7 @@ fn main() -> ExitCode {
             let result = {
                 let (waker, launcher) = (waker.clone(), &mut launcher);
                 eframe::run_native(
-                    "ArtCraft Launcher",
+                    "FreeANDIY Launcher",
                     native_options(hidden),
                     Box::new(move |cc| {
                         launcher.open(cc, &waker);
@@ -130,10 +130,9 @@ fn main() -> ExitCode {
 }
 
 fn native_options(hidden: bool) -> eframe::NativeOptions {
-    let icon =
-        eframe::icon_data::from_png_bytes(include_bytes!("../../../assets/app-icon/hicolor/256x256/apps/ai.storyteller.artcraft-launcher.png")).ok();
+    let icon = eframe::icon_data::from_png_bytes(include_bytes!("../../../assets/app-icon/hicolor/256x256/apps/agency.freeandy.launcher.png")).ok();
     let mut viewport = egui::ViewportBuilder::default()
-        .with_title("ArtCraft Launcher")
+        .with_title("FreeANDIY Launcher")
         .with_app_id(APP_ID)
         .with_inner_size([1120.0, 760.0])
         .with_min_inner_size([720.0, 500.0])
@@ -405,7 +404,7 @@ impl Host for DesktopHost {
             #[cfg(target_os = "macos")]
             claim_notification_identity();
             let mut n = notify_rust::Notification::new();
-            n.summary(&title).body(&body).appname("ArtCraft Launcher");
+            n.summary(&title).body(&body).appname("FreeANDIY Launcher");
             #[cfg(windows)]
             n.app_id(APP_ID);
             #[cfg(all(unix, not(target_os = "macos")))]
@@ -910,7 +909,7 @@ mod tests {
 
     #[test]
     fn with_no_window_changed_settings_are_saved_before_quitting() {
-        let dir = std::env::temp_dir().join(format!("artcraft-launcher-tray-save-{}", std::process::id()));
+        let dir = std::env::temp_dir().join(format!("freeandiy-launcher-tray-save-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&dir);
         let path = dir.join("app.ron");
         let seen = Arc::new(Seen { clock: AtomicI64::new(NOW), ..Seen::default() });
@@ -932,7 +931,7 @@ mod tests {
 
     #[test]
     fn with_no_window_unchanged_settings_are_not_written() {
-        let dir = std::env::temp_dir().join(format!("artcraft-launcher-tray-nosave-{}", std::process::id()));
+        let dir = std::env::temp_dir().join(format!("freeandiy-launcher-tray-nosave-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&dir);
         let (_, show_requests) = channel();
         let mut launcher = Launcher::new(Box::new(Quiet(Arc::new(Seen::default()))), show_requests, Some(dir.join("app.ron")));

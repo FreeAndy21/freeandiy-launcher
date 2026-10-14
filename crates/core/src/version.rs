@@ -14,6 +14,11 @@ pub fn parse(text: &str) -> Option<Version> {
     if t.is_empty() || t.len() > 64 {
         return None;
     }
+    // FreeANDIY tags its builds of upstream release X.Y.Z as `vX.Y.Z-fa.N`: that is build
+    // metadata (the same version, rebuilt), not a pre-release.
+    let fa = t.find("-fa.").filter(|&i| t[i + 4..].bytes().all(|b| b.is_ascii_digit()) && t.len() > i + 4);
+    let fa_tag = fa.map(|i| format!("{}+{}", &t[..i], &t[i + 1..]));
+    let t = fa_tag.as_deref().unwrap_or(t);
     // Debian/RPM spell pre-releases with `~` and append a package revision after `-`.
     let debianish = t.contains('~');
     let t = if debianish { t.split_once('-').map_or(t, |(v, _)| v).replace('~', "-") } else { t.to_string() };
@@ -57,7 +62,7 @@ pub fn parse_package(text: &str) -> Option<Version> {
     match parts.as_slice() {
         [a, b, c] => Version::parse(&format!("{a}.{b}.{c}")).ok(),
         [a, b] => Version::parse(&format!("{a}.{b}.0")).ok(),
-        // Text around the version, as in `--version` output (`PhotoCraft 0.5.0 (abc, 2026)`):
+        // Text around the version, as in `--version` output (`FreeANDIY Photo 0.5.0 (abc, 2026)`):
         // the first `X.Y.Z` run anywhere.
         _ => first_xyz(&t),
     }
@@ -129,6 +134,16 @@ pub fn is_update(latest: &Version, installed: &Version) -> bool {
 mod tests {
     use super::*;
 
+    #[test]
+    fn freeandiy_build_tags_are_the_release_they_rebuild() {
+        let v = parse("v0.8.2-fa.1").unwrap();
+        assert_eq!((v.major, v.minor, v.patch), (0, 8, 2));
+        assert!(v.pre.is_empty(), "not a pre-release");
+        assert_eq!(v.build.as_str(), "fa.1");
+        assert_eq!(parse("0.8.2-fa.1").unwrap().cmp_precedence(&parse("0.8.2").unwrap()), Ordering::Equal);
+        assert!(!parse("0.8.2-fa.x").unwrap().pre.is_empty(), "only fa.<number> is FreeANDIY's");
+    }
+
     fn v(s: &str) -> Version {
         parse(s).unwrap()
     }
@@ -160,7 +175,7 @@ mod tests {
         assert_eq!(p("0.4.0").as_deref(), Some("0.4.0"));
         assert_eq!(p("0.5").as_deref(), Some("0.5.0"));
         // A version inside text, as `--version` prints it.
-        assert_eq!(p("PhotoCraft 0.5.0 (abc, 2026)").as_deref(), Some("0.5.0"));
+        assert_eq!(p("FreeANDIY Photo 0.5.0 (abc, 2026)").as_deref(), Some("0.5.0"));
         assert_eq!(p("junk"), None);
         assert_eq!(p("garbage"), None);
         // The bug this guards: 0.5.0-1 used to read as a pre-release, so an installed .deb of the

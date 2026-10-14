@@ -1,4 +1,4 @@
-# Spanish (es) catalog for ArtCraft Launcher.
+# Spanish (es) catalog for FreeANDIY Launcher.
 # Format: context<TAB>source<TAB>translation
 # Empty context = plain UI string (tl!, t).
 # @id = command-id keyed (tr_id).
@@ -6,21 +6,21 @@
 # @msg = status/error message template (message, msg).
 # Other context = disambiguation for tr_ctx.
 #
-# Clean-room: written from the meaning of ArtCraft Launcher's English labels, in neutral
+# Clean-room: written from the meaning of FreeANDIY Launcher's English labels, in neutral
 # international Spanish for Spain and Latin America (the interface addresses the user as "tú";
 # no regional words such as "ordenador").
 #
 # Coverage: the whole interface: every menu string and tl! literal (complete_menus = true).
-# Left in English on purpose: product name "ArtCraft Launcher" (and its "Launcher" tag), suite
-# name "Craft App Suite", app names (PhotoCraft, LightCraft, FilmCraft,
-# DesignCraft, VectorCraft, PdfCraft, EffectCraft, WordCraft, DeckCraft, GridCraft, CADCraft,
-# SoundCraft, FigCraft), "GitHub", "Discord", "Finder", "makers".
+# Left in English on purpose: product name "FreeANDIY Launcher" (and its "Launcher" tag), suite
+# name "FreeANDIY apps", app names (FreeANDIY Photo, FreeANDIY Light, FreeANDIY Film,
+# FreeANDIY Layout, FreeANDIY Vector, FreeANDIY PDF, FreeANDIY Effects, FreeANDIY Write, FreeANDIY Slides, FreeANDIY Sheets, CADCraft,
+# FreeANDIY Sound, FigCraft), "GitHub", "Discord", "Finder", "makers".
 # Trailing "…" (U+2026) must be preserved. Placeholders must appear in the translation:
 # {ago}, {a}, {b}, {count}, {date}, {day}, {done}, {e}, {f}, {installed}, {latest}, {min},
 # {month}, {name}, {n}, {os}, {platform}, {sources}, {total}, {version}, {v}, {year}.
 
 	Launcher	Launcher
-	Craft App Suite	Craft App Suite
+	FreeANDIY apps	FreeANDIY apps
 	Open Source Tools for Creatives, Makers, and Builders	Herramientas de código abierto para creativos, makers y constructores
 	Settings	Ajustes
 	Check for updates	Buscar actualizaciones
@@ -40,7 +40,6 @@
 	Installed version	Versión instalada
 	Latest version	Última versión
 	Newest release	Publicación más reciente
-	Discord	Discord
 	GitHub	GitHub
 	Website	Sitio web
 	Classic apps	Aplicaciones clásicas
@@ -73,7 +72,7 @@
 	Reinstall	Reinstalar
 	Uninstall…	Desinstalar…
 	All releases	Todas las versiones
-	ArtCraft Launcher {version} is available.	ArtCraft Launcher {version} está disponible.
+	FreeANDIY Launcher {version} is available.	FreeANDIY Launcher {version} está disponible.
 	Dismiss	Descartar
 	Update and restart	Actualizar y reiniciar
 	A new version is available. Would you like to relaunch with the updated version?	Hay una versión nueva. ¿Quieres reiniciar con la versión actualizada?
@@ -83,7 +82,7 @@
 	Released {date}	Publicada el {date}
 	Open on GitHub	Abrir en GitHub
 	Close	Cerrar
-	ArtCraft Launcher {version}	ArtCraft Launcher {version}
+	FreeANDIY Launcher {version}	FreeANDIY Launcher {version}
 	Only when I ask	Solo cuando lo pida
 	Automatically download and install updates	Descargar e instalar actualizaciones automáticamente
 	Notify me when an installed app has an update	Avisarme cuando una aplicación instalada tenga una actualización
@@ -95,11 +94,11 @@
 	Running in the background	En segundo plano
 	Keep running in the tray when the window is closed	Seguir abierto en la bandeja del sistema al cerrar la ventana
 	Show the window on the current desktop	Mostrar la ventana en el escritorio actual
-	Start ArtCraft Launcher when I log in	Abrir ArtCraft Launcher al iniciar sesión
+	Start FreeANDIY Launcher when I log in	Abrir FreeANDIY Launcher al iniciar sesión
 	Community	Comunidad
-	Questions, ideas and news from the ArtCraft team	Preguntas, ideas y noticias del equipo de ArtCraft
+	Questions, ideas and news from the FreeANDIY team	Preguntas, ideas y noticias del equipo de FreeANDIY
 	Appearance	Apariencia
-	Quit ArtCraft Launcher	Salir de ArtCraft Launcher
+	Quit FreeANDIY Launcher	Salir de FreeANDIY Launcher
 	Done	Listo
 	Uninstall {name}?	¿Desinstalar {name}?
 	The app will be moved to the Trash. Your documents and settings stay.	La aplicación se moverá a la Papelera. Tus documentos y ajustes se conservan.
@@ -123,7 +122,6 @@
 	Apps you hid	Aplicaciones que ocultaste
 	Checked {ago} · using {sources}	Comprobado {ago} · con {sources}
 	{a} and {b}	{a} y {b}
-	Join the Discord	Únete al Discord
 	Learn more	Más información
 	Minimize	Minimizar
 	Maximize	Maximizar
@@ -133,7 +131,7 @@
 	Open link	Abrir enlace
 	Update	Actualizar
 	{name} icon	Icono de {name}
-	Loading ArtCraft Launcher…	Cargando ArtCraft Launcher…
+	Loading FreeANDIY Launcher…	Cargando FreeANDIY Launcher…
 	Cancel update	Cancelar la actualización
 	Stop waiting; the update can be started again later	Dejar de esperar; la actualización se puede volver a iniciar más tarde
 	Download again	Volver a descargar
@@ -153,18 +151,18 @@
 	RPM package (.rpm)	Paquete RPM (.rpm)
 	Flatpak bundle	Paquete Flatpak
 	Tarball (.tar.gz)	Archivo tar (.tar.gz)
-photocraft	Image editing	Edición de imágenes
-vectorcraft	Vector illustration	Ilustración vectorial
-filmcraft	Video editing, color and sound	Edición de video, color y sonido
-lightcraft	Photo library and raw development	Fototeca y revelado RAW
-pdfcraft	Reading, organizing and protecting PDFs	Leer, organizar y proteger PDF
-effectcraft	Motion graphics and visual effects	Gráficos en movimiento y efectos visuales
-designcraft	Page layout and publishing	Maquetación y publicación
-wordcraft	Writing and document design	Escritura y diseño de documentos
-deckcraft	Presentations and slide shows	Presentaciones y diapositivas
-gridcraft	Spreadsheets and data	Hojas de cálculo y datos
+freeandiy-photo	Image editing	Edición de imágenes
+freeandiy-vector	Vector illustration	Ilustración vectorial
+freeandiy-film	Video editing, color and sound	Edición de video, color y sonido
+freeandiy-light	Photo library and raw development	Fototeca y revelado RAW
+freeandiy-pdf	Reading, organizing and protecting PDFs	Leer, organizar y proteger PDF
+freeandiy-effects	Motion graphics and visual effects	Gráficos en movimiento y efectos visuales
+freeandiy-layout	Page layout and publishing	Maquetación y publicación
+freeandiy-write	Writing and document design	Escritura y diseño de documentos
+freeandiy-slides	Presentations and slide shows	Presentaciones y diapositivas
+freeandiy-sheets	Spreadsheets and data	Hojas de cálculo y datos
 cadcraft	Computer-aided design and drafting	CAD: diseño y dibujo técnico
-soundcraft	Recording, editing and mixing audio	Grabación, edición y mezcla de audio
+freeandiy-sound	Recording, editing and mixing audio	Grabación, edición y mezcla de audio
 figcraft	Interface design and prototyping	Diseño de interfaces y prototipos
 month	Jan	ene.
 month	Feb	feb.
@@ -184,8 +182,7 @@ month	Dec	dic.
 	Installing for {platform}	Instalación para {platform}
 	Downloads for {platform}	Descargas para {platform}
 	No downloads for this system	No hay descargas para este sistema
-	Join the ArtCraft community on Discord	Únete a la comunidad de ArtCraft en Discord
-	ArtCraft on {name}	ArtCraft en {name}
+	FreeANDIY on {name}	FreeANDIY en {name}
 	Couldn't open {name}: {e}	No se pudo abrir {name}: {e}
 	Download cancelled	Descarga cancelada
 	Available to install	Disponible para instalar
@@ -205,7 +202,7 @@ month	Dec	dic.
 	Version {version} installed	Versión {version} instalada
 	Version {latest}	Versión {latest}
 	No release published yet	Aún no hay ninguna versión publicada
-	ArtCraft Launcher	ArtCraft Launcher
+	FreeANDIY Launcher	FreeANDIY Launcher
 	App	Aplicación
 	Latest	Última
 	Released	Publicada
@@ -227,7 +224,7 @@ month	Dec	dic.
 	Couldn't check for updates: {f}	No se pudieron buscar actualizaciones: {f}
 	Website (coming soon)	Sitio web (próximamente)
 	GitHub repository	Repositorio en GitHub
-	ArtCraft	ArtCraft
+	FreeANDIY	FreeANDIY
 	Update 1 app	Actualizar 1 aplicación
 	Update all ({count})	Actualizar todas ({count})
 	⊞  Grid	⊞  Cuadrícula
@@ -240,11 +237,11 @@ month	Dec	dic.
 	Full changelog	Registro de cambios completo
 	link	enlace
 	No apps match	Ninguna aplicación coincide
-	Open ArtCraft Launcher to update.	Abre ArtCraft Launcher para actualizar.
+	Open FreeANDIY Launcher to update.	Abre FreeANDIY Launcher para actualizar.
 	{name} {v} is available	{name} {v} está disponible
 	{count} updates are available	Hay {count} actualizaciones disponibles
 	These notes weren't fetched (GitHub's request limit was reached). They're on the release page.	Estas notas no se descargaron (se alcanzó el límite de solicitudes de GitHub). Están en la página de la versión.
-	When on, opening the launcher from the menu bar brings its window to the desktop you're on. When off, macOS switches you to the desktop the window was on.	Si está activado, abrir ArtCraft Launcher desde la barra de menús lleva su ventana al escritorio en el que estás. Si está desactivado, macOS te cambia al escritorio en el que estaba la ventana.
+	When on, opening the launcher from the menu bar brings its window to the desktop you're on. When off, macOS switches you to the desktop the window was on.	Si está activado, abrir FreeANDIY Launcher desde la barra de menús lleva su ventana al escritorio en el que estás. Si está desactivado, macOS te cambia al escritorio en el que estaba la ventana.
 	Couldn't change the login item: {e}	No se pudo cambiar el elemento de inicio de sesión: {e}
 column	App	Aplicación
 column	Installed	Instalada
@@ -293,7 +290,7 @@ filter	Installed	Instaladas
 @id	launcher.notes	Novedades
 @id	launcher.dismiss	Descartar
 @id	settings.open	Ajustes
-@id	settings.quit	Salir de ArtCraft Launcher
+@id	settings.quit	Salir de FreeANDIY Launcher
 @id	view.grid	Cuadrícula
 @id	view.table	Tabla
 @id	filter.all	Todas
@@ -307,7 +304,6 @@ filter	Installed	Instaladas
 @id	sort.installed	Versión instalada
 @id	sort.latest	Última versión
 @id	sort.released	Publicación más reciente
-@id	help.discord	Discord
 @id	help.github	GitHub
 @id	help.website	Sitio web
 @id	update.check	Buscar actualizaciones
@@ -317,11 +313,10 @@ filter	Installed	Instaladas
 @id	linux.preferred_kind	Instalar las aplicaciones nuevas como
 @id	tray.close_to_tray	Seguir abierto en la bandeja del sistema al cerrar la ventana
 @id	tray.show_on_current_desktop	Mostrar la ventana en el escritorio actual
-@id	tray.login_item	Abrir ArtCraft Launcher al iniciar sesión
+@id	tray.login_item	Abrir FreeANDIY Launcher al iniciar sesión
 @id	appearance.theme	Apariencia
-	Show ArtCraft Launcher	Mostrar ArtCraft Launcher
+	Show FreeANDIY Launcher	Mostrar FreeANDIY Launcher
 	Check for Updates	Buscar actualizaciones
-	Visit getartcraft.com	Visitar getartcraft.com
-	ArtCraft on GitHub	ArtCraft en GitHub
-	Join the ArtCraft Discord	Únete al Discord de ArtCraft
-@plural	ArtCraft Launcher · {n} update available|ArtCraft Launcher · {n} updates available	ArtCraft Launcher · {n} actualización disponible|ArtCraft Launcher · {n} actualizaciones disponibles
+	Visit freeandiy.freeandy.agency	Visitar freeandiy.freeandy.agency
+	FreeANDIY on GitHub	FreeANDIY en GitHub
+@plural	FreeANDIY Launcher · {n} update available|FreeANDIY Launcher · {n} updates available	FreeANDIY Launcher · {n} actualización disponible|FreeANDIY Launcher · {n} actualizaciones disponibles

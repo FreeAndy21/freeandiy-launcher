@@ -1,4 +1,4 @@
-//! ArtCraft Launcher updating itself.
+//! FreeANDIY Launcher updating itself.
 //!
 //! The new version is downloaded and verified like any Craft App, then swapped in the way this
 //! copy was installed. A small helper process waits for this launcher to exit, finishes anything
@@ -10,7 +10,7 @@
 //! |---|---|
 //! | macOS `.app` | copy the new bundle from the DMG over this one (fine while running), reopen it |
 //! | Windows MSI (per-user, any folder) | after exit, run the new MSI (it reinstalls into the same folder), then start the exe |
-//! | Windows portable zip | after exit, unzip over this folder (settings in `ArtCraftLauncherData` stay) |
+//! | Windows portable zip | after exit, unzip over this folder (settings in `FreeANDIYLauncherData` stay) |
 //! | Linux AppImage | rename the new AppImage over this one (fine while running), start it |
 //! | Linux `.deb` / `.rpm` | the system package manager, with the password prompt; then restart |
 //!
@@ -35,7 +35,7 @@ use crate::process;
 /// How this running launcher was installed.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Install {
-    /// The `ArtCraft Launcher.app` bundle.
+    /// The `FreeANDIY Launcher.app` bundle.
     MacApp(PathBuf),
     /// The per-user Windows Installer package; the exe.
     Msi(PathBuf),
@@ -61,7 +61,7 @@ impl Install {
 
 /// Makes an installed copy believe it's this version, to try the self-update against the current
 /// release. The restart helper drops it, so it lasts one run.
-const PRETEND_VAR: &str = "ARTCRAFT_LAUNCHER_PRETEND_VERSION";
+const PRETEND_VAR: &str = "FREEANDIY_LAUNCHER_PRETEND_VERSION";
 
 /// The version this launcher counts as (see [`PRETEND_VAR`]).
 pub fn current_version() -> Option<Version> {
@@ -107,19 +107,19 @@ fn detect(exe: &Path) -> Option<Install> {
         return Some(Install::Portable(exe.to_path_buf()));
     }
     // The MSI installs per user, into the folder chosen in its wizard (which it records in the
-    // registry) or by default %LOCALAPPDATA%\Programs\ArtCraft Launcher.
+    // registry) or by default %LOCALAPPDATA%\Programs\FreeANDIY Launcher.
     let canonical = |p: PathBuf| p.canonicalize().unwrap_or(p);
     let recorded = msi_install_dir().map(canonical);
     let default = dirs::data_local_dir().map(|d| canonical(d.join("Programs").join(LAUNCHER.name)));
     [recorded, default].into_iter().flatten().any(|d| d == dir).then(|| Install::Msi(exe.to_path_buf()))
 }
 
-/// The folder the MSI installed into, as it records it (`packaging/windows/artcraft-launcher.wxs`).
+/// The folder the MSI installed into, as it records it (`packaging/windows/freeandiy-launcher.wxs`).
 #[cfg(windows)]
 fn msi_install_dir() -> Option<PathBuf> {
     use winreg::RegKey;
     use winreg::enums::HKEY_CURRENT_USER;
-    let key = RegKey::predef(HKEY_CURRENT_USER).open_subkey(r"Software\Learning Machines LLC\ArtCraft Launcher").ok()?;
+    let key = RegKey::predef(HKEY_CURRENT_USER).open_subkey(r"Software\Learning Machines LLC\FreeANDIY Launcher").ok()?;
     let dir: String = key.get_value("InstallDir").ok()?;
     let dir = dir.trim();
     (!dir.is_empty()).then(|| PathBuf::from(dir))
@@ -166,7 +166,7 @@ pub fn update(
     last: &dyn Fn() -> Result<(), String>,
 ) -> Result<(), String> {
     let (asset, _) = pick_asset(release, &[LAUNCHER.id], platform, &[install.kind()])
-        .ok_or_else(|| format!("ArtCraft Launcher {} has no {} for {}", release.version_label(), install.kind().label(), platform.label()))?;
+        .ok_or_else(|| format!("FreeANDIY Launcher {} has no {} for {}", release.version_label(), install.kind().label(), platform.label()))?;
     let asset = asset.clone();
     let mut job = Job { http, paths, stop, phase };
     let file = install::download(release, &asset, &mut job)?;
@@ -229,7 +229,7 @@ pub fn update(
         #[allow(unreachable_patterns)]
         _ => {
             let _ = (pid, &file);
-            Err("this copy of ArtCraft Launcher can't update itself; download the new version instead".into())
+            Err("this copy of FreeANDIY Launcher can't update itself; download the new version instead".into())
         }
     }
 }
@@ -333,33 +333,33 @@ mod tests {
         assert!(marker.exists(), "never started after the old launcher exited");
     }
 
-    /// A real disk image: the new `ArtCraft Launcher.app` replaces the old one in place.
+    /// A real disk image: the new `FreeANDIY Launcher.app` replaces the old one in place.
     #[cfg(target_os = "macos")]
     #[test]
     fn the_new_bundle_replaces_the_running_one() {
         fn bundle(at: &Path, version: &str) {
-            let contents = at.join("ArtCraft Launcher.app/Contents");
+            let contents = at.join("FreeANDIY Launcher.app/Contents");
             std::fs::create_dir_all(contents.join("MacOS")).unwrap();
             std::fs::write(
                 contents.join("Info.plist"),
                 format!(
                     "<?xml version=\"1.0\" encoding=\"UTF-8\"?><plist version=\"1.0\"><dict>\
-                     <key>CFBundleIdentifier</key><string>ai.storyteller.artcraft-launcher</string>\
+                     <key>CFBundleIdentifier</key><string>agency.freeandy.launcher</string>\
                      <key>CFBundleShortVersionString</key><string>{version}</string></dict></plist>"
                 ),
             )
             .unwrap();
-            std::fs::write(contents.join("MacOS/ArtCraft Launcher"), version).unwrap();
+            std::fs::write(contents.join("MacOS/FreeANDIY Launcher"), version).unwrap();
         }
         let dir = tempfile::tempdir().unwrap();
         let apps = dir.path().join("Applications");
         bundle(&apps, "0.1.0");
         let src = dir.path().join("src");
         bundle(&src, "0.2.0");
-        let dmg = dir.path().join("artcraft-launcher-0.2.0-macos-universal.dmg");
+        let dmg = dir.path().join("freeandiy-launcher-0.2.0-macos-universal.dmg");
         let one_at_a_time = install::macos::DISK_IMAGES.lock().unwrap_or_else(std::sync::PoisonError::into_inner);
         let ok = std::process::Command::new("hdiutil")
-            .args(["create", "-quiet", "-format", "UDZO", "-volname", "ArtCraft Launcher 0.2.0", "-srcfolder"])
+            .args(["create", "-quiet", "-format", "UDZO", "-volname", "FreeANDIY Launcher 0.2.0", "-srcfolder"])
             .arg(&src)
             .arg(&dmg)
             .status()
@@ -367,21 +367,21 @@ mod tests {
             .success();
         assert!(ok, "hdiutil create failed");
         drop(one_at_a_time);
-        let current = apps.join("ArtCraft Launcher.app");
+        let current = apps.join("FreeANDIY Launcher.app");
         let existing = Installed { version: None, source: InstallSource::MacApp, location: current.display().to_string(), package: None };
         // An unsigned test bundle: the signature check has its own tests in `install`.
         let expect = install::macos::Expect { team: None, version: None };
         let placed = install::macos::install_dmg(&LAUNCHER, &dmg, Some(&existing), &Paths::under(dir.path()), &expect).unwrap();
         assert_eq!(placed, current);
-        assert_eq!(std::fs::read_to_string(current.join("Contents/MacOS/ArtCraft Launcher")).unwrap(), "0.2.0");
-        assert!(!dir.path().join("Applications/.ArtCraft Launcher.app.partial").exists());
+        assert_eq!(std::fs::read_to_string(current.join("Contents/MacOS/FreeANDIY Launcher")).unwrap(), "0.2.0");
+        assert!(!dir.path().join("Applications/.FreeANDIY Launcher.app.partial").exists());
     }
 
     #[test]
     fn powershell_quoting_survives_apostrophes() {
-        let p = Path::new(r"C:\Users\O'Brien\AppData\Local\ArtCraft Launcher\x.msi");
-        assert_eq!(ps_quote(p), r"'C:\Users\O''Brien\AppData\Local\ArtCraft Launcher\x.msi'");
-        assert_eq!(ps_quote_arg(p), r#"'"C:\Users\O''Brien\AppData\Local\ArtCraft Launcher\x.msi"'"#);
+        let p = Path::new(r"C:\Users\O'Brien\AppData\Local\FreeANDIY Launcher\x.msi");
+        assert_eq!(ps_quote(p), r"'C:\Users\O''Brien\AppData\Local\FreeANDIY Launcher\x.msi'");
+        assert_eq!(ps_quote_arg(p), r#"'"C:\Users\O''Brien\AppData\Local\FreeANDIY Launcher\x.msi"'"#);
     }
 
     #[test]
@@ -393,12 +393,12 @@ mod tests {
     #[test]
     fn the_launcher_picks_its_own_release_files() {
         let names = [
-            "artcraft-launcher-0.2.0-macos-universal.dmg",
-            "artcraft-launcher-0.2.0-windows-x64.msi",
-            "artcraft-launcher-0.2.0-windows-x64-portable.zip",
-            "artcraft-launcher-0.2.0-linux-x86_64.AppImage",
-            "artcraft-launcher-0.2.0-linux-x86_64.deb",
-            "artcraft-launcher-web-0.2.0.zip",
+            "freeandiy-launcher-0.2.0-macos-universal.dmg",
+            "freeandiy-launcher-0.2.0-windows-x64.msi",
+            "freeandiy-launcher-0.2.0-windows-x64-portable.zip",
+            "freeandiy-launcher-0.2.0-linux-x86_64.AppImage",
+            "freeandiy-launcher-0.2.0-linux-x86_64.deb",
+            "freeandiy-launcher-web-0.2.0.zip",
         ];
         let release = Release {
             assets: names

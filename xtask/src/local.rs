@@ -6,7 +6,7 @@
 //! - `serve` serves the mirror on 127.0.0.1 and answers `release_info.json` with a feed (the same
 //!   shape as ArtCraft's) written fresh from whatever is in the mirror at that moment.
 //!
-//! Run the launcher with `ARTCRAFT_LAUNCHER_DOWNLOAD_BASE=http://127.0.0.1:<port>/` and it installs
+//! Run the launcher with `FREEANDIY_LAUNCHER_DOWNLOAD_BASE=http://127.0.0.1:<port>/` and it installs
 //! and updates from the mirror alone.
 
 use std::collections::BTreeMap;
@@ -19,18 +19,18 @@ use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Every Craft App: (id = folder name, display name). Keep in step with `catalog::SUITE`.
 const APPS: &[(&str, &str)] = &[
-    ("photocraft", "PhotoCraft"),
-    ("vectorcraft", "VectorCraft"),
-    ("filmcraft", "FilmCraft"),
-    ("lightcraft", "LightCraft"),
-    ("pdfcraft", "PdfCraft"),
-    ("effectcraft", "EffectCraft"),
-    ("designcraft", "DesignCraft"),
-    ("wordcraft", "WordCraft"),
-    ("deckcraft", "DeckCraft"),
-    ("gridcraft", "GridCraft"),
+    ("freeandiy-photo", "FreeANDIY Photo"),
+    ("freeandiy-vector", "FreeANDIY Vector"),
+    ("freeandiy-film", "FreeANDIY Film"),
+    ("freeandiy-light", "FreeANDIY Light"),
+    ("freeandiy-pdf", "FreeANDIY PDF"),
+    ("freeandiy-effects", "FreeANDIY Effects"),
+    ("freeandiy-layout", "FreeANDIY Layout"),
+    ("freeandiy-write", "FreeANDIY Write"),
+    ("freeandiy-slides", "FreeANDIY Slides"),
+    ("freeandiy-sheets", "FreeANDIY Sheets"),
     ("cadcraft", "CADCraft"),
-    ("soundcraft", "SoundCraft"),
+    ("freeandiy-sound", "FreeANDIY Sound"),
     ("figcraft", "FigCraft"),
 ];
 
@@ -64,7 +64,7 @@ commands:
   status [--root <dir>] [--mirror <dir>]
                   each app's checked-out version and commit next to what's mirrored
 
-then: ARTCRAFT_LAUNCHER_DOWNLOAD_BASE=http://127.0.0.1:8787/ cargo run -p artcraft-launcher --features local-mirror
+then: FREEANDIY_LAUNCHER_DOWNLOAD_BASE=http://127.0.0.1:8787/ cargo run -p artcraft-launcher --features local-mirror
 ";
 
 #[derive(Clone)]
@@ -186,7 +186,7 @@ fn sync(o: &Opts) -> Result<(), String> {
 fn sync_one(o: &Opts, id: &str, name: &str) -> Result<Outcome, String> {
     let repo = o.root.join(id);
     if !repo.join(".git").exists() {
-        return Ok(Outcome::Skipped(format!("no checkout at {} (git clone git@github.com:storytold/{id}.git)", repo.display())));
+        return Ok(Outcome::Skipped(format!("no checkout at {} (git clone git@github.com:FreeAndy21/{id}.git)", repo.display())));
     }
     let mut pull_note = String::new();
     if o.pull {
@@ -454,7 +454,7 @@ fn feed(mirror: &Path, base: &str) -> String {
             r#"{}:{{"name":{},"repo":{},"latest_release":{{"tag":{},"name":{},"published_at":{},"html_url":"","prerelease":false,"notes_markdown":{},"assets":[{}]}},"app_last_fetched":{}}}"#,
             json_str(id),
             json_str(name),
-            json_str(&format!("storytold/{id}")),
+            json_str(&format!("FreeAndy21/{id}")),
             json_str(&format!("v{version}")),
             json_str(&format!("{name} v{version} (local build)")),
             json_str(&published),
@@ -554,7 +554,7 @@ fn serve(o: &Opts) -> Result<(), String> {
     let base = format!("http://127.0.0.1:{}/", o.port);
     println!("serving {} at {base}", o.mirror.display());
     println!("feed:    {base}release_info.json");
-    println!("launch:  ARTCRAFT_LAUNCHER_DOWNLOAD_BASE={base} cargo run -p artcraft-launcher --features local-mirror");
+    println!("launch:  FREEANDIY_LAUNCHER_DOWNLOAD_BASE={base} cargo run -p artcraft-launcher --features local-mirror");
     if let Some(every) = o.sync_every {
         // Syncs run one after another on their own thread, so a long build never holds up a
         // download; a version only joins the feed once its build is complete.
@@ -700,18 +700,18 @@ mod tests {
     #[test]
     fn writes_a_feed_the_launcher_reads() {
         let mirror = std::env::temp_dir().join(format!("xtask-local-{}", std::process::id()));
-        let dir = mirror.join("photocraft").join("0.6.0");
+        let dir = mirror.join("freeandiy-photo").join("0.6.0");
         std::fs::create_dir_all(&dir).unwrap();
-        std::fs::write(dir.join("photocraft-0.6.0-macos-aarch64.dmg"), b"dmg").unwrap();
-        std::fs::write(dir.join(SUMS), format!("{}  photocraft-0.6.0-macos-aarch64.dmg\n", "ab".repeat(32))).unwrap();
+        std::fs::write(dir.join("freeandiy-photo-0.6.0-macos-aarch64.dmg"), b"dmg").unwrap();
+        std::fs::write(dir.join(SUMS), format!("{}  freeandiy-photo-0.6.0-macos-aarch64.dmg\n", "ab".repeat(32))).unwrap();
         std::fs::write(dir.join(NOTES), "Built \"locally\".\n").unwrap();
         // Unfinished builds are invisible.
-        std::fs::create_dir_all(mirror.join("photocraft").join("0.7.0")).unwrap();
+        std::fs::create_dir_all(mirror.join("freeandiy-photo").join("0.7.0")).unwrap();
         std::fs::write(dir.join(COMPLETE), "").unwrap();
         let json = feed(&mirror, "http://127.0.0.1:8787/");
         let _ = std::fs::remove_dir_all(&mirror);
         assert!(json.contains(r#""tag":"v0.6.0""#), "{json}");
-        assert!(json.contains(r#""download_url":"http://127.0.0.1:8787/photocraft/0.6.0/photocraft-0.6.0-macos-aarch64.dmg""#));
+        assert!(json.contains(r#""download_url":"http://127.0.0.1:8787/freeandiy-photo/0.6.0/freeandiy-photo-0.6.0-macos-aarch64.dmg""#));
         assert!(json.contains(r#""size_bytes":3"#) && json.contains(&"ab".repeat(32)));
         assert!(json.contains(r#"Built \"locally\".\n"#));
         assert!(!json.contains("0.7.0"));
@@ -743,7 +743,7 @@ mod tests {
 
     #[test]
     fn only_plain_names_are_served() {
-        assert!(safe_name("photocraft-0.6.0-macos-universal.dmg"));
+        assert!(safe_name("freeandiy-photo-0.6.0-macos-universal.dmg"));
         for bad in ["", ".", "..", "a/b", "a\\b", "a%2e"] {
             assert!(!safe_name(bad), "{bad}");
         }

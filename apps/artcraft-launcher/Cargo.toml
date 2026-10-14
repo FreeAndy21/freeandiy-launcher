@@ -5,9 +5,14 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 rust-version.workspace = true
-default-run = "artcraft-launcher"
+default-run = "freeandiy-launcher"
 build = "build.rs"
 publish = false
+
+# FreeANDIY: the executable carries the product name; the package keeps upstream's.
+[[bin]]
+name = "freeandiy-launcher"
+path = "src/main.rs"
 
 [lints]
 workspace = true

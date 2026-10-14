@@ -1,4 +1,4 @@
-# Russian (ru) catalog for ArtCraft Launcher.
+# Russian (ru) catalog for FreeANDIY Launcher.
 # Format: context<TAB>source<TAB>translation
 # Empty context = plain UI string (tl!, t).
 # @id = command-id keyed (tr_id).
@@ -6,20 +6,20 @@
 # @msg = status/error message template (message, msg).
 # Other context = disambiguation for tr_ctx.
 #
-# Clean-room: written from the meaning of ArtCraft Launcher's English labels in neutral,
+# Clean-room: written from the meaning of FreeANDIY Launcher's English labels in neutral,
 # international Russian, using terms Russian-speaking users of creative software know.
 #
 # Coverage: the whole interface — every menu string and tl! literal (complete_menus = true).
-# Left in English on purpose: product name "ArtCraft Launcher" (and its "Launcher" tag), suite
-# name "Craft App Suite",
-# app names (PhotoCraft, LightCraft, FilmCraft, DesignCraft, VectorCraft, PdfCraft, EffectCraft,
-# WordCraft, DeckCraft, GridCraft, CADCraft, SoundCraft, FigCraft), "GitHub", "Discord", "Website".
+# Left in English on purpose: product name "FreeANDIY Launcher" (and its "Launcher" tag), suite
+# name "FreeANDIY apps",
+# app names (FreeANDIY Photo, FreeANDIY Light, FreeANDIY Film, FreeANDIY Layout, FreeANDIY Vector, FreeANDIY PDF, FreeANDIY Effects,
+# FreeANDIY Write, FreeANDIY Slides, FreeANDIY Sheets, CADCraft, FreeANDIY Sound, FigCraft), "GitHub", "Discord", "Website".
 # Shortcut keys keep their key-cap names (Shift, Alt, Ctrl, Cmd, Esc).
 # Trailing "…" (U+2026) must be preserved. Placeholders {name}, {n}, {version}, {count}, {v},
 # {what}, {unit}, {real}, {e} must appear in translation.
 
 	Launcher	Launcher
-	Craft App Suite	Craft App Suite
+	FreeANDIY apps	FreeANDIY apps
 	Open Source Tools for Creatives, Makers, and Builders	Инструменты с открытым кодом для творцов, мастеров и создателей
 	Settings	Настройки
 	Check for updates	Проверить обновления
@@ -38,7 +38,6 @@
 	Installed version	Установленная версия
 	Latest version	Последняя версия
 	Newest release	Новый релиз
-	Discord	Discord
 	GitHub	GitHub
 	Website	Веб-сайт
 	Classic apps	Классические приложения
@@ -71,7 +70,7 @@
 	Reinstall	Переустановить
 	Uninstall…	Удалить…
 	All releases	Все релизы
-	ArtCraft Launcher {version} is available.	Доступен ArtCraft Launcher {version}.
+	FreeANDIY Launcher {version} is available.	Доступен FreeANDIY Launcher {version}.
 	Dismiss	Закрыть
 	Update and restart	Обновить и перезапустить
 	A new version is available. Would you like to relaunch with the updated version?	Доступна новая версия. Перезапустить с обновленной версией?
@@ -81,7 +80,7 @@
 	Released {date}	Релиз {date}
 	Open on GitHub	Открыть на GitHub
 	Close	Закрыть
-	ArtCraft Launcher {version}	ArtCraft Launcher {version}
+	FreeANDIY Launcher {version}	FreeANDIY Launcher {version}
 	Only when I ask	Только по запросу
 	Automatically download and install updates	Автоматически скачивать и устанавливать обновления
 	Notify me when an installed app has an update	Уведомлять, когда у установленного приложения есть обновление
@@ -93,11 +92,11 @@
 	Running in the background	Работа в фоне
 	Keep running in the tray when the window is closed	Оставаться в трее при закрытии окна
 	Show the window on the current desktop	Показывать окно на текущем рабочем столе
-	Start ArtCraft Launcher when I log in	Запускать ArtCraft Launcher при входе в систему
+	Start FreeANDIY Launcher when I log in	Запускать FreeANDIY Launcher при входе в систему
 	Community	Сообщество
-	Questions, ideas and news from the ArtCraft team	Вопросы, идеи и новости от команды ArtCraft
+	Questions, ideas and news from the FreeANDIY team	Вопросы, идеи и новости от команды FreeANDIY
 	Appearance	Внешний вид
-	Quit ArtCraft Launcher	Выйти из ArtCraft Launcher
+	Quit FreeANDIY Launcher	Выйти из FreeANDIY Launcher
 	Done	Готово
 	Uninstall {name}?	Удалить {name}?
 	The app will be moved to the Trash. Your documents and settings stay.	Приложение будет перемещено в Корзину. Ваши документы и настройки сохранятся.
@@ -122,7 +121,6 @@
 	Apps you hid	Приложения, которые вы скрыли
 	Checked {ago} · using {sources}	Проверено {ago} · через {sources}
 	{a} and {b}	{a} и {b}
-	Join the Discord	Присоединиться к Discord
 	Learn more	Подробнее
 	Minimize	Свернуть
 	Maximize	Развернуть
@@ -132,7 +130,7 @@
 	Open link	Открыть ссылку
 	Update	Обновить
 	{name} icon	Значок {name}
-	Loading ArtCraft Launcher…	Загрузка ArtCraft Launcher…
+	Loading FreeANDIY Launcher…	Загрузка FreeANDIY Launcher…
 	Cancel update	Отменить обновление
 	Stop waiting; the update can be started again later	Не ждать; обновление можно будет запустить позже
 	Download again	Скачать заново
@@ -156,18 +154,18 @@
 	Tarball (.tar.gz)	Архив (.tar.gz)
 
 # Contextual: each app's tagline, keyed by app id
-photocraft	Image editing	Редактирование изображений
-vectorcraft	Vector illustration	Векторная иллюстрация
-filmcraft	Video editing, color and sound	Монтаж видео, цветокоррекция и звук
-lightcraft	Photo library and raw development	Фотобиблиотека и проявка RAW
-pdfcraft	Reading, organizing and protecting PDFs	Чтение, упорядочивание и защита PDF
-effectcraft	Motion graphics and visual effects	Моушн-графика и визуальные эффекты
-designcraft	Page layout and publishing	Вёрстка и издательское дело
-wordcraft	Writing and document design	Тексты и оформление документов
-deckcraft	Presentations and slide shows	Презентации и слайд-шоу
-gridcraft	Spreadsheets and data	Электронные таблицы и данные
+freeandiy-photo	Image editing	Редактирование изображений
+freeandiy-vector	Vector illustration	Векторная иллюстрация
+freeandiy-film	Video editing, color and sound	Монтаж видео, цветокоррекция и звук
+freeandiy-light	Photo library and raw development	Фотобиблиотека и проявка RAW
+freeandiy-pdf	Reading, organizing and protecting PDFs	Чтение, упорядочивание и защита PDF
+freeandiy-effects	Motion graphics and visual effects	Моушн-графика и визуальные эффекты
+freeandiy-layout	Page layout and publishing	Вёрстка и издательское дело
+freeandiy-write	Writing and document design	Тексты и оформление документов
+freeandiy-slides	Presentations and slide shows	Презентации и слайд-шоу
+freeandiy-sheets	Spreadsheets and data	Электронные таблицы и данные
 cadcraft	Computer-aided design and drafting	Автоматизированное проектирование и черчение
-soundcraft	Recording, editing and mixing audio	Запись, редактирование и сведение звука
+freeandiy-sound	Recording, editing and mixing audio	Запись, редактирование и сведение звука
 figcraft	Interface design and prototyping	Дизайн интерфейсов и прототипирование
 
 # Contextual: month abbreviations for date rendering
@@ -189,8 +187,7 @@ month	Dec	дек.
 	Installing for {platform}	Установка для {platform}
 	Downloads for {platform}	Скачивание для {platform}
 	No downloads for this system	Нет загрузок для этой системы
-	Join the ArtCraft community on Discord	Присоединиться к сообществу ArtCraft в Discord
-	ArtCraft on {name}	ArtCraft в {name}
+	FreeANDIY on {name}	FreeANDIY в {name}
 	Couldn't open {name}: {e}	Не удалось открыть {name}: {e}
 	Download cancelled	Скачивание отменено
 	Available to install	Доступно для установки
@@ -210,7 +207,7 @@ month	Dec	дек.
 	Version {version} installed	Версия {version} установлена
 	Version {latest}	Версия {latest}
 	No release published yet	Релиз ещё не опубликован
-	ArtCraft Launcher	ArtCraft Launcher
+	FreeANDIY Launcher	FreeANDIY Launcher
 	App	Приложение
 	Latest	Последняя
 	Released	Релиз
@@ -230,7 +227,7 @@ month	Dec	дек.
 	Downloads the new version, replaces this one and opens it again	Скачивает новую версию, заменяет текущую и открывает её заново
 	Couldn't check for updates: {f}	Не удалось проверить обновления: {f}
 	GitHub repository	Репозиторий GitHub
-	ArtCraft	ArtCraft
+	FreeANDIY	FreeANDIY
 	Update 1 app	Обновить 1 приложение
 	Update all ({count})	Обновить все ({count})
 	⊞  Grid	⊞  Сетка
@@ -243,7 +240,7 @@ month	Dec	дек.
 	Full changelog	Полный список изменений
 	link	ссылка
 	No apps match	Нет подходящих приложений
-	Open ArtCraft Launcher to update.	Откройте ArtCraft Launcher, чтобы обновить.
+	Open FreeANDIY Launcher to update.	Откройте FreeANDIY Launcher, чтобы обновить.
 	{name} {v} is available	Доступно обновление {name} {v}
 	{count} updates are available	Доступны обновления ({count})
 	These notes weren't fetched (GitHub's request limit was reached). They're on the release page.	Заметки не были загружены (достигнут лимит запросов GitHub). Они есть на странице релиза.
@@ -294,7 +291,7 @@ filter	Installed	Установлены
 @id	launcher.notes	Что нового
 @id	launcher.dismiss	Закрыть
 @id	settings.open	Настройки
-@id	settings.quit	Выйти из ArtCraft Launcher
+@id	settings.quit	Выйти из FreeANDIY Launcher
 @id	view.grid	Сетка
 @id	view.table	Таблица
 @id	filter.all	Все
@@ -307,7 +304,6 @@ filter	Installed	Установлены
 @id	sort.installed	Установленная версия
 @id	sort.latest	Последняя версия
 @id	sort.released	Новый релиз
-@id	help.discord	Discord
 @id	help.github	GitHub
 @id	help.website	Веб-сайт
 @id	update.check	Проверить обновления
@@ -317,15 +313,14 @@ filter	Installed	Установлены
 @id	linux.preferred_kind	Устанавливать новые приложения как
 @id	tray.close_to_tray	Оставаться в трее при закрытии окна
 @id	tray.show_on_current_desktop	Показывать окно на текущем рабочем столе
-@id	tray.login_item	Запускать ArtCraft Launcher при входе в систему
+@id	tray.login_item	Запускать FreeANDIY Launcher при входе в систему
 @id	appearance.theme	Внешний вид
 
 # Tray (menu bar) menu and tooltip
-	Show ArtCraft Launcher	Показать ArtCraft Launcher
+	Show FreeANDIY Launcher	Показать FreeANDIY Launcher
 	Check for Updates	Проверить обновления
-	Visit getartcraft.com	Открыть getartcraft.com
-	ArtCraft on GitHub	ArtCraft на GitHub
-	Join the ArtCraft Discord	Присоединиться к Discord ArtCraft
+	Visit freeandiy.freeandy.agency	Открыть freeandiy.freeandy.agency
+	FreeANDIY on GitHub	FreeANDIY на GitHub
 	App details	О приложении
 	Close (Esc)	Закрыть (Esc)
 	Features	Возможности
@@ -339,4 +334,4 @@ filter	Installed	Установлены
 	Next picture (→)	Следующее изображение (→)
 	Loading pictures…	Загрузка изображений…
 	Pictures couldn't be loaded. Reopen this page to try again.	Не удалось загрузить изображения. Откройте страницу снова, чтобы повторить попытку.
-@plural	ArtCraft Launcher · {n} update available|ArtCraft Launcher · {n} updates available	ArtCraft Launcher · {n} обновление|ArtCraft Launcher · {n} обновления|ArtCraft Launcher · {n} обновлений
+@plural	FreeANDIY Launcher · {n} update available|FreeANDIY Launcher · {n} updates available	FreeANDIY Launcher · {n} обновление|FreeANDIY Launcher · {n} обновления|FreeANDIY Launcher · {n} обновлений

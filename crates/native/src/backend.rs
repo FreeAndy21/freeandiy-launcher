@@ -63,7 +63,7 @@ struct Shared {
     /// A detection pass is running; another request waits for the next one.
     detecting: AtomicBool,
     last_check: Mutex<Option<i64>>,
-    /// The newer ArtCraft Launcher release, once a check has found one.
+    /// The newer FreeANDIY Launcher release, once a check has found one.
     launcher_release: Mutex<Option<Release>>,
     /// When GitHub was last asked about each app (Unix seconds), to keep the fallback rare.
     github_asked: Mutex<HashMap<String, i64>>,
@@ -104,7 +104,7 @@ impl NativeBackend {
         let waker: Waker = Arc::new(waker);
         let paths = Paths::new().unwrap_or_else(|e| {
             log::error!("{e}; keeping files in the temporary folder");
-            Paths::under(&std::env::temp_dir().join("artcraft-launcher"))
+            Paths::under(&std::env::temp_dir().join("freeandiy-launcher"))
         });
         let http = match Http::new() {
             Ok(h) => Some(h),
@@ -150,8 +150,8 @@ impl NativeBackend {
         let now = crate::now();
         for app in &SUITE {
             let answer = match feed.as_ref().map(|f| f.answer(app, now)) {
-                Some(FeedAnswer::Fresh(Some(r))) => Some((LatestRelease::Found(r), Origin::ArtCraftApi)),
-                Some(FeedAnswer::Fresh(None)) => Some((LatestRelease::None, Origin::ArtCraftApi)),
+                Some(FeedAnswer::Fresh(Some(r))) => Some((LatestRelease::Found(r), Origin::FreeANDIYApi)),
+                Some(FeedAnswer::Fresh(None)) => Some((LatestRelease::None, Origin::FreeANDIYApi)),
                 _ => self.source.as_ref().and_then(|s| s.cached(&feed_repo(feed.as_ref(), app), pre)).map(|l| (l, Origin::GitHub)),
             };
             if let Some((latest, from)) = answer {
@@ -257,7 +257,7 @@ impl NativeBackend {
                                 sources.lock().unwrap_or_else(PoisonError::into_inner).push(used);
                             }
                             if app.id == LAUNCHER_ID {
-                                // Is there a newer ArtCraft Launcher?
+                                // Is there a newer FreeANDIY Launcher?
                                 if let Some(LatestRelease::Found(r)) = latest
                                     && let (Some(newest), Some(current)) = (r.version.as_ref(), crate::self_update::current_version())
                                     && version::is_newer(newest, &current)
@@ -326,7 +326,7 @@ impl NativeBackend {
             restarting
         };
         if restarting {
-            let result = Err("ArtCraft Launcher is restarting to finish its update. Try again once it's back.".into());
+            let result = Err("FreeANDIY Launcher is restarting to finish its update. Try again once it's back.".into());
             self.shared.emit(Event::JobFinished { app: app.id.to_string(), result });
             return;
         }
@@ -395,7 +395,7 @@ impl NativeBackend {
         let (Some(install), Some(platform)) = (self.self_install.clone(), self.platform) else {
             self.shared.emit(Event::JobFinished {
                 app: id,
-                result: Err("this copy of ArtCraft Launcher can't update itself; download the new version instead".into()),
+                result: Err("this copy of FreeANDIY Launcher can't update itself; download the new version instead".into()),
             });
             return;
         };
@@ -561,7 +561,7 @@ fn restart_blocked(mut busy: Vec<&str>) -> String {
         _ => (busy.join(", "), "were", "them"),
     };
     format!(
-        "ArtCraft Launcher didn't restart to update: {names} {were} still installing. Answer or close any password prompt, \
+        "FreeANDIY Launcher didn't restart to update: {names} {were} still installing. Answer or close any password prompt, \
          let {them} finish or cancel {them}, then press Update and restart again."
     )
 }
@@ -625,11 +625,15 @@ struct Fallback {
 ///   apps the feed doesn't list or hasn't refreshed in a day, or once the feed has seriously
 ///   failed (several checks in a row and an hour without an answer); then hourly per app.
 fn feed_and_fallback(http: &Http, paths: &Paths, shared: &Shared) -> (Option<Feed>, Fallback) {
-    let saved = load_feed(paths);
     let loaded = shared.loaded.load(Ordering::SeqCst);
+    // FreeANDIY: without a feed, GitHub answers, as freely as before every app has loaded once.
+    let Some(url) = feed_url() else {
+        return (None, Fallback { trust_feed: false, github_every: if loaded { GITHUB_FALLBACK_EVERY } else { EARLY_GITHUB_EVERY } });
+    };
+    let saved = load_feed(paths);
     let first_time = !loaded && saved.is_none();
     let attempts = if first_time { 1 } else { FEED_ATTEMPTS };
-    let fetched = fetch_feed(http, paths, &feed_url(), &shared.feed_throttle, attempts);
+    let fetched = fetch_feed(http, paths, &url, &shared.feed_throttle, attempts);
     let now = crate::now();
     let (fresh, answered, failures) = {
         let mut failures = shared.feed_failures.lock().unwrap_or_else(PoisonError::into_inner);
@@ -676,8 +680,8 @@ fn latest_for(
 ) -> (Option<LatestRelease>, Origin, Option<Source>) {
     if fallback.trust_feed {
         match feed.map(|f| f.answer(app, now)) {
-            Some(FeedAnswer::Fresh(Some(r))) => return (Some(LatestRelease::Found(r)), Origin::ArtCraftApi, Some(Source::Feed)),
-            Some(FeedAnswer::Fresh(None)) => return (Some(LatestRelease::None), Origin::ArtCraftApi, Some(Source::Feed)),
+            Some(FeedAnswer::Fresh(Some(r))) => return (Some(LatestRelease::Found(r)), Origin::FreeANDIYApi, Some(Source::Feed)),
+            Some(FeedAnswer::Fresh(None)) => return (Some(LatestRelease::None), Origin::FreeANDIYApi, Some(Source::Feed)),
             Some(FeedAnswer::AskGitHub) | None => {}
         }
     }
@@ -727,7 +731,7 @@ fn fetch_feed(http: &Http, paths: &Paths, url: &str, throttle: &Mutex<FeedThrott
         let wait = throttle.lock().unwrap_or_else(PoisonError::into_inner).wait(crate::now());
         if wait > MAX_THROTTLE_WAIT {
             if !asked {
-                log::info!("holding off the ArtCraft API for {wait} s");
+                log::info!("holding off the FreeANDIY API for {wait} s");
             }
             break;
         }
@@ -758,7 +762,7 @@ fn fetch_feed(http: &Http, paths: &Paths, url: &str, throttle: &Mutex<FeedThrott
                 }
             },
             Err(e) if e.throttled => {
-                log::warn!("the ArtCraft API asked us to slow down (HTTP 429); holding off");
+                log::warn!("the FreeANDIY API asked us to slow down (HTTP 429); holding off");
                 Outcome::Throttled { retry_after: e.retry_after }
             }
             Err(e) => {
@@ -774,13 +778,13 @@ fn fetch_feed(http: &Http, paths: &Paths, url: &str, throttle: &Mutex<FeedThrott
     if asked { FeedFetch::Failed } else { FeedFetch::Held }
 }
 
-/// The feed's address. `ARTCRAFT_LAUNCHER_FEED_URL` points at a staging server or a local copy
+/// The feed's address. `FREEANDIY_LAUNCHER_FEED_URL` points at a staging server or a local copy
 /// (only `https://`, or plain `http://` on localhost).
-fn feed_url() -> String {
-    std::env::var("ARTCRAFT_LAUNCHER_FEED_URL")
+fn feed_url() -> Option<String> {
+    std::env::var("FREEANDIY_LAUNCHER_FEED_URL")
         .ok()
         .filter(|u| u.starts_with("https://") || is_loopback(u))
-        .unwrap_or_else(|| artcraft_launcher_core::feed::FEED_URL.to_string())
+        .or_else(|| artcraft_launcher_core::feed::FEED_URL.map(str::to_string))
 }
 
 /// `http://<loopback host>:<port>` and an optional path: the host must be exactly 127.0.0.1,
@@ -792,7 +796,7 @@ fn is_loopback(url: &str) -> bool {
     matches!(host, "127.0.0.1" | "localhost" | "[::1]") && !port.is_empty() && port.parse::<u16>().is_ok()
 }
 
-/// `ARTCRAFT_LAUNCHER_DOWNLOAD_BASE`: a mirror on this machine (`cargo xtask local serve`) that
+/// `FREEANDIY_LAUNCHER_DOWNLOAD_BASE`: a mirror on this machine (`cargo xtask local serve`) that
 /// serves `release_info.json` and the builds it lists. While it's set, releases come only from
 /// there (never GitHub or ArtCraft's API), and its download links are trusted. Loopback only, so
 /// nothing but the developer's own builds can be installed this way, and only in builds with the
@@ -801,21 +805,21 @@ fn local_mirror() -> Option<String> {
     if !cfg!(feature = "local-mirror") {
         return None;
     }
-    let base = std::env::var("ARTCRAFT_LAUNCHER_DOWNLOAD_BASE").ok()?;
+    let base = std::env::var("FREEANDIY_LAUNCHER_DOWNLOAD_BASE").ok()?;
     let base = base.trim();
     if !is_loopback(base) || base.contains(['?', '#', '\\']) {
         log::warn!(
-            "ignoring ARTCRAFT_LAUNCHER_DOWNLOAD_BASE={base}: only http://127.0.0.1:<port>/, http://localhost:<port>/ or http://[::1]:<port>/"
+            "ignoring FREEANDIY_LAUNCHER_DOWNLOAD_BASE={base}: only http://127.0.0.1:<port>/, http://localhost:<port>/ or http://[::1]:<port>/"
         );
         return None;
     }
     Some(if base.ends_with('/') { base.to_string() } else { format!("{base}/") })
 }
 
-/// The local mirror's feed: `ARTCRAFT_LAUNCHER_FEED_URL` if set, else `release_info.json` beside
+/// The local mirror's feed: `FREEANDIY_LAUNCHER_FEED_URL` if set, else `release_info.json` beside
 /// the builds. Asked every check (it's on this machine), and never saved over ArtCraft's.
 fn local_feed(http: &Http, base: &str) -> Option<Feed> {
-    let url = std::env::var("ARTCRAFT_LAUNCHER_FEED_URL").ok().filter(|u| is_loopback(u)).unwrap_or_else(|| format!("{base}release_info.json"));
+    let url = std::env::var("FREEANDIY_LAUNCHER_FEED_URL").ok().filter(|u| is_loopback(u)).unwrap_or_else(|| format!("{base}release_info.json"));
     match http.get_feed(&url) {
         Ok(body) => {
             let feed = Feed::parse(&body).map(|f| f.with_mirror(base));
@@ -838,7 +842,7 @@ fn mirror_latest(app: &CraftApp, feed: Option<&Feed>, now: i64) -> (Option<Lates
         Some(FeedAnswer::Fresh(None) | FeedAnswer::AskGitHub) => LatestRelease::None,
         None => LatestRelease::Failed("the local mirror didn't answer".into()),
     };
-    (Some(latest), Origin::ArtCraftApi, Some(Source::Feed))
+    (Some(latest), Origin::FreeANDIYApi, Some(Source::Feed))
 }
 
 /// The last saved feed answer, if any.
@@ -1104,7 +1108,7 @@ mod tests {
     fn feed() -> Feed {
         Feed::parse(
             r#"{"release_info": {"apps": {
-            "photocraft": {"repo": "storytold/photocraft", "latest_release": {"tag": "v0.6.0"}, "app_last_fetched": "2026-10-09T13:00:00Z"}
+            "freeandiy-photo": {"repo": "FreeAndy21/freeandiy-photo", "latest_release": {"tag": "v0.6.0"}, "app_last_fetched": "2026-10-09T13:00:00Z"}
         }}}"#,
         )
         .unwrap()
@@ -1154,8 +1158,8 @@ mod tests {
 
     #[test]
     fn a_local_mirror_answers_for_every_app_on_its_own() {
-        let photo = CraftApp::by_id("photocraft").unwrap();
-        let word = CraftApp::by_id("wordcraft").unwrap();
+        let photo = CraftApp::by_id("freeandiy-photo").unwrap();
+        let word = CraftApp::by_id("freeandiy-write").unwrap();
         let feed = feed().with_mirror("http://127.0.0.1:8787/");
         // Listed: found, even long after the sync.
         let (latest, _, _) = mirror_latest(photo, Some(&feed), NOW + 30 * 86_400);
@@ -1175,17 +1179,17 @@ mod tests {
     fn github_is_only_the_fallback_and_is_asked_rarely() {
         let github = CountingGitHub::default();
         let shared = shared();
-        let photo = CraftApp::by_id("photocraft").unwrap();
-        let word = CraftApp::by_id("wordcraft").unwrap();
+        let photo = CraftApp::by_id("freeandiy-photo").unwrap();
+        let word = CraftApp::by_id("freeandiy-write").unwrap();
         let feed = feed();
 
-        // The feed vouches for PhotoCraft: GitHub isn't asked.
+        // The feed vouches for FreeANDIY Photo: GitHub isn't asked.
         let (latest, _, used) = latest_for(photo, Some(&feed), LOADED, &github, &shared, false, false, NOW);
         assert!(matches!(latest, Some(LatestRelease::Found(ref r)) if r.tag == "v0.6.0"));
         assert_eq!(used, Some(Source::Feed));
         assert_eq!(github.0.load(Ordering::SeqCst), 0);
 
-        // The feed doesn't list WordCraft: GitHub is asked once…
+        // The feed doesn't list FreeANDIY Write: GitHub is asked once…
         let (_, _, used) = latest_for(word, Some(&feed), LOADED, &github, &shared, false, false, NOW);
         assert_eq!(used, Some(Source::GitHubApi));
         assert_eq!(github.0.load(Ordering::SeqCst), 1);
@@ -1210,9 +1214,9 @@ mod tests {
         assert_eq!(used, Some(Source::GitHubApi));
     }
 
-    const APP: &str = "photocraft";
+    const APP: &str = "freeandiy-photo";
 
-    /// A PhotoCraft release with one file per platform and format, so whichever this machine
+    /// A FreeANDIY Photo release with one file per platform and format, so whichever this machine
     /// installs is there.
     fn release(version: &str) -> Release {
         let suffixes = ["-portable.zip", ".tar.gz", ".msi", ".dmg", ".AppImage", ".deb", ".rpm", ".flatpak"];
@@ -1360,20 +1364,20 @@ mod tests {
     #[test]
     fn the_launcher_gives_up_waiting_and_names_the_busy_apps() {
         let jobs = Mutex::new(HashMap::new());
-        for id in [LAUNCHER_ID, "photocraft"] {
+        for id in [LAUNCHER_ID, "freeandiy-photo"] {
             jobs.lock().unwrap().insert(id.to_string(), Arc::new(Stop::default()));
         }
         let restarting = AtomicBool::new(false);
         let error = claim_restart(&jobs, &restarting, &Stop::default(), Duration::from_millis(300), &mut || {}).unwrap_err();
-        assert!(error.contains("PhotoCraft was still installing") && error.contains("cancel it"), "{error}");
+        assert!(error.contains("FreeANDIY Photo was still installing") && error.contains("cancel it"), "{error}");
         assert!(!restarting.load(Ordering::SeqCst));
-        assert!(restart_blocked(vec!["WordCraft", "FilmCraft"]).contains("FilmCraft, WordCraft were still installing"));
+        assert!(restart_blocked(vec!["FreeANDIY Write", "FreeANDIY Film"]).contains("FreeANDIY Film, FreeANDIY Write were still installing"));
     }
 
     #[test]
     fn the_launcher_restarts_only_once_every_other_job_has_ended() {
         let jobs = Mutex::new(HashMap::new());
-        for id in [LAUNCHER_ID, "photocraft", "filmcraft"] {
+        for id in [LAUNCHER_ID, "freeandiy-photo", "freeandiy-film"] {
             jobs.lock().unwrap().insert(id.to_string(), Arc::new(Stop::default()));
         }
         let restarting = AtomicBool::new(false);
@@ -1384,10 +1388,10 @@ mod tests {
             let claim = scope.spawn(move || claim_restart(jobs, restarting, stop, RESTART_WAIT, &mut || waiting.send(()).unwrap()));
             waits.recv().unwrap();
             // One install ends; another is still running or queued.
-            jobs.lock().unwrap().remove("photocraft");
+            jobs.lock().unwrap().remove("freeandiy-photo");
             std::thread::sleep(Duration::from_millis(250));
             assert!(!claim.is_finished() && !restarting.load(Ordering::SeqCst));
-            jobs.lock().unwrap().remove("filmcraft");
+            jobs.lock().unwrap().remove("freeandiy-film");
             assert_eq!(claim.join().unwrap(), Ok(()));
         });
         assert!(restarting.load(Ordering::SeqCst));
@@ -1401,8 +1405,10 @@ mod tests {
 
     #[test]
     fn a_cancelled_launcher_update_stops_waiting_and_claims_nothing() {
-        let jobs =
-            Mutex::new(HashMap::from([(LAUNCHER_ID.to_string(), Arc::new(Stop::default())), ("photocraft".to_string(), Arc::new(Stop::default()))]));
+        let jobs = Mutex::new(HashMap::from([
+            (LAUNCHER_ID.to_string(), Arc::new(Stop::default())),
+            ("freeandiy-photo".to_string(), Arc::new(Stop::default())),
+        ]));
         let restarting = AtomicBool::new(false);
         let stop = Stop::default();
         let (waiting, waits) = mpsc::channel();

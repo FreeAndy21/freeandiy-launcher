@@ -3,24 +3,41 @@ Copyright (c) 2026 ArtCraft Team and the ArtCraft Launcher contributors.
 Licensed under the MIT License or the Apache License, Version 2.0, at your option
 (LICENSE-MIT, LICENSE-APACHE).
 
-The ArtCraft name, wordmark, logo and "A" mark (docs/brand/) are trademarks of the ArtCraft Team.
-They are NOT open source and are NOT covered by the MIT or Apache-2.0 license above. This includes
-everywhere ArtCraft Launcher shows them: the app icon (assets/app-icon/, the blue "A" mark), the
-ArtCraft logo in the window header and the "A" mark used as the tray / menu-bar icon
-(docs/brand/artcraft-mark-64.png, artcraft-mark-black-44.png).
-Their terms are in docs/brand/LICENSE-brand.txt; forks and modified versions must remove them.
+The ArtCraft name, wordmark, logo and "A" mark are trademarks of the ArtCraft Team. They are NOT
+open source and are NOT covered by the MIT or Apache-2.0 license above. As their terms require of
+modified versions, the FreeANDIY fork has removed them: upstream's docs/brand/ directory, the app
+icon, the header logo and the tray icon are not part of this tree.
 
 Third-party material
 
 This product bundles third-party material under its own licenses, listed below. The per-file
 list (author, source, license) is in ATTRIBUTION.md.
 
-Social service icons (assets/social/*.svg) — Simple Icons, CC0 1.0 (X, YouTube, TikTok, Instagram),
-and Font Awesome Free 6.7.2 by Fonticons, Inc., CC BY 4.0 (LinkedIn; https://fontawesome.com/license/free).
-The logos are trademarks of their respective owners and are used only to link to ArtCraft's accounts.
 Inter font (assets/fonts/Inter-Variable.ttf) — SIL Open Font License 1.1. See assets/fonts/OFL-Inter.txt.
 Archivo font (assets/fonts/Archivo-Variable.ttf) — SIL Open Font License 1.1. See assets/fonts/OFL-Archivo.txt.
 Geist Mono font (assets/fonts/GeistMono-Variable.ttf) — SIL Open Font License 1.1. See assets/fonts/OFL-GeistMono.txt.
-Craft App Suite app icons (assets/app-icons/*.png) — from each app's repository
-(github.com/storytold/<app>), MIT OR Apache-2.0, Copyright (c) 2026 ArtCraft Team and the <App>
-contributors.
+(FreeANDIY: upstream's social service icons and the Craft App Suite app icons are not part of this
+tree; the app icons in assets/app-icons/ are FreeANDIY's, see below.)
+
+-------------------------------------------------------------------------------------------------
+FreeANDIY Launcher
+
+FreeANDIY Launcher is a modified version of ArtCraft Launcher (storytold/craft-launcher), made by Free Andy Agency
+(https://freeandy.agency). FreeANDIY is not affiliated with, sponsored or endorsed by the ArtCraft
+Team.
+Modifications Copyright (c) 2026 Free Andy Agency, licensed like ArtCraft Launcher under the MIT License
+or the Apache License, Version 2.0, at your option.
+
+Changed files (Apache-2.0 section 4(b)): FreeANDIY's changes are generated from the freeandiy/
+directory by freeandiy/tools/rebrand: the patches in freeandiy/patches/, the text rules in
+freeandiy/rules.toml and the files copied from freeandiy/. Every file that differs from upstream
+ArtCraft Launcher is listed by `git diff upstream-main main --stat`, and CHANGELOG-FREEANDIY.md
+summarises the changes. New files carry a "Modified-by: FreeANDIY" header where their format
+allows comments.
+
+The FreeANDIY and Free Andy Agency names, the angel Andy, the lettering, logotypes, seal and app
+icons are protected by copyright, are the property of Free Andy Agency and are NOT covered by
+the licenses above; see freeandiy/assets/brand/LICENSE-brand.txt.
+
+FreeANDIY bundles IBM Plex Sans and IBM Plex Mono (IBM Corp.) and Roboto (The Roboto Project
+Authors) under the SIL Open Font License 1.1; see freeandiy/assets/fonts/OFL-*.txt.

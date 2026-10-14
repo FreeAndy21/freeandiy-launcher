@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=FreeANDIY Launcher
+GenericName=App Launcher
+Comment=Install, update and launch the FreeANDIY apps
+Exec=freeandiy-launcher
+TryExec=freeandiy-launcher
+Icon=agency.freeandy.launcher
+Terminal=false
+StartupNotify=true
+StartupWMClass=freeandiy-launcher
+Categories=Utility;PackageManager;
+Keywords=artcraft;craft;launcher;installer;updater;freeandiy-photo;freeandiy-film;apps;

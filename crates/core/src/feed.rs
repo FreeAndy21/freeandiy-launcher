@@ -22,8 +22,9 @@ use crate::release::{self, Asset, Release};
 use crate::time::parse_rfc3339;
 use crate::version;
 
-/// Where the feed lives.
-pub const FEED_URL: &str = "https://api.storyteller.ai/v1/craft_apps/release_info";
+/// Where the feed lives. FreeANDIY has no release feed and never asks upstream's: releases come
+/// from GitHub, or from a feed named by `FREEANDIY_LAUNCHER_FEED_URL`.
+pub const FEED_URL: Option<&str> = None;
 
 /// An app's entry is trusted for this long after storyteller-web fetched it.
 pub const MAX_AGE: i64 = 24 * 3600;
@@ -446,28 +447,28 @@ mod tests {
         "success": true,
         "release_info": {{
           "apps": {{
-            "photocraft": {{
-              "name": "PhotoCraft", "repo": "storytold/photocraft",
+            "freeandiy-photo": {{
+              "name": "FreeANDIY Photo", "repo": "FreeAndy21/freeandiy-photo",
               "latest_release": {{
-                "tag": "v0.6.0", "version": "0.6.0", "name": "PhotoCraft v0.6.0",
+                "tag": "v0.6.0", "version": "0.6.0", "name": "FreeANDIY Photo v0.6.0",
                 "published_at": "2026-10-09T10:00:00Z",
-                "html_url": "https://github.com/storytold/photocraft/releases/tag/v0.6.0",
+                "html_url": "https://github.com/FreeAndy21/freeandiy-photo/releases/tag/v0.6.0",
                 "prerelease": false, "notes_markdown": "Notes",
                 "assets": [
-                  {{ "name": "photocraft-0.6.0-macos-universal.dmg", "size_bytes": 123,
-                     "download_url": "https://github.com/storytold/photocraft/releases/download/v0.6.0/photocraft-0.6.0-macos-universal.dmg",
+                  {{ "name": "freeandiy-photo-0.6.0-macos-universal.dmg", "size_bytes": 123,
+                     "download_url": "https://github.com/FreeAndy21/freeandiy-photo/releases/download/v0.6.0/freeandiy-photo-0.6.0-macos-universal.dmg",
                      "sha256": "{HASH}", "platform": {{ "os": "macos", "arch": "universal", "package_type": "dmg" }} }},
                   {{ "name": "evil.dmg", "size_bytes": 1, "download_url": "https://evil.example/evil.dmg", "sha256": null }}
                 ]
               }},
               "app_last_fetched": "2026-10-09T13:00:00Z"
             }},
-            "soundcraft": {{ "name": "SoundCraft", "repo": "storytold/soundcraft", "latest_release": null,
+            "freeandiy-sound": {{ "name": "FreeANDIY Sound", "repo": "FreeAndy21/freeandiy-sound", "latest_release": null,
                              "app_last_fetched": "2026-10-09T13:00:00Z" }},
-            "filmcraft": {{ "name": "FilmCraft", "repo": "storytold/filmcraft", "latest_release": null, "app_last_fetched": null }},
-            "vectorcraft": {{ "repo": "storytold/vectorcraft", "app_last_fetched": "2026-10-01T00:00:00Z",
+            "freeandiy-film": {{ "name": "FreeANDIY Film", "repo": "FreeAndy21/freeandiy-film", "latest_release": null, "app_last_fetched": null }},
+            "freeandiy-vector": {{ "repo": "FreeAndy21/freeandiy-vector", "app_last_fetched": "2026-10-01T00:00:00Z",
                               "latest_release": {{ "tag": "v0.7.0" }} }},
-            "brandnewcraft": {{ "repo": "storytold/brandnewcraft", "app_last_fetched": "2026-10-09T13:00:00Z" }}
+            "brandnewcraft": {{ "repo": "FreeAndy21/brandnewcraft", "app_last_fetched": "2026-10-09T13:00:00Z" }}
           }},
           "last_fetched": "2026-10-09T13:00:00Z",
           "some_future_field": {{ "whatever": [1, 2, 3] }}
@@ -487,17 +488,17 @@ mod tests {
     fn uses_fresh_entries_and_falls_back_for_everything_else() {
         let feed = Feed::parse(&sample()).unwrap();
         // Fresh, with a release: only the download that belongs to the repo survives.
-        let FeedAnswer::Fresh(Some(r)) = feed.answer(app("photocraft"), NOW) else { panic!() };
+        let FeedAnswer::Fresh(Some(r)) = feed.answer(app("freeandiy-photo"), NOW) else { panic!() };
         assert_eq!(r.version_label(), "0.6.0");
         assert_eq!(r.assets.len(), 1);
         assert_eq!(r.assets[0].sha256.as_deref(), Some(HASH));
         assert_eq!(r.published_at, parse_rfc3339("2026-10-09T10:00:00Z"));
         // Fresh, and no release yet.
-        assert_eq!(feed.answer(app("soundcraft"), NOW), FeedAnswer::Fresh(None));
+        assert_eq!(feed.answer(app("freeandiy-sound"), NOW), FeedAnswer::Fresh(None));
         // Never fetched, more than a day old, or not listed: ask GitHub.
-        assert_eq!(feed.answer(app("filmcraft"), NOW), FeedAnswer::AskGitHub);
-        assert_eq!(feed.answer(app("vectorcraft"), NOW), FeedAnswer::AskGitHub);
-        assert_eq!(feed.answer(app("wordcraft"), NOW), FeedAnswer::AskGitHub);
+        assert_eq!(feed.answer(app("freeandiy-film"), NOW), FeedAnswer::AskGitHub);
+        assert_eq!(feed.answer(app("freeandiy-vector"), NOW), FeedAnswer::AskGitHub);
+        assert_eq!(feed.answer(app("freeandiy-write"), NOW), FeedAnswer::AskGitHub);
         assert_eq!(feed.answer(&LAUNCHER, NOW), FeedAnswer::AskGitHub);
         // An app the launcher doesn't know is simply carried along.
         assert!(feed.apps.contains_key("brandnewcraft"));
@@ -512,12 +513,12 @@ mod tests {
             }
         }
         // Every field the wrong type: nothing panics, nothing is trusted.
-        let weird = r#"{"release_info": {"apps": {"photocraft": {"repo": 7, "latest_release": "yes",
-        "app_last_fetched": ["no"]}, "pdfcraft": 5}, "last_fetched": {}},
+        let weird = r#"{"release_info": {"apps": {"freeandiy-photo": {"repo": 7, "latest_release": "yes",
+        "app_last_fetched": ["no"]}, "freeandiy-pdf": 5}, "last_fetched": {}},
         "app_renames": "none", "repo_renames": [1, {"old_name": "a/b"}],
         "important_notices": {"announcements": [null, {"title": 3}], "alerts": "x"}}"#;
         let feed = Feed::parse(weird).unwrap();
-        assert_eq!(feed.answer(app("photocraft"), NOW), FeedAnswer::AskGitHub);
+        assert_eq!(feed.answer(app("freeandiy-photo"), NOW), FeedAnswer::AskGitHub);
         assert!(feed.repo_renames.is_empty() && feed.announcements.is_empty() && feed.alerts.is_empty());
         // An empty object is a feed that knows nothing.
         assert_eq!(Feed::parse("{}").unwrap(), Feed::default());
@@ -528,21 +529,22 @@ mod tests {
         let moved = sample()
             .replace(
                 "\"repo_renames\": []",
-                r#""repo_renames": [{"old_name": "Storytold/photocraft", "new_name": "storytold/photocraft-app", "renamed_at": null}]"#,
+                r#""repo_renames": [{"old_name": "Storytold/freeandiy-photo", "new_name": "FreeAndy21/freeandiy-photo-app", "renamed_at": null}]"#,
             )
             .replace(
-                "\"name\": \"PhotoCraft\", \"repo\": \"storytold/photocraft\"",
-                "\"name\": \"PhotoCraft\", \"repo\": \"storytold/photocraft-app\"",
+                "\"name\": \"FreeANDIY Photo\", \"repo\": \"FreeAndy21/freeandiy-photo\"",
+                "\"name\": \"FreeANDIY Photo\", \"repo\": \"FreeAndy21/freeandiy-photo-app\"",
             )
-            .replace("github.com/storytold/photocraft/releases", "github.com/storytold/photocraft-app/releases");
+            .replace("github.com/FreeAndy21/freeandiy-photo/releases", "github.com/FreeAndy21/freeandiy-photo-app/releases");
         let feed = Feed::parse(&moved).unwrap();
-        assert_eq!(feed.repo_for(app("photocraft")), "storytold/photocraft-app");
-        let FeedAnswer::Fresh(Some(r)) = feed.answer(app("photocraft"), NOW) else { panic!() };
-        assert!(r.assets[0].url.starts_with("https://github.com/storytold/photocraft-app/releases/download/"));
+        assert_eq!(feed.repo_for(app("freeandiy-photo")), "FreeAndy21/freeandiy-photo-app");
+        let FeedAnswer::Fresh(Some(r)) = feed.answer(app("freeandiy-photo"), NOW) else { panic!() };
+        assert!(r.assets[0].url.starts_with("https://github.com/FreeAndy21/freeandiy-photo-app/releases/download/"));
         // The same entry without the rename: the repo doesn't match, so GitHub decides.
-        let unannounced = moved.replace(r#"{"old_name": "Storytold/photocraft", "new_name": "storytold/photocraft-app", "renamed_at": null}"#, "");
+        let unannounced =
+            moved.replace(r#"{"old_name": "Storytold/freeandiy-photo", "new_name": "FreeAndy21/freeandiy-photo-app", "renamed_at": null}"#, "");
         let feed = Feed::parse(&unannounced).unwrap();
-        assert_eq!(feed.answer(app("photocraft"), NOW), FeedAnswer::AskGitHub);
+        assert_eq!(feed.answer(app("freeandiy-photo"), NOW), FeedAnswer::AskGitHub);
     }
 
     #[test]
@@ -552,34 +554,35 @@ mod tests {
         let moved = sample()
             .replace(
                 "\"repo_renames\": []",
-                r#""repo_renames": [{"old_name": "storytold/photocraft", "new_name": "art/photocraft", "renamed_at": null},
-                                  {"old_name": "art/photocraft", "new_name": "storytold/photocraft", "renamed_at": null},
-                                  {"old_name": "storytold/photocraft", "new_name": "storytold.evil.example/photocraft", "renamed_at": null}]"#,
+                r#""repo_renames": [{"old_name": "FreeAndy21/freeandiy-photo", "new_name": "art/freeandiy-photo", "renamed_at": null},
+                                  {"old_name": "art/freeandiy-photo", "new_name": "FreeAndy21/freeandiy-photo", "renamed_at": null},
+                                  {"old_name": "FreeAndy21/freeandiy-photo", "new_name": "storytold.evil.example/freeandiy-photo", "renamed_at": null}]"#,
             )
-            .replace("\"name\": \"PhotoCraft\", \"repo\": \"storytold/photocraft\"", "\"name\": \"PhotoCraft\", \"repo\": \"art/photocraft\"")
-            .replace("github.com/storytold/photocraft/releases", "github.com/art/photocraft/releases");
+            .replace("\"name\": \"FreeANDIY Photo\", \"repo\": \"FreeAndy21/freeandiy-photo\"", "\"name\": \"FreeANDIY Photo\", \"repo\": \"art/freeandiy-photo\"")
+            .replace("github.com/FreeAndy21/freeandiy-photo/releases", "github.com/art/freeandiy-photo/releases");
         let feed = Feed::parse(&moved).unwrap();
         assert!(feed.repo_renames.is_empty(), "{:?}", feed.repo_renames);
-        assert_eq!(feed.repo_for(app("photocraft")), "storytold/photocraft");
-        assert_eq!(feed.answer(app("photocraft"), NOW), FeedAnswer::AskGitHub);
+        assert_eq!(feed.repo_for(app("freeandiy-photo")), "FreeAndy21/freeandiy-photo");
+        assert_eq!(feed.answer(app("freeandiy-photo"), NOW), FeedAnswer::AskGitHub);
     }
 
     #[test]
     fn a_local_mirror_is_trusted_only_when_asked_for_and_never_goes_stale() {
         const MIRROR: &str = "http://127.0.0.1:8787/";
-        let local = sample().replace("https://github.com/storytold/photocraft/releases/download/v0.6.0/", "http://127.0.0.1:8787/photocraft/v0.6.0/");
+        let local = sample()
+            .replace("https://github.com/FreeAndy21/freeandiy-photo/releases/download/v0.6.0/", "http://127.0.0.1:8787/freeandiy-photo/v0.6.0/");
         // Without the mirror, the local link is dropped like any other stranger's.
-        let FeedAnswer::Fresh(Some(r)) = Feed::parse(&local).unwrap().answer(app("photocraft"), NOW) else { panic!() };
+        let FeedAnswer::Fresh(Some(r)) = Feed::parse(&local).unwrap().answer(app("freeandiy-photo"), NOW) else { panic!() };
         assert!(r.assets.is_empty());
         let feed = Feed::parse(&local).unwrap().with_mirror(MIRROR);
-        let FeedAnswer::Fresh(Some(r)) = feed.answer(app("photocraft"), NOW) else { panic!() };
+        let FeedAnswer::Fresh(Some(r)) = feed.answer(app("freeandiy-photo"), NOW) else { panic!() };
         assert_eq!(r.assets.len(), 1, "the mirror's file is kept, evil.example's still isn't");
-        assert_eq!(r.assets[0].url, "http://127.0.0.1:8787/photocraft/v0.6.0/photocraft-0.6.0-macos-universal.dmg");
+        assert_eq!(r.assets[0].url, "http://127.0.0.1:8787/freeandiy-photo/v0.6.0/freeandiy-photo-0.6.0-macos-universal.dmg");
         // A week-old sync still counts.
-        assert!(matches!(feed.answer(app("photocraft"), NOW + 7 * 86_400), FeedAnswer::Fresh(Some(_))));
+        assert!(matches!(feed.answer(app("freeandiy-photo"), NOW + 7 * 86_400), FeedAnswer::Fresh(Some(_))));
         // Escaping the mirror's folder isn't allowed, and a base without its trailing slash isn't a mirror.
-        let escaping = local.replace("http://127.0.0.1:8787/photocraft/", "http://127.0.0.1:8787/../photocraft/");
-        let FeedAnswer::Fresh(Some(r)) = Feed::parse(&escaping).unwrap().with_mirror(MIRROR).answer(app("photocraft"), NOW) else { panic!() };
+        let escaping = local.replace("http://127.0.0.1:8787/freeandiy-photo/", "http://127.0.0.1:8787/../freeandiy-photo/");
+        let FeedAnswer::Fresh(Some(r)) = Feed::parse(&escaping).unwrap().with_mirror(MIRROR).answer(app("freeandiy-photo"), NOW) else { panic!() };
         assert!(r.assets.is_empty());
         assert_eq!(Feed::default().with_mirror("http://127.0.0.1:8787").mirror, None);
     }
@@ -593,7 +596,7 @@ mod tests {
         let json = std::fs::read_to_string(path).unwrap();
         let feed = Feed::parse(&json).unwrap();
         let now = feed.last_fetched.unwrap();
-        for app in [app("photocraft"), &LAUNCHER] {
+        for app in [app("freeandiy-photo"), &LAUNCHER] {
             let FeedAnswer::Fresh(Some(r)) = feed.answer(app, now) else { panic!("{} wasn't fresh", app.id) };
             assert!(r.version.is_some(), "{}", app.id);
             assert!(!r.assets.is_empty() && r.assets.iter().all(|a| a.sha256.is_some()), "{}", app.id);
@@ -611,20 +614,20 @@ mod tests {
             .replace(
                 "\"alerts\": []",
                 r#""alerts": [
-            {"title": "Security update", "body": "Update PdfCraft now.", "maybe_web_link": "https://getartcraft.com/security", "created_at": null},
+            {"title": "Security update", "body": "Update FreeANDIY PDF now.", "maybe_web_link": "https://freeandiy.freeandy.agencysecurity", "created_at": null},
             {"title": "Bad link", "body": "x", "maybe_web_link": "javascript:alert(1)"}]"#,
             )
             .replace(
                 "\"app_renames\": []",
-                r#""app_renames": [{"old_name": "PdfCraft", "old_name_lower": "pdfcraft", "new_name": "DocuCraft",
+                r#""app_renames": [{"old_name": "FreeANDIY PDF", "old_name_lower": "freeandiy-pdf", "new_name": "DocuCraft",
             "new_name_lower": "docucraft", "description": "Same app, new name.", "renamed_at": "2026-10-09T08:00:00Z"}]"#,
             );
         let feed = Feed::parse(&with_notices).unwrap();
         assert_eq!(feed.alerts.len(), 2);
-        assert_eq!(feed.alerts[0].link.as_deref(), Some("https://getartcraft.com/security"));
+        assert_eq!(feed.alerts[0].link.as_deref(), Some("https://freeandiy.freeandy.agencysecurity"));
         assert_eq!(feed.alerts[1].link, None, "only web links are kept");
         let titles: Vec<&str> = feed.announcements.iter().map(|n| n.title.as_str()).collect();
-        assert_eq!(titles, ["New: CADCraft 1.0", "PdfCraft is now DocuCraft"]);
+        assert_eq!(titles, ["New: CADCraft 1.0", "FreeANDIY PDF is now DocuCraft"]);
         // Ids are stable across parses, so dismissals stick.
         assert_eq!(Feed::parse(&with_notices).unwrap().alerts[0].id, feed.alerts[0].id);
     }
