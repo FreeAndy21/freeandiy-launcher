@@ -1,0 +1,62 @@
+diff --git a/crates/ui-egui/src/i18n/lang.rs b/crates/ui-egui/src/i18n/lang.rs
+index 458b9f3..06d66ae 100644
+--- a/crates/ui-egui/src/i18n/lang.rs
++++ b/crates/ui-egui/src/i18n/lang.rs
+@@ -94,7 +94,7 @@ pub(super) fn plural_polish(n: u64) -> usize {
+ }
+ 
+ /// The registry. English first: it is the fallback and the source language.
+-pub static LANGUAGES: [LangInfo; 11] = [
++pub static LANGUAGES: [LangInfo; 12] = [
+     LangInfo {
+         code: "en",
+         name: "English",
+@@ -216,6 +216,18 @@ pub static LANGUAGES: [LangInfo; 11] = [
+         complete_menus: true,
+         catalog: OnceLock::new(),
+     },
++    // Slovak (added by FreeANDIY). Slovak counts like Czech (1 | 2–4 | other).
++    LangInfo {
++        code: "sk",
++        name: "Slovenčina",
++        english_name: "Slovak",
++        script: None,
++        source: include_str!("sk.tsv"),
++        plural: plural_czech,
++        plural_forms: 3,
++        complete_menus: true,
++        catalog: OnceLock::new(),
++    },
+ ];
+ 
+ impl LangInfo {
+@@ -254,6 +266,7 @@ impl Lang {
+     pub const PL: Lang = Lang(&LANGUAGES[8]);
+     pub const HU: Lang = Lang(&LANGUAGES[9]);
+     pub const JA: Lang = Lang(&LANGUAGES[10]);
++    pub const SK: Lang = Lang(&LANGUAGES[11]);
+ 
+     pub fn code(self) -> &'static str {
+         self.0.code
+diff --git a/crates/ui-egui/src/i18n/tests.rs b/crates/ui-egui/src/i18n/tests.rs
+index 524b69a..4174623 100644
+--- a/crates/ui-egui/src/i18n/tests.rs
++++ b/crates/ui-egui/src/i18n/tests.rs
+@@ -270,6 +270,17 @@ fn locale_tags_resolve() {
+     assert_eq!(super::detect::first_supported(["xx-XX", "ru-RU", "en-US"]), Some(Lang::RU));
+ }
+ 
++#[test]
++fn slovak_locales_resolve_and_count_like_czech() {
++    for tag in ["sk", "sk-SK", "sk_SK.UTF-8", "SK_sk"] {
++        assert_eq!(lang_from_tag(tag), Some(Lang::SK), "{tag}");
++    }
++    assert_eq!(super::detect::first_supported(["xx-XX", "sk-SK", "cs-CZ"]), Some(Lang::SK));
++    assert_eq!(trn(Lang::SK, 1, "{n} app", "{n} apps"), "1 aplikácia");
++    assert_eq!(trn(Lang::SK, 3, "{n} app", "{n} apps"), "3 aplikácie");
++    assert_eq!(trn(Lang::SK, 5, "{n} app", "{n} apps"), "5 aplikácií");
++}
++
+ #[test]
+ fn german_locales_resolve() {
+     for tag in ["de", "de-DE", "de_DE.UTF-8", "de-AT", "de-CH", "de_CH.UTF-8", "DE_de"] {
