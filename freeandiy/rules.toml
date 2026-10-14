@@ -1,0 +1,800 @@
+# FreeANDIY rebrand rules for the launcher (applied by freeandiy/tools/rebrand, after the patches
+# in freeandiy/patches/). Modified-by: FreeANDIY (Free Andy Agency), 2026.
+#
+# The launcher knows every app by its id (`photocraft`), display name (`PhotoCraft`), GitHub repo
+# (`storytold/photocraft`) and bundle id (`ai.storyteller.photocraft`). The rules below turn each
+# into FreeANDIY's (`freeandiy-photo`, `FreeANDIY Photo`, `FreeAndy21/freeandiy-photo`,
+# `agency.freeandy.photo`) everywhere: code, tests, catalogs and packaging alike, so upstream's
+# tests keep describing the same behaviour. The patches drop CADCraft and FigCraft (not FreeANDIY
+# apps), upstream's release feed, the screenshots and the community links.
+#
+# Protected text: rules first swap text that must keep the upstream name (crate names, upstream's
+# copyright) for @@...@@ markers, and the last rules swap them back.
+
+templates = []
+
+delete = [
+  "docs/brand",                                  # ArtCraft marks: forks must remove them
+  "docs/screenshots",                            # show the ArtCraft logo and upstream's apps
+  "assets/app-icon",                             # upstream's identity; ours is copied in below
+  "assets/app-icons",                            # upstream's app icons; ours are copied in (overlay)
+  "assets/social",                               # links to ArtCraft's social accounts
+  "packaging/icons.sh",                          # icons come from the FreeANDIY meta repository
+  "packaging/macos/dmg",                         # background and layout carry the ArtCraft mark; ours is copied in
+  "flake.nix",                                   # upstream's Nix packaging (names and hashes are upstream's)
+  "flake.lock",
+  ".github/workflows/release.yml",               # upstream's release and platform jobs (ArtCraft's shared actions); ours: freeandiy*.yml
+  ".github/workflows/windows-arm64.yml",
+  ".github/workflows/packaging-lint.yml",
+  ".github/workflows/freebsd.yml",
+]
+
+# Catalogs: the Discord entries go (the links are gone from the UI).
+[[drop_lines]]
+include = ["crates/ui-egui/src/i18n/*.tsv"]
+regex = '^[^#\n]*Discord'
+min = 1
+
+# ---------------------------------------------------------------------------------------------
+# Protect text that keeps the upstream name.
+
+[[replace]]
+name = "protect: upstream's copyright holder and contributors"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'ArtCraft Team and the ArtCraft Launcher (contributors|authors)'
+replace = '@@AC@@ Team and the @@UP@@ ${1}'
+min = 0
+
+[[replace]]
+name = "protect: crate names artcraft-launcher-<crate>"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'artcraft-launcher-(core|native|ui-egui)\b'
+replace = '@@PKG@@-${1}'
+min = 1
+
+[[replace]]
+name = "protect: crate idents artcraft_launcher"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+find = "artcraft_launcher"
+replace = "@@PKGU@@"
+min = 10
+
+[[replace]]
+name = "protect: cargo -p / --package / source paths of the app packages"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '(-p |--package |apps/|apps\\)artcraft-launcher(-web)?\b'
+replace = '${1}@@PKG@@${2}'
+min = 1
+
+[[replace]]
+name = "web release zip and web binary: freeandiy-launcher-web (before the generic rename)"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+find = "artcraft-launcher-web"
+replace = "{{this.repo}}-web"
+min = 0
+
+# ---------------------------------------------------------------------------------------------
+# Identifiers, repositories, links.
+
+[[replace]]
+name = "launcher app id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+find = "ai.storyteller.artcraft-launcher"
+replace = "{{this.app_id}}"
+min = 5
+
+[[replace]]
+name = "PhotoCraft: bundle id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'ai\.storyteller\.photocraft\b'
+replace = "agency.freeandy.photo"
+min = 0
+
+[[replace]]
+name = "VectorCraft: bundle id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'ai\.storyteller\.vectorcraft\b'
+replace = "agency.freeandy.vector"
+min = 0
+
+[[replace]]
+name = "FilmCraft: bundle id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'ai\.storyteller\.filmcraft\b'
+replace = "agency.freeandy.film"
+min = 0
+
+[[replace]]
+name = "LightCraft: bundle id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'ai\.storyteller\.lightcraft\b'
+replace = "agency.freeandy.light"
+min = 0
+
+[[replace]]
+name = "PdfCraft: bundle id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'ai\.storyteller\.pdfcraft\b'
+replace = "agency.freeandy.pdf"
+min = 0
+
+[[replace]]
+name = "EffectCraft: bundle id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'ai\.storyteller\.effectcraft\b'
+replace = "agency.freeandy.effects"
+min = 0
+
+[[replace]]
+name = "DesignCraft: bundle id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'ai\.storyteller\.designcraft\b'
+replace = "agency.freeandy.layout"
+min = 0
+
+[[replace]]
+name = "WordCraft: bundle id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'ai\.storyteller\.wordcraft\b'
+replace = "agency.freeandy.write"
+min = 0
+
+[[replace]]
+name = "DeckCraft: bundle id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'ai\.storyteller\.deckcraft\b'
+replace = "agency.freeandy.slides"
+min = 0
+
+[[replace]]
+name = "GridCraft: bundle id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'ai\.storyteller\.gridcraft\b'
+replace = "agency.freeandy.sheets"
+min = 0
+
+[[replace]]
+name = "SoundCraft: bundle id"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'ai\.storyteller\.soundcraft\b'
+replace = "agency.freeandy.sound"
+min = 0
+
+[[replace]]
+name = "bundle id prefix (Flatpak ids of the apps)"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+find = "ai.storyteller."
+replace = "agency.freeandy."
+min = 0
+
+[[replace]]
+name = "the launcher's repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+find = "storytold/craft-launcher"
+replace = "{{brand.github_owner}}/{{this.repo}}"
+min = 1
+
+[[replace]]
+name = "PhotoCraft: repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'storytold/photocraft\b'
+replace = "{{brand.github_owner}}/freeandiy-photo"
+min = 0
+
+[[replace]]
+name = "PhotoCraft: page on the website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = '(https://)?getartcraft\.com/apps/photocraft\b'
+replace = "${1}freeandiy.freeandy.agency/photo"
+min = 0
+
+[[replace]]
+name = "VectorCraft: repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'storytold/vectorcraft\b'
+replace = "{{brand.github_owner}}/freeandiy-vector"
+min = 0
+
+[[replace]]
+name = "VectorCraft: page on the website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = '(https://)?getartcraft\.com/apps/vectorcraft\b'
+replace = "${1}freeandiy.freeandy.agency/vector"
+min = 0
+
+[[replace]]
+name = "FilmCraft: repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'storytold/filmcraft\b'
+replace = "{{brand.github_owner}}/freeandiy-film"
+min = 0
+
+[[replace]]
+name = "FilmCraft: page on the website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = '(https://)?getartcraft\.com/apps/filmcraft\b'
+replace = "${1}freeandiy.freeandy.agency/film"
+min = 0
+
+[[replace]]
+name = "LightCraft: repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'storytold/lightcraft\b'
+replace = "{{brand.github_owner}}/freeandiy-light"
+min = 0
+
+[[replace]]
+name = "LightCraft: page on the website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = '(https://)?getartcraft\.com/apps/lightcraft\b'
+replace = "${1}freeandiy.freeandy.agency/light"
+min = 0
+
+[[replace]]
+name = "PdfCraft: repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'storytold/pdfcraft\b'
+replace = "{{brand.github_owner}}/freeandiy-pdf"
+min = 0
+
+[[replace]]
+name = "PdfCraft: page on the website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = '(https://)?getartcraft\.com/apps/pdfcraft\b'
+replace = "${1}freeandiy.freeandy.agency/pdf"
+min = 0
+
+[[replace]]
+name = "EffectCraft: repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'storytold/effectcraft\b'
+replace = "{{brand.github_owner}}/freeandiy-effects"
+min = 0
+
+[[replace]]
+name = "EffectCraft: page on the website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = '(https://)?getartcraft\.com/apps/effectcraft\b'
+replace = "${1}freeandiy.freeandy.agency/effects"
+min = 0
+
+[[replace]]
+name = "DesignCraft: repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'storytold/designcraft\b'
+replace = "{{brand.github_owner}}/freeandiy-layout"
+min = 0
+
+[[replace]]
+name = "DesignCraft: page on the website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = '(https://)?getartcraft\.com/apps/designcraft\b'
+replace = "${1}freeandiy.freeandy.agency/layout"
+min = 0
+
+[[replace]]
+name = "WordCraft: repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'storytold/wordcraft\b'
+replace = "{{brand.github_owner}}/freeandiy-write"
+min = 0
+
+[[replace]]
+name = "WordCraft: page on the website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = '(https://)?getartcraft\.com/apps/wordcraft\b'
+replace = "${1}freeandiy.freeandy.agency/write"
+min = 0
+
+[[replace]]
+name = "DeckCraft: repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'storytold/deckcraft\b'
+replace = "{{brand.github_owner}}/freeandiy-slides"
+min = 0
+
+[[replace]]
+name = "DeckCraft: page on the website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = '(https://)?getartcraft\.com/apps/deckcraft\b'
+replace = "${1}freeandiy.freeandy.agency/slides"
+min = 0
+
+[[replace]]
+name = "GridCraft: repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'storytold/gridcraft\b'
+replace = "{{brand.github_owner}}/freeandiy-sheets"
+min = 0
+
+[[replace]]
+name = "GridCraft: page on the website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = '(https://)?getartcraft\.com/apps/gridcraft\b'
+replace = "${1}freeandiy.freeandy.agency/sheets"
+min = 0
+
+[[replace]]
+name = "SoundCraft: repository"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'storytold/soundcraft\b'
+replace = "{{brand.github_owner}}/freeandiy-sound"
+min = 0
+
+[[replace]]
+name = "SoundCraft: page on the website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = '(https://)?getartcraft\.com/apps/soundcraft\b'
+replace = "${1}freeandiy.freeandy.agency/sound"
+min = 0
+
+[[replace]]
+name = "the GitHub owner in code and tests (format strings, URLs)"
+include = ["**/*.rs"]
+find = "storytold/"
+replace = "{{brand.github_owner}}/"
+min = 1
+
+[[replace]]
+name = "website"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+regex = 'https://getartcraft\.com/?'
+replace = "{{brand.website}}"
+min = 0
+
+[[replace]]
+name = "website host in labels"
+include = ["**"]
+exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
+find = "getartcraft.com"
+replace = "freeandiy.freeandy.agency"
+min = 1
+
+[[replace]]
+name = "Discord in packaging metadata: our issue tracker instead"
+include = ["packaging/**"]
+find = "https://discord.gg/artcraft"
+replace = "https://github.com/{{brand.github_owner}}/freeandiy/issues"
+min = 0
+
+# ---------------------------------------------------------------------------------------------
+# The launcher's own names.
+
+[[replace]]
+name = "product name ArtCraft Launcher (any inflection follows in the catalogs)"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+find = "ArtCraft Launcher"
+replace = "{{this.name}}"
+min = 20
+
+[[replace]]
+name = "CamelCase ids in packaging and code (ArtCraftLauncherVersion, ArtCraftInstallDirDlg, user agent)"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'ArtCraft([A-Z][a-z])'
+replace = 'FreeANDIY${1}'
+min = 5
+
+[[replace]]
+name = "environment variables ARTCRAFT_LAUNCHER_*"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+find = "ARTCRAFT_LAUNCHER_"
+replace = "FREEANDIY_LAUNCHER_"
+min = 5
+
+[[replace]]
+name = "desktop entry marker X-ArtCraft-Launcher"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+find = "X-ArtCraft-Launcher"
+replace = "X-FreeANDIY-Launcher"
+min = 1
+
+[[replace]]
+name = "executable, file and folder names artcraft-launcher"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+find = "artcraft-launcher"
+replace = "{{this.repo}}"
+min = 20
+
+[[replace]]
+name = "the suite's name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+find = "Craft App Suite"
+replace = "{{brand.name}} apps"
+min = 5
+
+[[replace]]
+name = "the apps, in packaging and comments"
+include = ["packaging/**"]
+regex = 'Craft [Aa]pps'
+replace = "{{brand.name}} apps"
+min = 0
+
+# ---------------------------------------------------------------------------------------------
+# The apps' names and ids (after the repository and page rules above).
+
+[[replace]]
+name = "PhotoCraft: id"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '\bphotocraft\b'
+replace = "freeandiy-photo"
+min = 1
+
+[[replace]]
+name = "PhotoCraft: display name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'PhotoCraft'
+replace = "{{brand.name}} Photo"
+min = 1
+
+[[replace]]
+name = "VectorCraft: id"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '\bvectorcraft\b'
+replace = "freeandiy-vector"
+min = 1
+
+[[replace]]
+name = "VectorCraft: display name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'VectorCraft'
+replace = "{{brand.name}} Vector"
+min = 1
+
+[[replace]]
+name = "FilmCraft: id"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '\bfilmcraft\b'
+replace = "freeandiy-film"
+min = 1
+
+[[replace]]
+name = "FilmCraft: display name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'FilmCraft'
+replace = "{{brand.name}} Film"
+min = 1
+
+[[replace]]
+name = "LightCraft: id"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '\blightcraft\b'
+replace = "freeandiy-light"
+min = 1
+
+[[replace]]
+name = "LightCraft: display name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'LightCraft'
+replace = "{{brand.name}} Light"
+min = 1
+
+[[replace]]
+name = "PdfCraft: id"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '\bpdfcraft\b'
+replace = "freeandiy-pdf"
+min = 1
+
+[[replace]]
+name = "PdfCraft: display name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'PdfCraft'
+replace = "{{brand.name}} PDF"
+min = 1
+
+[[replace]]
+name = "EffectCraft: id"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '\beffectcraft\b'
+replace = "freeandiy-effects"
+min = 1
+
+[[replace]]
+name = "EffectCraft: display name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'EffectCraft'
+replace = "{{brand.name}} Effects"
+min = 1
+
+[[replace]]
+name = "DesignCraft: id"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '\bdesigncraft\b'
+replace = "freeandiy-layout"
+min = 1
+
+[[replace]]
+name = "DesignCraft: display name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'DesignCraft'
+replace = "{{brand.name}} Layout"
+min = 1
+
+[[replace]]
+name = "WordCraft: id"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '\bwordcraft\b'
+replace = "freeandiy-write"
+min = 1
+
+[[replace]]
+name = "WordCraft: display name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'WordCraft'
+replace = "{{brand.name}} Write"
+min = 1
+
+[[replace]]
+name = "DeckCraft: id"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '\bdeckcraft\b'
+replace = "freeandiy-slides"
+min = 1
+
+[[replace]]
+name = "DeckCraft: display name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'DeckCraft'
+replace = "{{brand.name}} Slides"
+min = 1
+
+[[replace]]
+name = "GridCraft: id"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '\bgridcraft\b'
+replace = "freeandiy-sheets"
+min = 1
+
+[[replace]]
+name = "GridCraft: display name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'GridCraft'
+replace = "{{brand.name}} Sheets"
+min = 1
+
+[[replace]]
+name = "SoundCraft: id"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = '\bsoundcraft\b'
+replace = "freeandiy-sound"
+min = 1
+
+[[replace]]
+name = "SoundCraft: display name"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+regex = 'SoundCraft'
+replace = "{{brand.name}} Sound"
+min = 1
+
+# ---------------------------------------------------------------------------------------------
+# What is left of ArtCraft in what users read.
+
+[[replace]]
+name = "other ArtCraft mentions (the team, the API, the apps)"
+include = ["**/*.rs", "crates/ui-egui/src/i18n/*.tsv", "packaging/**", "apps/artcraft-launcher-web/index.html", ".github/**", "xtask/**"]
+exclude = ["xtask/**"]
+regex = '\bArtCraft\b'
+replace = "{{brand.name}}"
+skip_comments = ["//"]
+min = 5
+
+# ---------------------------------------------------------------------------------------------
+# Restore protected text.
+
+[[replace]]
+name = "restore @@UP@@"
+include = ["**"]
+find = "@@UP@@"
+replace = "ArtCraft Launcher"
+min = 0
+
+[[replace]]
+name = "restore @@AC@@"
+include = ["**"]
+find = "@@AC@@"
+replace = "ArtCraft"
+min = 0
+
+[[replace]]
+name = "restore @@PKG@@"
+include = ["**"]
+find = "@@PKG@@"
+replace = "artcraft-launcher"
+min = 1
+
+[[replace]]
+name = "restore @@PKGU@@"
+include = ["**"]
+find = "@@PKGU@@"
+replace = "artcraft_launcher"
+min = 1
+
+# ---------------------------------------------------------------------------------------------
+# Renames and copies.
+
+[[rename]]
+include = ["README.md"]
+find = "README.md"
+replace = "docs/upstream-README.md"
+min = 1
+
+[[rename]]
+include = ["packaging/**"]
+find = "ai.storyteller.artcraft-launcher"
+replace = "{{this.app_id}}"
+min = 1
+
+[[rename]]
+include = ["packaging/**"]
+find = "artcraft-launcher"
+replace = "{{this.repo}}"
+min = 0
+
+[[copy]]
+from = "freeandiy/overlay"
+to = "."
+
+[[copy]]
+from = "freeandiy/assets/dmg"
+to = "packaging/macos/dmg"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/{{this.key}}.svg"
+to = "assets/app-icon/{{this.repo}}.svg"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/mark-128.png"
+to = "assets/app-icon/{{this.repo}}-mark.png"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/macos-1024.png"
+to = "assets/app-icon/{{this.repo}}-1024.png"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/{{this.key}}.icns"
+to = "assets/app-icon/{{this.repo}}.icns"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/{{this.key}}.ico"
+to = "assets/app-icon/{{this.repo}}.ico"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/{{this.key}}.svg"
+to = "assets/app-icon/hicolor/scalable/apps/{{this.app_id}}.svg"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/hicolor/16.png"
+to = "assets/app-icon/hicolor/16x16/apps/{{this.app_id}}.png"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/hicolor/24.png"
+to = "assets/app-icon/hicolor/24x24/apps/{{this.app_id}}.png"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/hicolor/32.png"
+to = "assets/app-icon/hicolor/32x32/apps/{{this.app_id}}.png"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/hicolor/48.png"
+to = "assets/app-icon/hicolor/48x48/apps/{{this.app_id}}.png"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/hicolor/64.png"
+to = "assets/app-icon/hicolor/64x64/apps/{{this.app_id}}.png"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/hicolor/128.png"
+to = "assets/app-icon/hicolor/128x128/apps/{{this.app_id}}.png"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/hicolor/256.png"
+to = "assets/app-icon/hicolor/256x256/apps/{{this.app_id}}.png"
+
+[[copy]]
+from = "freeandiy/assets/icons/{{this.key}}/hicolor/512.png"
+to = "assets/app-icon/hicolor/512x512/apps/{{this.app_id}}.png"
+
+# ---------------------------------------------------------------------------------------------
+# Shared by every FreeANDIY app (FreeAndy21/freeandiy, common/rules-windows-notices.toml):
+# the Windows portable ZIP carries NOTICE, the attribution, the font licences and the brand terms
+# like the other packages (Apache-2.0 4(d)).
+
+[[replace]]
+name = "Windows portable ZIP: notices, attribution, font licences, brand terms"
+include = ["packaging/windows/package.ps1"]
+regex = '''(?m)^foreach \(\$f in 'README\.md', 'LICENSE', 'LICENSE-MIT', 'LICENSE-APACHE'(?:, 'NOTICE')?\) \{\n  \$p = Join-Path \$Root \$f\n  if \(Test-Path \$p\) \{ Copy-Item \$p \$Portable \}\n\}'''
+replace = '''foreach ($$f in 'README.md', 'LICENSE', 'LICENSE-MIT', 'LICENSE-APACHE', 'NOTICE', 'ATTRIBUTION.md', 'ASSETS.md', 'CHANGELOG-FREEANDIY.md') {
+  $$p = Join-Path $$Root $$f
+  if (Test-Path $$p) { Copy-Item $$p $$Portable }
+}
+# FreeANDIY: the bundled UI fonts' licences and the brand terms (Apache-2.0 4(d): NOTICE above).
+Copy-Item (Join-Path $$Root 'freeandiy\assets\fonts\OFL-*.txt') $$Portable
+Copy-Item (Join-Path $$Root 'freeandiy\assets\brand\LICENSE-brand.txt') (Join-Path $$Portable 'LICENSE-FreeANDIY-brand.txt')'''
+min = 0
+
+# ---------------------------------------------------------------------------------------------
+# Shared by every FreeANDIY app (FreeAndy21/freeandiy, common/rules-vendor.toml): FreeANDIY builds
+# are published by Free Andy Agency, not by upstream's company. The MSI manufacturer, the Windows
+# executables' CompanyName, the Linux package vendor and the AppStream developer name say so.
+
+[[replace]]
+name = "vendor: Free Andy Agency publishes FreeANDIY builds (MSI, exe resources, Linux metadata)"
+include = ["packaging/**", "apps/*/build.rs"]
+find = "Learning Machines LLC"
+replace = "{{brand.owner}}"
+min = 1
+
+# ---------------------------------------------------------------------------------------------
+# Windows installer: new GUIDs, so FreeANDIY Launcher installs next to upstream's.
+
+[[replace]]
+name = "MSI UpgradeCode (new GUID)"
+include = ["packaging/windows/*.wxs"]
+regex = 'UpgradeCode="[0-9A-Fa-f-]{36}"'
+replace = 'UpgradeCode="{{this.msi_upgrade_code}}"'
+min = 1
+
+[[replace]]
+name = "MSI component GUID 1 (new GUID)"
+include = ["packaging/windows/*.wxs"]
+find = "55DCC431-EBEF-4C11-BABB-6D78CE0ECF4E"
+replace = "{{this.msi_component_guid}}"
+min = 1
+
+[[replace]]
+name = "MSI component GUID 2 (new GUID)"
+include = ["packaging/windows/*.wxs"]
+find = "870F3DFA-BC0F-497F-85D5-A361B04826AF"
+replace = "{{msi.guid2}}"
+min = 1
+
+[[replace]]
+name = "MSI component GUID 3 (new GUID)"
+include = ["packaging/windows/*.wxs"]
+find = "CF06DCF3-BE5A-4A2B-B3BF-F553CC6E5D60"
+replace = "{{msi.guid3}}"
+min = 1
+
+[[replace]]
+name = "vendor: the publisher the launcher expects on FreeANDIY MSIs"
+include = ["crates/native/src/detect.rs"]
+find = "Learning Machines LLC"
+replace = "{{brand.owner}}"
+min = 1

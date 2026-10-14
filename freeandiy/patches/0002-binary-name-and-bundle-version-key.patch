@@ -1,0 +1,35 @@
+diff --git a/apps/artcraft-launcher/Cargo.toml b/apps/artcraft-launcher/Cargo.toml
+index 10f6d04..fb75b73 100644
+--- a/apps/artcraft-launcher/Cargo.toml
++++ b/apps/artcraft-launcher/Cargo.toml
+@@ -5,10 +5,15 @@ version.workspace = true
+ edition.workspace = true
+ license.workspace = true
+ rust-version.workspace = true
+-default-run = "artcraft-launcher"
++default-run = "freeandiy-launcher"
+ build = "build.rs"
+ publish = false
+ 
++# FreeANDIY: the executable carries the product name; the package keeps upstream's.
++[[bin]]
++name = "freeandiy-launcher"
++path = "src/main.rs"
++
+ [lints]
+ workspace = true
+ 
+diff --git a/crates/native/src/detect.rs b/crates/native/src/detect.rs
+index bb10123..2c8750a 100644
+--- a/crates/native/src/detect.rs
++++ b/crates/native/src/detect.rs
+@@ -166,7 +166,8 @@ pub mod macos {
+         }
+         // `<App>Version` carries the full version including a pre-release suffix;
+         // CFBundleShortVersionString only has the numbers.
+-        let full_key = format!("{}Version", app.name);
++        // FreeANDIY: the key is the name without spaces (`FreeANDIYPhotoVersion`).
++        let full_key = format!("{}Version", app.name.replace(' ', ""));
+         let text =
+             [full_key.as_str(), "CFBundleShortVersionString", "CFBundleVersion"].iter().find_map(|k| dict.get(k).and_then(plist::Value::as_string));
+         Some(Installed { version: text.and_then(version::parse), source: InstallSource::MacApp, location: path.display().to_string(), package: None })

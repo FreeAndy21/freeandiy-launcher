@@ -1,0 +1,28 @@
+# This repository's FreeANDIY settings (branding.toml is shared by all FreeANDIY repositories).
+# Modified-by: FreeANDIY (Free Andy Agency), 2026. New file, not part of upstream ArtCraft Launcher.
+
+app = "launcher" # which [apps.<id>] entry of branding.toml this repository builds
+
+[build]
+# cargo arguments for the release binaries, the tests sync-upstream.sh runs, and the web page.
+bins = "-p artcraft-launcher"
+features = ""
+tests = "-p artcraft-launcher-core -p artcraft-launcher-native -p artcraft-launcher-ui-egui -p artcraft-launcher"
+web_index = "apps/artcraft-launcher-web/index.html"
+test_env = ""
+web_env = ""
+# Upstream's ci.yml runs the checks and tests.
+ci_tests = "false"
+# The launcher has no CLI.
+exes = "freeandiy-launcher"
+
+[check]
+# check-branding.sh: extra allowed strings (regex) and Rust paths where the upstream name may stay
+# in string literals (git pathspecs, space-separated).
+allow = ""
+rs_exclude = ":!xtask/**"
+
+[msi]
+# New component GUIDs for the FreeANDIY MSI (upstream's shortcut components).
+guid2 = "B8348748-E581-41F8-83C4-0746A5978D3A"
+guid3 = "A4494EE4-368C-4728-B6AF-3F4BF35F1B04"
