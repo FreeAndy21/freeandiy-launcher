@@ -49,7 +49,7 @@ index 9627fd6..116fd63 100644
          ];
          Ok(Self { icon, show: show_id, check: check_id, quit: quit_id, rx, tooltip: String::new(), language: String::new(), labels })
 diff --git a/crates/core/src/catalog.rs b/crates/core/src/catalog.rs
-index d13444c..bbe0355 100644
+index d13444c..e04f00a 100644
 --- a/crates/core/src/catalog.rs
 +++ b/crates/core/src/catalog.rs
 @@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
@@ -123,7 +123,7 @@ index d13444c..bbe0355 100644
          "storytold/filmcraft",
      ),
      app(
-@@ -125,27 +127,23 @@ pub const SUITE: [CraftApp; 13] = [
+@@ -125,7 +127,7 @@ pub const SUITE: [CraftApp; 13] = [
          "LightCraft",
          "Photo library and raw development",
          AppGroup::Classic,
@@ -131,28 +131,17 @@ index d13444c..bbe0355 100644
 +        [[0x7d, 0xc1, 0xe3], [0x45, 0x5d, 0x6a], [0x7d, 0xc1, 0xe3]],
          "storytold/lightcraft",
      ),
--    CraftApp {
--        former_ids: &["printcraft"],
--        former_names: &["PrintCraft"],
--        ..app(
--            "pdfcraft",
--            "PdfCraft",
--            "Reading, organizing and protecting PDFs",
--            AppGroup::Classic,
+     CraftApp {
+@@ -136,7 +138,7 @@ pub const SUITE: [CraftApp; 13] = [
+             "PdfCraft",
+             "Reading, organizing and protecting PDFs",
+             AppGroup::Classic,
 -            [[0x12, 0xa5, 0x8a], [0x0a, 0x75, 0x63], [0x3f, 0xd6, 0xb8]],
--            "storytold/pdfcraft",
--        )
--    },
-+    app(
-+        "pdfcraft",
-+        "PdfCraft",
-+        "Reading, organizing and protecting PDFs",
-+        AppGroup::Classic,
-+        [[0xa5, 0xb9, 0x9c], [0x54, 0x5a, 0x4f], [0xa5, 0xb9, 0x9c]],
-+        "storytold/pdfcraft",
-+    ),
-     app(
-         "effectcraft",
++            [[0xa5, 0xb9, 0x9c], [0x54, 0x5a, 0x4f], [0xa5, 0xb9, 0x9c]],
+             "storytold/pdfcraft",
+         )
+     },
+@@ -145,7 +147,7 @@ pub const SUITE: [CraftApp; 13] = [
          "EffectCraft",
          "Motion graphics and visual effects",
          AppGroup::Classic,
@@ -161,7 +150,7 @@ index d13444c..bbe0355 100644
          "storytold/effectcraft",
      ),
      app(
-@@ -153,7 +151,7 @@ pub const SUITE: [CraftApp; 13] = [
+@@ -153,7 +155,7 @@ pub const SUITE: [CraftApp; 13] = [
          "DesignCraft",
          "Page layout and publishing",
          AppGroup::Classic,
@@ -170,7 +159,7 @@ index d13444c..bbe0355 100644
          "storytold/designcraft",
      ),
      app(
-@@ -161,7 +159,7 @@ pub const SUITE: [CraftApp; 13] = [
+@@ -161,7 +163,7 @@ pub const SUITE: [CraftApp; 13] = [
          "WordCraft",
          "Writing and document design",
          AppGroup::New,
@@ -179,7 +168,7 @@ index d13444c..bbe0355 100644
          "storytold/wordcraft",
      ),
      app(
-@@ -169,7 +167,7 @@ pub const SUITE: [CraftApp; 13] = [
+@@ -169,7 +171,7 @@ pub const SUITE: [CraftApp; 13] = [
          "DeckCraft",
          "Presentations and slide shows",
          AppGroup::New,
@@ -188,7 +177,7 @@ index d13444c..bbe0355 100644
          "storytold/deckcraft",
      ),
      app(
-@@ -177,53 +175,31 @@ pub const SUITE: [CraftApp; 13] = [
+@@ -177,53 +179,31 @@ pub const SUITE: [CraftApp; 13] = [
          "GridCraft",
          "Spreadsheets and data",
          AppGroup::New,
@@ -254,7 +243,7 @@ index d13444c..bbe0355 100644
  
  /// ArtCraft Launcher itself, described like a Craft App so it can update itself with the same
  /// machinery (asset names `artcraft-launcher-<ver>-…`, bundle id `ai.storyteller.artcraft-launcher`,
-@@ -247,25 +223,25 @@ mod tests {
+@@ -247,25 +227,25 @@ mod tests {
      use super::*;
  
      #[test]
@@ -278,11 +267,10 @@ index d13444c..bbe0355 100644
 -    fn pdfcraft_also_answers_to_printcraft() {
 +    fn bundle_ids_and_pages_drop_the_brand_prefix() {
          let pdf = CraftApp::by_id("pdfcraft").unwrap();
--        assert_eq!(pdf.stems().collect::<Vec<_>>(), ["pdfcraft", "printcraft"]);
+         assert_eq!(pdf.stems().collect::<Vec<_>>(), ["pdfcraft", "printcraft"]);
 -        assert_eq!(pdf.names().collect::<Vec<_>>(), ["PdfCraft", "PrintCraft"]);
 -        assert_eq!(pdf.website(), "https://getartcraft.com/apps/pdfcraft");
 -        assert_eq!(CraftApp::by_id("wordcraft").unwrap().website(), "https://getartcraft.com/apps/wordcraft");
-+        assert_eq!(pdf.stems().collect::<Vec<_>>(), ["pdfcraft"]);
 +        assert_eq!(pdf.bundle_id(), "agency.freeandy.pdf");
 +        assert_eq!(pdf.website(), "https://freeandiy.freeandy.agency/pdf");
 +        assert_eq!(LAUNCHER.bundle_id(), "agency.freeandy.launcher");

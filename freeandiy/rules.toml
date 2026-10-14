@@ -457,6 +457,90 @@ min = 0
 # The apps' names and ids (after the repository and page rules above).
 
 [[replace]]
+name = "tests: a capitalised owner (owners match case-insensitively)"
+include = ["**/*.rs"]
+find = "Storytold/"
+replace = "freeandy21/"
+min = 1
+
+[[replace]]
+name = "photocraft: id after an escaped newline in a string"
+include = ["**/*.rs"]
+find = '\nphotocraft'
+replace = '\nfreeandiy-photo'
+min = 0
+
+[[replace]]
+name = "vectorcraft: id after an escaped newline in a string"
+include = ["**/*.rs"]
+find = '\nvectorcraft'
+replace = '\nfreeandiy-vector'
+min = 0
+
+[[replace]]
+name = "filmcraft: id after an escaped newline in a string"
+include = ["**/*.rs"]
+find = '\nfilmcraft'
+replace = '\nfreeandiy-film'
+min = 0
+
+[[replace]]
+name = "lightcraft: id after an escaped newline in a string"
+include = ["**/*.rs"]
+find = '\nlightcraft'
+replace = '\nfreeandiy-light'
+min = 0
+
+[[replace]]
+name = "pdfcraft: id after an escaped newline in a string"
+include = ["**/*.rs"]
+find = '\npdfcraft'
+replace = '\nfreeandiy-pdf'
+min = 0
+
+[[replace]]
+name = "effectcraft: id after an escaped newline in a string"
+include = ["**/*.rs"]
+find = '\neffectcraft'
+replace = '\nfreeandiy-effects'
+min = 0
+
+[[replace]]
+name = "designcraft: id after an escaped newline in a string"
+include = ["**/*.rs"]
+find = '\ndesigncraft'
+replace = '\nfreeandiy-layout'
+min = 0
+
+[[replace]]
+name = "wordcraft: id after an escaped newline in a string"
+include = ["**/*.rs"]
+find = '\nwordcraft'
+replace = '\nfreeandiy-write'
+min = 0
+
+[[replace]]
+name = "deckcraft: id after an escaped newline in a string"
+include = ["**/*.rs"]
+find = '\ndeckcraft'
+replace = '\nfreeandiy-slides'
+min = 0
+
+[[replace]]
+name = "gridcraft: id after an escaped newline in a string"
+include = ["**/*.rs"]
+find = '\ngridcraft'
+replace = '\nfreeandiy-sheets'
+min = 0
+
+[[replace]]
+name = "soundcraft: id after an escaped newline in a string"
+include = ["**/*.rs"]
+find = '\nsoundcraft'
+replace = '\nfreeandiy-sound'
+min = 0
+
+[[replace]]
 name = "a test helper named after an app id (an identifier, so it can't take the hyphenated id)"
 include = ["crates/native/src/install.rs"]
 regex = '\bphotocraft\(\)'
