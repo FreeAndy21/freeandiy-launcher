@@ -1,0 +1,307 @@
+# Slovak (sk) catalog for FreeANDIY Launcher. Modified-by: FreeANDIY (Free Andy Agency), 2026.
+# New file, not part of upstream ArtCraft Launcher.
+# Format: context<TAB>source<TAB>translation
+# Empty context = plain UI string (tl!, t). @id = command-id keyed. @plural = one|few|other.
+# @msg = status/error message template. Other context = disambiguation for tr_ctx.
+# Product and app names, shortcuts, units, file formats, placeholders and trailing ellipses are kept.
+
+	Launcher	Launcher
+	FreeANDIY apps	Aplikácie FreeANDIY
+	Open Source Tools for Creatives, Makers, and Builders	Open-source nástroje pre kreatívcov, tvorcov a vývojárov
+	Settings	Nastavenia
+	Check for updates	Skontrolovať aktualizácie
+	Grid	Mriežka
+	Table	Tabuľka
+	Show apps as cards	Zobraziť aplikácie ako karty
+	Show apps as a table	Zobraziť aplikácie v tabuľke
+	All	Všetky
+	Updates	Aktualizácie
+	Not installed	Nenainštalované
+	Search apps	Hľadať aplikácie
+	Sort	Zoradiť
+	Suite order	Poradie v balíku
+	Name	Názov
+	Inspired by	Inšpirácia
+	Status	Stav
+	Installed version	Nainštalovaná verzia
+	Latest version	Najnovšia verzia
+	Newest release	Najnovšie vydanie
+	GitHub	GitHub
+	Website	Web
+	Classic apps	Klasické aplikácie
+	Classic	Klasické
+	New apps	Nové aplikácie
+	NEW	NOVÉ
+	Install	Nainštalovať
+	Update to {v}	Aktualizovať na {v}
+	Open	Otvoriť
+	Download for {os}	Stiahnuť pre {os}
+	Download	Stiahnuť
+	Coming soon	Už čoskoro
+	Checking…	Kontrola…
+	Not available	Nie je k dispozícii
+	Offline	Bez pripojenia
+	Downloading {done} of {total}	Sťahovanie {done} z {total}
+	Downloading…	Sťahovanie…
+	Reconnecting…	Obnovuje sa pripojenie…
+	Verifying…	Overovanie…
+	Installing, then restarting…	Inštalácia a reštart…
+	Installing…	Inštalácia…
+	Removing…	Odstraňovanie…
+	Pause download	Pozastaviť sťahovanie
+	Cancel download	Zrušiť sťahovanie
+	Resume download	Pokračovať v sťahovaní
+	Discard download	Zahodiť sťahovanie
+	Release notes	Poznámky k vydaniu
+	Show in Finder	Zobraziť vo Finderi
+	Show in Explorer	Zobraziť v Prieskumníkovi
+	Show in Files	Zobraziť v Súboroch
+	Reinstall	Znova nainštalovať
+	Uninstall…	Odinštalovať…
+	All releases	Všetky vydania
+	FreeANDIY Launcher {version} is available.	Je k dispozícii FreeANDIY Launcher {version}.
+	Dismiss	Skryť
+	Update and restart	Aktualizovať a reštartovať
+	A new version is available. Would you like to relaunch with the updated version?	Je k dispozícii nová verzia. Chcete aplikáciu znova spustiť v aktualizovanej verzii?
+	Later	Neskôr
+	What's new	Čo je nové
+	No notes were published with this release.	K tomuto vydaniu neboli zverejnené žiadne poznámky.
+	Released {date}	Vydané {date}
+	Open on GitHub	Otvoriť na GitHube
+	Close	Zavrieť
+	FreeANDIY Launcher {version}	FreeANDIY Launcher {version}
+	Only when I ask	Len na požiadanie
+	Automatically download and install updates	Automaticky sťahovať a inštalovať aktualizácie
+	Notify me when an installed app has an update	Upozorniť, keď má nainštalovaná aplikácia aktualizáciu
+	Include pre-releases (betas and release candidates)	Zahrnúť predbežné vydania (beta verzie a kandidátov na vydanie)
+	Installing on Linux	Inštalácia v Linuxe
+	Install new apps as	Inštalovať nové aplikácie ako
+	System package (recommended)	Systémový balík (odporúčané)
+	Updates always use the format an app was installed with.	Aktualizácie vždy použijú formát, v ktorom bola aplikácia nainštalovaná.
+	Running in the background	Beh na pozadí
+	Keep running in the tray when the window is closed	Po zatvorení okna ponechať spustený v oblasti oznámení
+	Show the window on the current desktop	Zobraziť okno na aktuálnej ploche
+	Start FreeANDIY Launcher when I log in	Spúšťať FreeANDIY Launcher po prihlásení
+	Community	Komunita
+	Questions, ideas and news from the FreeANDIY team	Otázky, nápady a novinky od tímu FreeANDIY
+	Appearance	Vzhľad
+	Quit FreeANDIY Launcher	Ukončiť FreeANDIY Launcher
+	Done	Hotovo
+	Uninstall {name}?	Odinštalovať {name}?
+	The app will be moved to the Trash. Your documents and settings stay.	Aplikácia sa presunie do Koša. Vaše dokumenty a nastavenia zostanú zachované.
+	Windows will remove it like any installed program. Your documents and settings stay.	Windows ju odstráni ako každý nainštalovaný program. Vaše dokumenty a nastavenia zostanú zachované.
+	Your system's package manager will remove it, and may ask for your password. Your documents and settings stay.	Odstráni ju správca balíkov systému a môže si vypýtať heslo. Vaše dokumenty a nastavenia zostanú zachované.
+	The app will be removed. Your documents and settings stay.	Aplikácia sa odstráni. Vaše dokumenty a nastavenia zostanú zachované.
+	Uninstall	Odinštalovať
+	Cancel	Zrušiť
+	Checked {ago}	Skontrolované {ago}
+	just now	práve teraz
+	yesterday	včera
+	{month} {day}, {year}	{day}. {month} {year}
+	Automatically	Automaticky
+	Every FreeANDIY app	Všetky aplikácie FreeANDIY
+	Apps on this computer	Aplikácie v tomto počítači
+	Installed apps with a newer version	Nainštalované aplikácie s novšou verziou
+	Apps you can install	Aplikácie, ktoré môžete nainštalovať
+	Hide App	Skryť aplikáciu
+	Unhide App	Zobraziť aplikáciu
+	Hidden Apps	Skryté aplikácie
+	Apps you hid	Aplikácie, ktoré ste skryli
+	Checked {ago} · using {sources}	Skontrolované {ago} · zdroje: {sources}
+	{a} and {b}	{a} a {b}
+	Learn more	Ďalšie informácie
+	Minimize	Minimalizovať
+	Maximize	Maximalizovať
+	Restore	Obnoviť
+	New	Nové
+	OK	OK
+	Open link	Otvoriť odkaz
+	Update	Aktualizovať
+	{name} icon	Ikona aplikácie {name}
+	Loading FreeANDIY Launcher…	Načítava sa FreeANDIY Launcher…
+	Cancel update	Zrušiť aktualizáciu
+	Stop waiting; the update can be started again later	Prestať čakať; aktualizáciu môžete spustiť znova neskôr
+	Download again	Stiahnuť znova
+	Install cancelled	Inštalácia zrušená
+	Install cancelled. The download is kept for the next try.	Inštalácia zrušená. Stiahnutý súbor zostane pripravený na ďalší pokus.
+	Update cancelled	Aktualizácia zrušená
+	Uninstall cancelled	Odinštalovanie zrušené
+	Retry install	Skúsiť inštaláciu znova
+	Retry update to {version}	Skúsiť aktualizáciu na {version} znova
+	The download is still here. It's checked again, then installed.	Stiahnutý súbor je stále tu. Znova sa overí a potom nainštaluje.
+	Waiting for another app…	Čaká sa na inú aplikáciu…
+	Waiting for other installs…	Čaká sa na dokončenie ostatných inštalácií…
+	Installer (.msi)	Inštalátor (.msi)
+	Portable (.zip)	Prenosná verzia (.zip)
+	Disk image (.dmg)	Obraz disku (.dmg)
+	Debian package (.deb)	Balík Debian (.deb)
+	RPM package (.rpm)	Balík RPM (.rpm)
+	Flatpak bundle	Balík Flatpak
+	Tarball (.tar.gz)	Archív tar (.tar.gz)
+freeandiy-photo	Image editing	Úpravy obrázkov
+freeandiy-vector	Vector illustration	Vektorová ilustrácia
+freeandiy-film	Video editing, color and sound	Strih videa, farby a zvuk
+freeandiy-light	Photo library and raw development	Knižnica fotografií a vyvolávanie RAW
+freeandiy-pdf	Reading, organizing and protecting PDFs	Čítanie, usporiadanie a ochrana súborov PDF
+freeandiy-effects	Motion graphics and visual effects	Pohyblivá grafika a vizuálne efekty
+freeandiy-layout	Page layout and publishing	Sadzba strán a publikovanie
+freeandiy-write	Writing and document design	Písanie a návrh dokumentov
+freeandiy-slides	Presentations and slide shows	Prezentácie a premietanie snímok
+freeandiy-sheets	Spreadsheets and data	Tabuľky a dáta
+freeandiy-sound	Recording, editing and mixing audio	Nahrávanie, úpravy a mixovanie zvuku
+month	Jan	1.
+month	Feb	2.
+month	Mar	3.
+month	Apr	4.
+month	May	5.
+month	Jun	6.
+month	Jul	7.
+month	Aug	8.
+month	Sep	9.
+month	Oct	10.
+month	Nov	11.
+month	Dec	12.
+	Not checked yet	Zatiaľ neskontrolované
+	GitHub's hourly limit was reached; full details return in {min} min	Bol dosiahnutý hodinový limit GitHubu; úplné informácie budú opäť dostupné o {min} min
+	GitHub limit hit; back in {min} min	Dosiahnutý limit GitHubu; obnovenie o {min} min
+	Installing for {platform}	Inštalácia pre {platform}
+	Downloads for {platform}	Stiahnutia pre {platform}
+	No downloads for this system	Pre tento systém nie sú k dispozícii žiadne súbory na stiahnutie
+	FreeANDIY on {name}	FreeANDIY na {name}
+	Couldn't open {name}: {e}	{name} sa nepodarilo otvoriť: {e}
+	Download cancelled	Sťahovanie zrušené
+	Available to install	K dispozícii na inštaláciu
+	Available	K dispozícii
+	Installed · up to date	Nainštalované · aktuálne
+	Update available	Je k dispozícii aktualizácia
+	Installed	Nainštalované
+	installed	nainštalované
+	Not available here	Tu nie je k dispozícii
+	Updating…	Aktualizuje sa…
+	Update paused	Aktualizácia pozastavená
+	Download paused	Sťahovanie pozastavené
+	{version} installed → {latest} released	Nainštalovaná verzia {version} → vydaná {latest}
+	Version {version}	Verzia {version}
+	{installed} installed · latest {latest}	Nainštalovaná verzia {installed} · najnovšia {latest}
+	Installed · latest {latest}	Nainštalované · najnovšia {latest}
+	Version {version} installed	Nainštalovaná verzia {version}
+	Version {latest}	Verzia {latest}
+	No release published yet	Zatiaľ nebolo zverejnené žiadne vydanie
+	FreeANDIY Launcher	FreeANDIY Launcher
+	App	Aplikácia
+	Latest	Najnovšia
+	Released	Vydané
+	Auto	Automaticky
+	Language	Jazyk
+	Ascending	Vzostupne
+	Descending	Zostupne
+	Click to reverse the order	Kliknutím obrátite poradie
+	Click to sort by this column	Kliknutím zoradíte podľa tohto stĺpca
+	Like {name}	Obdoba {name}
+	{done} of {total}	{done} z {total}
+	Downloading	Sťahuje sa
+	Verifying checksum…	Overovanie kontrolného súčtu…
+	Resume	Pokračovať
+	{done} of {total} downloaded	Stiahnuté {done} z {total}
+	{done} downloaded	Stiahnuté {done}
+	Checking for updates…	Kontrolujú sa aktualizácie…
+	Downloads the new version, replaces this one and opens it again	Stiahne novú verziu, nahradí ňou túto a znova ju otvorí
+	Couldn't check for updates: {f}	Aktualizácie sa nepodarilo skontrolovať: {f}
+	Website (coming soon)	Web (už čoskoro)
+	GitHub repository	Repozitár na GitHube
+	FreeANDIY	FreeANDIY
+	Update 1 app	Aktualizovať 1 aplikáciu
+	Update all ({count})	Aktualizovať všetky ({count})
+	⊞  Grid	⊞  Mriežka
+	☰  Table	☰  Tabuľka
+	🔍  Search apps	🔍  Hľadať aplikácie
+	{name} {version}	{name} {version}
+	Match system	Podľa systému
+	Dark	Tmavý
+	Light	Svetlý
+	Full changelog	Úplný prehľad zmien
+	link	odkaz
+	No apps match	Hľadaniu nezodpovedajú žiadne aplikácie
+	Open FreeANDIY Launcher to update.	Na aktualizáciu otvorte FreeANDIY Launcher.
+	{name} {v} is available	Je k dispozícii {name} {v}
+	{count} updates are available	Počet dostupných aktualizácií: {count}
+	These notes weren't fetched (GitHub's request limit was reached). They're on the release page.	Tieto poznámky sa nepodarilo načítať (bol dosiahnutý limit požiadaviek GitHubu). Nájdete ich na stránke vydania.
+	When on, opening the launcher from the menu bar brings its window to the desktop you're on. When off, macOS switches you to the desktop the window was on.	Keď je táto voľba zapnutá, otvorenie launchera z lišty ponúk zobrazí jeho okno na aktuálnej ploche. Keď je vypnutá, macOS prepne na plochu, na ktorej okno bolo.
+	Couldn't change the login item: {e}	Položku po prihlásení sa nepodarilo zmeniť: {e}
+column	App	Aplikácia
+column	Installed	Nainštalovaná
+column	Latest	Najnovšia
+column	Released	Vydané
+filter	Installed	Nainštalované
+	App details	Podrobnosti o aplikácii
+	Close (Esc)	Zavrieť (Esc)
+	Features	Funkcie
+	Latest release	Najnovšia verzia
+	Version	Verzia
+	Platforms	Platformy
+	Releases	Vydania
+	Enlarge picture	Zväčšiť obrázok
+	Click to enlarge	Kliknutím zväčšíte
+	Previous picture (←)	Predchádzajúci obrázok (←)
+	Next picture (→)	Ďalší obrázok (→)
+	Loading pictures…	Načítavajú sa obrázky…
+	Pictures couldn't be loaded. Reopen this page to try again.	Obrázky sa nepodarilo načítať. Po opätovnom otvorení stránky sa načítanie skúsi znova.
+	{name} details	Podrobnosti: {name}
+@plural	{n} app|{n} apps	{n} aplikácia|{n} aplikácie|{n} aplikácií
+@plural	{n} min ago|{n} min ago	pred {n} min|pred {n} min|pred {n} min
+@plural	{n} h ago|{n} h ago	pred {n} h|pred {n} h|pred {n} h
+@plural	{n} day ago|{n} days ago	pred {n} dňom|pred {n} dňami|pred {n} dňami
+@msg	Couldn't open {name}: {e}	{name} sa nepodarilo otvoriť: {e}
+@msg	Download cancelled	Sťahovanie zrušené
+@msg	{name} updated to {version}	Aplikácia {name} bola aktualizovaná na verziu {version}
+@msg	{name} installed: {version}	Aplikácia {name} bola nainštalovaná vo verzii {version}
+@msg	{name} updated to {version} (this release publishes no checksum, so only its size was checked)	Aplikácia {name} bola aktualizovaná na verziu {version} (toto vydanie nezverejňuje kontrolný súčet, overila sa len veľkosť)
+@msg	{name} installed: {version} (this release publishes no checksum, so only its size was checked)	Aplikácia {name} bola nainštalovaná vo verzii {version} (toto vydanie nezverejňuje kontrolný súčet, overila sa len veľkosť)
+@msg	{name} was removed	Aplikácia {name} bola odstránená
+@msg	{name} is running. Quit it, then try again.	Aplikácia {name} je spustená. Ukončite ju a skúste to znova.
+@id	app.install	Nainštalovať
+@id	app.update	Aktualizovať na {v}
+@id	app.open	Otvoriť
+@id	app.download	Stiahnuť pre {os}
+@id	app.reveal	Zobraziť umiestnenie
+@id	app.reinstall	Znova nainštalovať
+@id	app.uninstall	Odinštalovať…
+@id	app.notes	Poznámky k vydaniu
+@id	app.website	Web
+@id	app.github	Repozitár na GitHube
+@id	app.releases	Všetky vydania
+@id	launcher.update	Aktualizovať a reštartovať
+@id	launcher.download	Stiahnuť
+@id	launcher.notes	Čo je nové
+@id	launcher.dismiss	Zavrieť
+@id	settings.open	Nastavenia
+@id	settings.quit	Ukončiť FreeANDIY Launcher
+@id	view.grid	Mriežka
+@id	view.table	Tabuľka
+@id	filter.all	Všetky
+@id	filter.installed	Nainštalované
+@id	filter.updates	Aktualizácie
+@id	filter.notinstalled	Nenainštalované
+@id	sort.suite	Poradie v balíku
+@id	sort.name	Názov
+@id	sort.inspired	Inšpirácia
+@id	sort.status	Stav
+@id	sort.installed	Nainštalovaná verzia
+@id	sort.latest	Najnovšia verzia
+@id	sort.released	Najnovšie vydanie
+@id	help.github	GitHub
+@id	help.website	Web
+@id	update.check	Skontrolovať aktualizácie
+@id	update.check_auto	Automaticky kontrolovať aktualizácie
+@id	update.notify	Upozorniť, keď má nainštalovaná aplikácia aktualizáciu
+@id	update.prereleases	Zahrnúť predbežné vydania (beta verzie a kandidátov na vydanie)
+@id	linux.preferred_kind	Inštalovať nové aplikácie ako
+@id	tray.close_to_tray	Po zatvorení okna ponechať spustený v oblasti oznámení
+@id	tray.show_on_current_desktop	Zobraziť okno na aktuálnej ploche
+@id	tray.login_item	Spúšťať FreeANDIY Launcher po prihlásení
+@id	appearance.theme	Vzhľad
+	Show FreeANDIY Launcher	Zobraziť FreeANDIY Launcher
+	Check for Updates	Skontrolovať aktualizácie
+	Visit freeandiy.freeandy.agency	Navštíviť freeandiy.freeandy.agency
+	FreeANDIY on GitHub	FreeANDIY na GitHube
+@plural	FreeANDIY Launcher · {n} update available|FreeANDIY Launcher · {n} updates available	FreeANDIY Launcher · {n} dostupná aktualizácia|FreeANDIY Launcher · {n} dostupné aktualizácie|FreeANDIY Launcher · {n} dostupných aktualizácií

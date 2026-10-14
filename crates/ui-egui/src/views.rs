@@ -196,7 +196,7 @@ impl LauncherUi {
         ui.horizontal(|ui| {
             let updates = self.count(Filter::Updates);
             let mut filters = vec![
-                (Filter::All, tl!("All"), tl!("Every Craft app"), None),
+                (Filter::All, tl!("All"), tl!("Every FreeANDIY app"), None),
                 // The tab names a group ("installed ones"); the status pill says "Installed".
                 (Filter::Installed, tr_ctx(current(), "filter", "Installed"), tl!("Apps on this computer"), None),
                 (Filter::Updates, tl!("Updates"), tl!("Installed apps with a newer version"), Some(t.warn)),

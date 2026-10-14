@@ -7,7 +7,7 @@
 # Other context = disambiguation for tr_ctx.
 
 	Launcher	Launcher
-	FreeANDIY apps	FreeANDIY apps
+	FreeANDIY App Suite	FreeANDIY App Suite
 	Open Source Tools for Creatives, Makers, and Builders	Ferramentas de código aberto para criadores, artistas e desenvolvedores
 	Settings	Configurações
 	Check for updates	Verificar atualizações
@@ -101,7 +101,7 @@
 	{month} {day}, {year}	{day} de {month} de {year}
 
 	Automatically	Automaticamente
-	Every Craft app	Todos os aplicativos Craft
+	Every FreeANDIY app	Todos os aplicativos FreeANDIY
 	Apps on this computer	Aplicativos neste computador
 	Installed apps with a newer version	Aplicativos instalados com nova versão
 	Apps you can install	Aplicativos que você pode instalar

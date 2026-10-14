@@ -12,7 +12,7 @@
 #
 # Coverage: the whole interface — every menu string and tl! literal (complete_menus = true).
 # Left in English on purpose: product name "FreeANDIY Launcher" (and its "Launcher" tag), suite
-# name "FreeANDIY apps",
+# name "FreeANDIY App Suite",
 # app names (FreeANDIY Photo, FreeANDIY Light, FreeANDIY Film, FreeANDIY Layout, FreeANDIY Vector, FreeANDIY PDF, FreeANDIY Effects,
 # FreeANDIY Write, FreeANDIY Slides, FreeANDIY Sheets, CADCraft, FreeANDIY Sound, FigCraft), "GitHub", "Discord".
 # Shortcut keys keep their key-cap names (Shift, Alt, Ctrl, Cmd, Esc).
@@ -22,7 +22,7 @@
 # system has none, the interface stays in English.
 
 	Launcher	Launcher
-	FreeANDIY apps	FreeANDIY apps
+	FreeANDIY App Suite	FreeANDIY App Suite
 	Open Source Tools for Creatives, Makers, and Builders	クリエイター、メイカー、ビルダーのためのオープンソースツール
 	Settings	設定
 	Check for updates	更新を確認
@@ -115,7 +115,7 @@
 	{month} {day}, {year}	{year}年{month}{day}日
 
 	Automatically	自動
-	Every Craft app	すべての Craft アプリ
+	Every FreeANDIY app	すべての FreeANDIY アプリ
 	Apps on this computer	このコンピューターのアプリ
 	Installed apps with a newer version	新しいバージョンがあるインストール済みアプリ
 	Apps you can install	インストールできるアプリ

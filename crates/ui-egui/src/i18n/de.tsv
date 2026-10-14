@@ -12,7 +12,7 @@
 #
 # Coverage: the whole interface — every menu string and tl! literal (complete_menus = true).
 # Left in English on purpose: product name "FreeANDIY Launcher" (and its "Launcher" tag), suite
-# name "FreeANDIY apps",
+# name "FreeANDIY App Suite",
 # app names (FreeANDIY Photo, FreeANDIY Light, FreeANDIY Film, FreeANDIY Layout, FreeANDIY Vector, FreeANDIY PDF, FreeANDIY Effects,
 # FreeANDIY Write, FreeANDIY Slides, FreeANDIY Sheets, CADCraft, FreeANDIY Sound, FigCraft), "GitHub", "Discord".
 # Shortcut keys keep their key-cap names (Shift, Alt, Ctrl, Cmd, Esc).
@@ -20,7 +20,7 @@
 # {what}, {unit}, {real}, {e} must appear in translation.
 
 	Launcher	Launcher
-	FreeANDIY apps	FreeANDIY apps
+	FreeANDIY App Suite	FreeANDIY App Suite
 	Open Source Tools for Creatives, Makers, and Builders	Open-Source-Werkzeuge für Kreative, Maker und Entwickler
 	Settings	Einstellungen
 	Check for updates	Nach Updates suchen
@@ -113,7 +113,7 @@
 	{month} {day}, {year}	{day}. {month} {year}
 
 	Automatically	Automatisch
-	Every Craft app	Alle Craft-Apps
+	Every FreeANDIY app	Alle FreeANDIY-Apps
 	Apps on this computer	Apps auf diesem Computer
 	Installed apps with a newer version	Installierte Apps mit neuerer Version
 	Apps you can install	Apps, die du installieren kannst

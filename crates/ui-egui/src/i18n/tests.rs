@@ -271,6 +271,17 @@ fn locale_tags_resolve() {
 }
 
 #[test]
+fn slovak_locales_resolve_and_count_like_czech() {
+    for tag in ["sk", "sk-SK", "sk_SK.UTF-8", "SK_sk"] {
+        assert_eq!(lang_from_tag(tag), Some(Lang::SK), "{tag}");
+    }
+    assert_eq!(super::detect::first_supported(["xx-XX", "sk-SK", "cs-CZ"]), Some(Lang::SK));
+    assert_eq!(trn(Lang::SK, 1, "{n} app", "{n} apps"), "1 aplikácia");
+    assert_eq!(trn(Lang::SK, 3, "{n} app", "{n} apps"), "3 aplikácie");
+    assert_eq!(trn(Lang::SK, 5, "{n} app", "{n} apps"), "5 aplikácií");
+}
+
+#[test]
 fn german_locales_resolve() {
     for tag in ["de", "de-DE", "de_DE.UTF-8", "de-AT", "de-CH", "de_CH.UTF-8", "DE_de"] {
         assert_eq!(lang_from_tag(tag), Some(Lang::DE), "{tag}");
