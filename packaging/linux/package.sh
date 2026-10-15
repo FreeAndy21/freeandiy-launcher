@@ -57,9 +57,9 @@ echo "==> FreeANDIY Launcher $VERSION for Linux $ARCH ($FORMATS)"
 
 if [ "$SKIP_BUILD" = 0 ]; then
   if [ -n "${CROSS_TARGET:-}" ]; then
-    (cd "$ROOT" && cargo build --release --locked -p "$PKG" --target "$CROSS_TARGET")
+    (cd "$ROOT" && cargo build --release --locked -p artcraft-launcher --target "$CROSS_TARGET")
   else
-    (cd "$ROOT" && cargo build --release --locked -p "$PKG")
+    (cd "$ROOT" && cargo build --release --locked -p artcraft-launcher)
   fi
 fi
 BIN="$CARGO_TARGET_DIR/${CROSS_TARGET:+$CROSS_TARGET/}release"

@@ -67,7 +67,7 @@ if (-not $SkipBuild) {
   [Environment]::SetEnvironmentVariable($flagVar, '-C target-feature=+crt-static')
   # Fail the build (rather than warn) if the icon/VERSIONINFO can't be embedded.
   $env:FREEANDIY_LAUNCHER_REQUIRE_WINRES = '1'
-  Invoke-Native "cargo build ($Target)" { cargo build --release --locked -p $Pkg --target $Target }
+  Invoke-Native "cargo build ($Target)" { cargo build --release --locked -p artcraft-launcher --target $Target }
 }
 
 $Bin = Join-Path $TargetDir "$Target\release"
