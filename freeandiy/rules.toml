@@ -1035,3 +1035,10 @@ include = ["crates/native/src/detect.rs"]
 find = "Learning Machines LLC"
 replace = "{{brand.owner}}"
 min = 1
+
+[[replace]]
+name = "packaging: cargo builds the package artcraft-launcher; $PKG names the executable (freeandiy-launcher)"
+include = ["packaging/**"]
+regex = '-p ("\$PKG"|\$Pkg)'
+replace = "-p artcraft-launcher"
+min = 5
