@@ -79,6 +79,7 @@
 
     <Feature Id="Main" Title="FreeANDIY Launcher" Level="1">
       <ComponentGroupRef Id="FreeANDIYLauncherFiles" />
+      <ComponentGroupRef Id="FreeandiyNotices" />
     </Feature>
 
     <!-- The setup wizard: WixUI_InstallDir without its licence page, and with our folder page
@@ -174,6 +175,13 @@
         </Shortcut>
         <RegistryValue Root="HKCU" Key="Software\Free Andy Agency\FreeANDIY Launcher" Name="DesktopShortcut" Value="1" Type="integer" KeyPath="yes" />
       </Component>
+    </ComponentGroup>
+  </Fragment>
+  <!-- FreeANDIY: licences, NOTICE, attribution, font licences and brand terms (Apache-2.0 4(d)),
+       staged by package.ps1. -->
+  <Fragment>
+    <ComponentGroup Id="FreeandiyNotices" Directory="INSTALLFOLDER">
+      <Files Include="$(var.NoticesDir)\*" />
     </ComponentGroup>
   </Fragment>
 </Wix>
