@@ -317,6 +317,6 @@ filter	Installed	Instaladas
 @id	appearance.theme	Apariencia
 	Show FreeANDIY Launcher	Mostrar FreeANDIY Launcher
 	Check for Updates	Buscar actualizaciones
-	Visit freeandiy.freeandy.agency	Visitar freeandiy.freeandy.agency
+	Visit freeandiy-web.vercel.app	Visitar freeandiy-web.vercel.app
 	FreeANDIY on GitHub	FreeANDIY en GitHub
 @plural	FreeANDIY Launcher · {n} update available|FreeANDIY Launcher · {n} updates available	FreeANDIY Launcher · {n} actualización disponible|FreeANDIY Launcher · {n} actualizaciones disponibles

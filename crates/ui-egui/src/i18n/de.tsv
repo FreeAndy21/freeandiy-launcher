@@ -323,7 +323,7 @@ filter	Installed	Installiert
 # Tray (menu bar) menu and tooltip
 	Show FreeANDIY Launcher	FreeANDIY Launcher anzeigen
 	Check for Updates	Nach Updates suchen
-	Visit freeandiy.freeandy.agency	freeandiy.freeandy.agency besuchen
+	Visit freeandiy-web.vercel.app	freeandiy-web.vercel.app besuchen
 	FreeANDIY on GitHub	FreeANDIY auf GitHub
 	App details	App-Details
 	Close (Esc)	Schließen (Esc)

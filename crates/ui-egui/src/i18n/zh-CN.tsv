@@ -226,7 +226,7 @@ filter	Installed	已安装
 	Show in Explorer	在资源管理器中显示
 	Show FreeANDIY Launcher	显示 FreeANDIY Launcher
 	Check for Updates	检查更新
-	Visit freeandiy.freeandy.agency	访问 freeandiy.freeandy.agency
+	Visit freeandiy-web.vercel.app	访问 freeandiy-web.vercel.app
 	FreeANDIY on GitHub	FreeANDIY 的 GitHub 主页
 @plural	FreeANDIY Launcher · {n} update available|FreeANDIY Launcher · {n} updates available	FreeANDIY Launcher · 有 {n} 个可用更新
 @plural	{n} app|{n} apps	{n} 个应用

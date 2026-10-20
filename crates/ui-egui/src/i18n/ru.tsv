@@ -319,7 +319,7 @@ filter	Installed	Установлены
 # Tray (menu bar) menu and tooltip
 	Show FreeANDIY Launcher	Показать FreeANDIY Launcher
 	Check for Updates	Проверить обновления
-	Visit freeandiy.freeandy.agency	Открыть freeandiy.freeandy.agency
+	Visit freeandiy-web.vercel.app	Открыть freeandiy-web.vercel.app
 	FreeANDIY on GitHub	FreeANDIY на GitHub
 	App details	О приложении
 	Close (Esc)	Закрыть (Esc)

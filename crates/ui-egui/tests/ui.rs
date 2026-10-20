@@ -629,7 +629,7 @@ fn links_to_the_website_github_and_each_apps_pages() {
     for label in ["Website", "GitHub"] {
         assert!(h.query_all_by_label(label).count() >= 1, "{label}");
     }
-    // Cards: every app links to its repo and to its own page on freeandiy.freeandy.agency (plus the footer's).
+    // Cards: every app links to its repo and to its own page on freeandiy-web.vercel.app (plus the footer's).
     let shown_cards = h.query_all_by_label("GitHub").count() - 1;
     let shown_sites = h.query_all_by_label("Website").count() - 1;
     assert!(shown_cards >= 11, "{shown_cards}");
@@ -679,8 +679,8 @@ fn links_open_the_right_pages() {
     assert!(github.contains(&"https://github.com/FreeAndy21/freeandiy".to_string()), "{github:?}");
     assert!(github.contains(&"https://github.com/FreeAndy21/freeandiy-photo".to_string()), "{github:?}");
     let sites = all_opened(&mut h, "Website");
-    assert!(sites.contains(&"https://freeandiy.freeandy.agency".to_string()), "{sites:?}");
-    assert!(sites.contains(&"https://freeandiy.freeandy.agency/photo".to_string()), "{sites:?}");
+    assert!(sites.contains(&"https://freeandiy-web.vercel.app".to_string()), "{sites:?}");
+    assert!(sites.contains(&"https://freeandiy-web.vercel.app/photo".to_string()), "{sites:?}");
     // FreeANDIY lists no social accounts.
     for social in ["X", "YouTube", "TikTok", "Instagram", "LinkedIn"] {
         assert_eq!(h.query_all_by_label(social).count(), 0, "{social}");
@@ -838,8 +838,8 @@ fn feed_announcements_and_alerts_show_until_dismissed() {
     let sent = Rc::new(RefCell::new(Vec::new()));
     let mut evs = events();
     evs.push(Event::Notices {
-        announcements: vec![notice("a1", "CADCraft 1.0 is out", Some("https://freeandiy.freeandy.agencynews"))],
-        alerts: vec![notice("x1", "Security update", Some("https://freeandiy.freeandy.agencysecurity"))],
+        announcements: vec![notice("a1", "CADCraft 1.0 is out", Some("https://freeandiy-web.vercel.appnews"))],
+        alerts: vec![notice("x1", "Security update", Some("https://freeandiy-web.vercel.appsecurity"))],
     });
     let mut backend = Some(Fake { events: evs, sent, manage: true, pictures: Rc::default(), asked: Vec::new(), clock: Rc::new(Cell::new(NOW)) });
     let mut h = Harness::builder().with_size(egui::vec2(1180.0, 900.0)).build_ui_state(

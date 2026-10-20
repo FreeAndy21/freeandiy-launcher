@@ -614,7 +614,7 @@ mod tests {
             .replace(
                 "\"alerts\": []",
                 r#""alerts": [
-            {"title": "Security update", "body": "Update FreeANDIY PDF now.", "maybe_web_link": "https://freeandiy.freeandy.agencysecurity", "created_at": null},
+            {"title": "Security update", "body": "Update FreeANDIY PDF now.", "maybe_web_link": "https://freeandiy-web.vercel.appsecurity", "created_at": null},
             {"title": "Bad link", "body": "x", "maybe_web_link": "javascript:alert(1)"}]"#,
             )
             .replace(
@@ -624,7 +624,7 @@ mod tests {
             );
         let feed = Feed::parse(&with_notices).unwrap();
         assert_eq!(feed.alerts.len(), 2);
-        assert_eq!(feed.alerts[0].link.as_deref(), Some("https://freeandiy.freeandy.agencysecurity"));
+        assert_eq!(feed.alerts[0].link.as_deref(), Some("https://freeandiy-web.vercel.appsecurity"));
         assert_eq!(feed.alerts[1].link, None, "only web links are kept");
         let titles: Vec<&str> = feed.announcements.iter().map(|n| n.title.as_str()).collect();
         assert_eq!(titles, ["New: CADCraft 1.0", "FreeANDIY PDF is now DocuCraft"]);

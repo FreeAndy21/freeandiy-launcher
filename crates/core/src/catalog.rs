@@ -35,7 +35,7 @@ pub struct CraftApp {
     /// What it's for, in a few words (English; the UI translates it by app id).
     pub tagline: &'static str,
     pub group: AppGroup,
-    /// Brand colour (sRGB), for surfaces: freeandiy.freeandy.agency's `--app`.
+    /// Brand colour (sRGB), for surfaces: freeandiy-web.vercel.app's `--app`.
     pub color: [u8; 3],
     /// The brand colour for text on a light background (the site's light `--app-ink`).
     pub ink_light: [u8; 3],
@@ -66,7 +66,7 @@ impl CraftApp {
 
     /// The app's page on the FreeANDIY website.
     pub fn website(&self) -> String {
-        format!("https://freeandiy.freeandy.agency/{}", self.id.strip_prefix("freeandiy-").unwrap_or(self.id))
+        format!("https://freeandiy-web.vercel.app/{}", self.id.strip_prefix("freeandiy-").unwrap_or(self.id))
     }
 
     /// Asset stems this app's releases may use, current first.
@@ -193,7 +193,7 @@ pub const SUITE: [CraftApp; 11] = [
 ];
 
 /// The FreeANDIY website.
-pub const WEBSITE_URL: &str = "https://freeandiy.freeandy.agency";
+pub const WEBSITE_URL: &str = "https://freeandiy-web.vercel.app";
 /// The GitHub account every FreeANDIY app's repository lives under: the only one the launcher
 /// installs from, whatever the release feed says.
 pub const GITHUB_OWNER: &str = "FreeAndy21";
@@ -245,7 +245,7 @@ mod tests {
         let pdf = CraftApp::by_id("freeandiy-pdf").unwrap();
         assert_eq!(pdf.stems().collect::<Vec<_>>(), ["freeandiy-pdf", "printcraft"]);
         assert_eq!(pdf.bundle_id(), "agency.freeandy.pdf");
-        assert_eq!(pdf.website(), "https://freeandiy.freeandy.agency/pdf");
+        assert_eq!(pdf.website(), "https://freeandiy-web.vercel.app/pdf");
         assert_eq!(LAUNCHER.bundle_id(), "agency.freeandy.launcher");
     }
 }

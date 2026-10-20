@@ -95,7 +95,7 @@ Copy-Item (Join-Path $Bin $Exe) $Stage
 & (Join-Path $PSScriptRoot 'sign.ps1') (Join-Path $Stage $Exe)
 
 # ---- MSI ---------------------------------------------------------------------------------------
-# The setup wizard's art, drawn here (System.Drawing) in freeandiy.freeandy.agency's style so the MSI shows
+# The setup wizard's art, drawn here (System.Drawing) in freeandiy-web.vercel.app's style so the MSI shows
 # FreeANDIY rather than WiX's stock bitmaps. Both must be 24-bit BMPs:
 #   - dialog, 493x312: the Welcome and Finish pages' backdrop. Their text sits on the right, so
 #     that stays white; the left panel is ours: the blue FreeANDIY mark, the white wordmark, a mono

@@ -321,7 +321,7 @@ filter	Installed	Installées
 # Tray (menu bar) menu and tooltip
 	Show FreeANDIY Launcher	Afficher FreeANDIY Launcher
 	Check for Updates	Rechercher des mises à jour
-	Visit freeandiy.freeandy.agency	Visiter freeandiy.freeandy.agency
+	Visit freeandiy-web.vercel.app	Visiter freeandiy-web.vercel.app
 	FreeANDIY on GitHub	FreeANDIY sur GitHub
 	App details	Détails de l'application
 	Close (Esc)	Fermer (Esc)

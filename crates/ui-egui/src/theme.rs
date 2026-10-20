@@ -1,4 +1,4 @@
-//! Colours, type and shapes, matching freeandiy.freeandy.agency: hard edges, hairline rules, Archivo
+//! Colours, type and shapes, matching freeandiy-web.vercel.app: hard edges, hairline rules, Archivo
 //! display type, Inter body text and Geist Mono labels. Widgets read [`Tokens::get`]; nothing
 //! hard-codes a colour.
 

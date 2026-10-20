@@ -60,7 +60,7 @@ impl Tray {
         let show = MenuItem::new(i18n::t("Show FreeANDIY Launcher"), true, None);
         let check = MenuItem::new(i18n::t("Check for Updates"), true, None);
         use artcraft_launcher_core::catalog::{GITHUB_URL, WEBSITE_URL};
-        let website = MenuItem::new(i18n::t("Visit freeandiy.freeandy.agency"), true, None);
+        let website = MenuItem::new(i18n::t("Visit freeandiy-web.vercel.app"), true, None);
         let github = MenuItem::new(i18n::t("FreeANDIY on GitHub"), true, None);
         let quit = MenuItem::new(i18n::t("Quit FreeANDIY Launcher"), true, None);
         let menu = Menu::new();
@@ -109,7 +109,7 @@ impl Tray {
         let labels = vec![
             (show, "Show FreeANDIY Launcher"),
             (check, "Check for Updates"),
-            (website, "Visit freeandiy.freeandy.agency"),
+            (website, "Visit freeandiy-web.vercel.app"),
             (github, "FreeANDIY on GitHub"),
             (quit, "Quit FreeANDIY Launcher"),
         ];

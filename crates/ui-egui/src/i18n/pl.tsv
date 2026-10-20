@@ -338,6 +338,6 @@ filter	Installed	Zainstalowane
 # Tray (menu bar) menu and tooltip
 	Show FreeANDIY Launcher	Pokaż FreeANDIY Launcher
 	Check for Updates	Sprawdź dostępność aktualizacji
-	Visit freeandiy.freeandy.agency	Odwiedź freeandiy.freeandy.agency
+	Visit freeandiy-web.vercel.app	Odwiedź freeandiy-web.vercel.app
 	FreeANDIY on GitHub	FreeANDIY na GitHubie
 @plural	FreeANDIY Launcher · {n} update available|FreeANDIY Launcher · {n} updates available	FreeANDIY Launcher · {n} dostępna aktualizacja|FreeANDIY Launcher · {n} dostępne aktualizacje|FreeANDIY Launcher · {n} dostępnych aktualizacji

@@ -337,6 +337,6 @@ filter	Installed	Telepítve
 # Tray (menu bar) menu and tooltip
 	Show FreeANDIY Launcher	FreeANDIY Launcher megjelenítése
 	Check for Updates	Frissítések keresése
-	Visit freeandiy.freeandy.agency	freeandiy.freeandy.agency megnyitása
+	Visit freeandiy-web.vercel.app	freeandiy-web.vercel.app megnyitása
 	FreeANDIY on GitHub	FreeANDIY a GitHubon
 @plural	FreeANDIY Launcher · {n} update available|FreeANDIY Launcher · {n} updates available	FreeANDIY Launcher · {n} frissítés elérhető|FreeANDIY Launcher · {n} frissítés elérhető

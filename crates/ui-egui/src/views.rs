@@ -1,5 +1,5 @@
 //! The header, toolbar, footer, the grid of cards and the table, laid out like the apps page on
-//! freeandiy.freeandy.agency: hairline cells, mono labels and square controls.
+//! freeandiy-web.vercel.app: hairline cells, mono labels and square controls.
 
 use artcraft_launcher_core::details::AppDetails;
 use artcraft_launcher_core::platform::pick_asset;

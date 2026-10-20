@@ -339,6 +339,6 @@ filter	Installed	インストール済み
 # Tray (menu bar) menu and tooltip
 	Show FreeANDIY Launcher	FreeANDIY Launcher を表示
 	Check for Updates	更新を確認
-	Visit freeandiy.freeandy.agency	freeandiy.freeandy.agency を開く
+	Visit freeandiy-web.vercel.app	freeandiy-web.vercel.app を開く
 	FreeANDIY on GitHub	GitHub の FreeANDIY
 @plural	FreeANDIY Launcher · {n} update available|FreeANDIY Launcher · {n} updates available	FreeANDIY Launcher · {n} 件の更新があります

@@ -44,7 +44,7 @@
     <!-- MSI caches this icon using its Id as the filename; keep the .exe extension (ICE50). -->
     <Icon Id="FreeANDIYLauncherIcon.exe" SourceFile="$(var.IconPath)" />
     <Property Id="ARPPRODUCTICON" Value="FreeANDIYLauncherIcon.exe" />
-    <Property Id="ARPURLINFOABOUT" Value="https://freeandiy.freeandy.agencyapps" />
+    <Property Id="ARPURLINFOABOUT" Value="https://freeandiy-web.vercel.appapps" />
     <Property Id="ARPURLUPDATEINFO" Value="https://github.com/FreeAndy21/freeandiy-launcher/releases" />
     <Property Id="ARPHELPLINK" Value="https://github.com/FreeAndy21/freeandiy/issues" />
 
