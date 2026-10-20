@@ -7,7 +7,7 @@
 
 <p align="center">
   <b>Installs, updates and opens the FreeANDIY apps. Native Rust, runs on macOS, Windows and Linux.</b><br>
-  Part of <a href="https://freeandiy.freeandy.agency">FreeANDIY</a>, free creative and office apps by Free Andy Agency.
+  Part of <a href="https://freeandiy-web.vercel.app">FreeANDIY</a>, free creative and office apps by Free Andy Agency.
 </p>
 
 ---

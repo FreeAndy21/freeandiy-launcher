@@ -215,7 +215,7 @@ name = "PhotoCraft: page on the website"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 regex = '(https://)?getartcraft\.com/apps/photocraft\b'
-replace = "${1}freeandiy.freeandy.agency/photo"
+replace = "${1}{{brand.website_host}}/photo"
 min = 0
 
 [[replace]]
@@ -231,7 +231,7 @@ name = "VectorCraft: page on the website"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 regex = '(https://)?getartcraft\.com/apps/vectorcraft\b'
-replace = "${1}freeandiy.freeandy.agency/vector"
+replace = "${1}{{brand.website_host}}/vector"
 min = 0
 
 [[replace]]
@@ -247,7 +247,7 @@ name = "FilmCraft: page on the website"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 regex = '(https://)?getartcraft\.com/apps/filmcraft\b'
-replace = "${1}freeandiy.freeandy.agency/film"
+replace = "${1}{{brand.website_host}}/film"
 min = 0
 
 [[replace]]
@@ -263,7 +263,7 @@ name = "LightCraft: page on the website"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 regex = '(https://)?getartcraft\.com/apps/lightcraft\b'
-replace = "${1}freeandiy.freeandy.agency/light"
+replace = "${1}{{brand.website_host}}/light"
 min = 0
 
 [[replace]]
@@ -279,7 +279,7 @@ name = "PdfCraft: page on the website"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 regex = '(https://)?getartcraft\.com/apps/pdfcraft\b'
-replace = "${1}freeandiy.freeandy.agency/pdf"
+replace = "${1}{{brand.website_host}}/pdf"
 min = 0
 
 [[replace]]
@@ -295,7 +295,7 @@ name = "EffectCraft: page on the website"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 regex = '(https://)?getartcraft\.com/apps/effectcraft\b'
-replace = "${1}freeandiy.freeandy.agency/effects"
+replace = "${1}{{brand.website_host}}/effects"
 min = 0
 
 [[replace]]
@@ -311,7 +311,7 @@ name = "DesignCraft: page on the website"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 regex = '(https://)?getartcraft\.com/apps/designcraft\b'
-replace = "${1}freeandiy.freeandy.agency/layout"
+replace = "${1}{{brand.website_host}}/layout"
 min = 0
 
 [[replace]]
@@ -327,7 +327,7 @@ name = "WordCraft: page on the website"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 regex = '(https://)?getartcraft\.com/apps/wordcraft\b'
-replace = "${1}freeandiy.freeandy.agency/write"
+replace = "${1}{{brand.website_host}}/write"
 min = 0
 
 [[replace]]
@@ -343,7 +343,7 @@ name = "DeckCraft: page on the website"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 regex = '(https://)?getartcraft\.com/apps/deckcraft\b'
-replace = "${1}freeandiy.freeandy.agency/slides"
+replace = "${1}{{brand.website_host}}/slides"
 min = 0
 
 [[replace]]
@@ -359,7 +359,7 @@ name = "GridCraft: page on the website"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 regex = '(https://)?getartcraft\.com/apps/gridcraft\b'
-replace = "${1}freeandiy.freeandy.agency/sheets"
+replace = "${1}{{brand.website_host}}/sheets"
 min = 0
 
 [[replace]]
@@ -375,7 +375,7 @@ name = "SoundCraft: page on the website"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 regex = '(https://)?getartcraft\.com/apps/soundcraft\b'
-replace = "${1}freeandiy.freeandy.agency/sound"
+replace = "${1}{{brand.website_host}}/sound"
 min = 0
 
 [[replace]]
@@ -398,7 +398,7 @@ name = "website host in labels"
 include = ["**"]
 exclude = ["**/*.md", "docs/**", "NOTICE", "ATTRIBUTION.md", "LICENSE*", "Cargo.toml", "**/Cargo.toml", "Cargo.lock", "flake.*"]
 find = "getartcraft.com"
-replace = "freeandiy.freeandy.agency"
+replace = "{{brand.website_host}}"
 min = 1
 
 [[replace]]

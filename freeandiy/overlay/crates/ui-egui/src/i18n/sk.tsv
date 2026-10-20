@@ -302,6 +302,6 @@ filter	Installed	Nainštalované
 @id	appearance.theme	Vzhľad
 	Show FreeANDIY Launcher	Zobraziť FreeANDIY Launcher
 	Check for Updates	Skontrolovať aktualizácie
-	Visit freeandiy.freeandy.agency	Navštíviť freeandiy.freeandy.agency
+	Visit freeandiy-web.vercel.app	Navštíviť freeandiy-web.vercel.app
 	FreeANDIY on GitHub	FreeANDIY na GitHube
 @plural	FreeANDIY Launcher · {n} update available|FreeANDIY Launcher · {n} updates available	FreeANDIY Launcher · {n} dostupná aktualizácia|FreeANDIY Launcher · {n} dostupné aktualizácie|FreeANDIY Launcher · {n} dostupných aktualizácií
